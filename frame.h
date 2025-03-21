@@ -2,7 +2,7 @@
 #define FRAME_H
 
 #include "layer.h"
-#include <vector>
+#include <QVector>
 
 using std::vector;
 
@@ -30,7 +30,7 @@ public:
     void rotate90();
 
 private:
-    std::vector<Layer> layers;
+    QVector<Layer> layers;
     unsigned int activeLayer;
     Pixel** layeredImage;
     unsigned int width;
