@@ -11,14 +11,15 @@ class Frame
 public:
     Frame(unsigned int width, unsigned int height);
     ~Frame();
-    bool operator==(const Frame& other) const;
+    Frame(const Frame& other);
+    void operator=(Frame other);
 
     Pixel** getLayeredImage() const;
     Pixel** getRenderedImage() const;
 
     void selectLayer(unsigned int index);
     void deleteLayer();
-    void addLayer(bool copyPrevious);
+    void addLayer();
     void resize(unsigned int newSize);
 
     void paintPixels(unsigned int corner1, unsigned int corner2, const Pixel& color);

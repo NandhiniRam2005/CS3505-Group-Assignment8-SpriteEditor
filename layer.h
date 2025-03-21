@@ -8,7 +8,8 @@ class Layer
 public:
     Layer(unsigned int width, unsigned int height);
     ~Layer();
-    bool operator==(const Layer& other) const;
+    Layer(const Layer& other);
+    void operator=(Layer other);
 
     void paintPixels(unsigned int corner1, unsigned int corner2, const Pixel& color);
     void bucketFill(unsigned int x, unsigned int y, const Pixel& color);

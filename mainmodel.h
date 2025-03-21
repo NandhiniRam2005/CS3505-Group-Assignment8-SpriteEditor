@@ -30,8 +30,8 @@ public slots:
     void nextFrame();
     void addFrame(bool copyPrevious);
     void deleteFrame();
-    void changeLayer(unsigned int newLayer);
-    void addLayer(bool copyPrevious);
+    void changeLayer(unsigned int layer);
+    void addLayer();
     void deleteLayer();
     void changeBrushSize(unsigned int newBrushSize);
     void changeAnimationFPS(unsigned int newFPS);
