@@ -66,13 +66,17 @@ Pixel Layer::getPixel(int x, int y) const{
 
 void Layer::selectLayer(){
     for(int i = 0; i< size * size; i++){
-        pixels[i].alpha = VISIBLE_ALPHA;
+        if(pixels[i].alpha != 0){
+            pixels[i].alpha = VISIBLE_ALPHA;
+        }
     }
 }
 
 void Layer::hideLayer(){
     for(int i = 0; i< size * size; i++){
-        pixels[i].alpha = HIDDEN_ALPHA;
+        if(pixels[i].alpha != 0){
+            pixels[i].alpha = HIDDEN_ALPHA;
+        }
     }
 }
 
