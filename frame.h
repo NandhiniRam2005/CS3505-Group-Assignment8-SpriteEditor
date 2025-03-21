@@ -10,13 +10,13 @@ using std::vector;
 class Frame
 {
 public:
-    Frame(unsigned int width, unsigned int height);
+    Frame(unsigned int size);
     ~Frame();
     Frame(const Frame& other);
     void operator=(Frame other);
 
-    QVector<QVector<Pixel>> getLayeredImage() const;
-    QVector<QVector<Pixel>> getRenderedImage() const;
+    Pixel* getLayeredImage() const;
+    Pixel* getRenderedImage() const;
 
     void selectLayer(unsigned int index);
     void deleteLayer();
@@ -33,7 +33,7 @@ public:
 private:
     QVector<Layer> layers;
     unsigned int activeLayer;
-    QVector<QVector<Pixel>> layeredImage;
+    Pixel* layeredImage;
     unsigned int width;
     unsigned int height;
 
