@@ -23,7 +23,7 @@ public:
     void addLayer();
     void resize(unsigned int newSize);
 
-    void paintPixels(unsigned int corner1, unsigned int corner2, const Pixel& color);
+    void paintPixels(QPoint corner1, QPoint corner2, const Pixel& color);
     void bucketFill(unsigned int x, unsigned int y, const Pixel& color);
     Pixel getPixel(unsigned int x, unsigned int y) const;
     void reflectVertical();
@@ -33,12 +33,7 @@ public:
 private:
     QVector<Layer> layers;
     unsigned int activeLayer;
-    Pixel* layeredImage;
-    unsigned int width;
-    unsigned int height;
-
-    void rerenderImage();
-    void deSelectCurrentLayer();
+    unsigned int size;
 };
 
 #endif // FRAME_H

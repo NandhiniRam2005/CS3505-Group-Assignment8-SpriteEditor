@@ -92,12 +92,12 @@ void MainModel::mouseHovered(unsigned int xCoord, unsigned int yCoord){
 }
 
 void MainModel::paintPixels(unsigned int topLeftX, unsigned int topLeftY){
-    frames[selectedFrame].paintPixels(topLeftX, topLeftY, selectedColor);
+    frames[selectedFrame].paintPixels(QPoint(topLeftX, topLeftY), QPoint(topLeftX + brushSize - 1, topLeftX + brushSize - 1), selectedColor);
     sendDisplayImage();
 }
 
 void MainModel::erasePixels(unsigned int topLeftX, unsigned int topLeftY){
-    frames[selectedFrame].paintPixels(topLeftX, topLeftY, Pixel(0,0,0,0));
+    frames[selectedFrame].paintPixels(QPoint(topLeftX, topLeftY), QPoint(topLeftX + brushSize - 1, topLeftX + brushSize - 1), Pixel(0,0,0,0));
     sendDisplayImage();
 }
 

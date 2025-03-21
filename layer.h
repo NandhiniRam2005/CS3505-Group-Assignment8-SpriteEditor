@@ -21,6 +21,7 @@ public:
     void reflectHorizontal();
     void rotate90();
     void resize(int newSize);
+    const Pixel* getLayer() const;
 
 private:
     void bucketFillDfs(int x, int y, bool* visits, const Pixel& color, const Pixel& currentColor);

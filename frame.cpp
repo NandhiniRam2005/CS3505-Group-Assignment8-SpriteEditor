@@ -1,64 +1,74 @@
 #include "frame.h"
-
-Frame::Frame(unsigned int width, unsigned int height): width(width), height(height) {}
+#include <stdexcept>
+Frame::Frame(unsigned int size): size(size){
+    layers.push_back(Layer(size));
+    activeLayer = 0;
+}
 
 Frame::~Frame() {
 
 }
 
 Frame::Frame(const Frame& other) {
-
+    layers = other.layers;
+    activeLayer = other.activeLayer;
+    size = other.size;
 }
 
 void Frame::operator=(Frame other) {
+    std::swap(layers, other.layers);
+    std::swap(activeLayer, other.activeLayer);
+    std::swap(size, other.size);
+}
+
+Pixel* Frame::getLayeredImage() const {
 
 }
 
-QVector<QVector<Pixel>> Frame::getLayeredImage() const {
-
-}
-
-QVector<QVector<Pixel>> Frame::getRenderedImage() const {
+Pixel* Frame::getRenderedImage() const {
 
 }
 
 void Frame::selectLayer(unsigned int index) {
+    if(index >= layers.size()){
+        throw std::runtime_error("Invalid layer index");
+    }
+    layers[activeLayer].hideLayer();
     activeLayer = index;
+    layers[activeLayer].selectLayer();
 }
 
 void Frame::deleteLayer() {
-    layers.remove(activeLayer);
-    if (layers.size() == 0) {
-        activeLayer = 0;
-    } else {
-        activeLayer = layers.size() - 1;
+    if(layers.size()==1){
+        throw std::runtime_error("Cannot delete last layer in a frame");
+    }
+    layers.pop_back();
+    if(activeLayer >= layers.size()){
+        activeLayer = layers.size()-1;
     }
 }
 
 void Frame::addLayer() {
-    Layer newLayer(width, height);
-    layers.append(newLayer);
-    activeLayer = layers.size() - 1;
+    layers.push_back(Layer(size));
 }
 
 void Frame::resize(unsigned int newSize) {
-    width = newSize;
-    height = newSize;
-    for (int i = 0; i < layers.size(); i++) {
-        layers[i].resize(newSize);
+    for(Layer& layer : layers){
+        layer.resize(newSize);
     }
+    size = newSize;
 }
 
-void Frame::paintPixels(unsigned int corner1, unsigned int corner2, const Pixel& color) {
-
+void Frame::paintPixels(QPoint corner1, QPoint corner2, const Pixel& color) {
+    layers[activeLayer].paintPixels(corner1, corner2, color);
 }
 
 void Frame::bucketFill(unsigned int x, unsigned int y, const Pixel& color) {
-
+    layers[activeLayer].bucketFill(x, y, color);
 }
 
 Pixel Frame::getPixel(unsigned int x, unsigned int y) const {
-
+    return layers[activeLayer].getPixel(x, y);
 }
 
 void Frame::reflectVertical() {
@@ -71,12 +81,4 @@ void Frame::reflectHorizontal() {
 
 void Frame::rotate90() {
     layers[activeLayer].rotate90();
-}
-
-void Frame::rerenderImage() {
-
-}
-
-void Frame::deSelectCurrentLayer() {
-
 }

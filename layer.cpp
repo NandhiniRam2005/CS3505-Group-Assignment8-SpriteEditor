@@ -132,3 +132,6 @@ void Layer::validateCoords(int x, int y) const{
         throw std::runtime_error("Invalid coordinates");
     }
 }
+const Pixel* Layer::getLayer() const{
+    return pixels;
+}
