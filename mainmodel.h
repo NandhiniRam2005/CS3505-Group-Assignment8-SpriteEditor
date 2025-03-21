@@ -1,6 +1,6 @@
 #ifndef MAINMODEL_H
 #define MAINMODEL_H
-
+#include <QObject>
 #include <QVector>
 #include <QString>
 #include <QObject>
