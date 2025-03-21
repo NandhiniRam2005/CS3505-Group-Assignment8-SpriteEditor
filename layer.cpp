@@ -3,7 +3,7 @@
 #include <QPoint>
 #include <stdexcept>
 
-Layer::Layer():size(0), pixels(nullptr){}
+Layer::Layer():pixels(nullptr), size(0) {}
 
 Layer::Layer(int size): size(size){
     pixels = new Pixel[size * size];
@@ -11,9 +11,11 @@ Layer::Layer(int size): size(size){
         pixels[i] = Pixel(0,0,0,0);
     }
 }
+
 Layer::~Layer(){
     delete[] pixels;
 }
+
 Layer::Layer(const Layer& other){
     size = other.size;
     pixels = new Pixel[size * size];
@@ -21,6 +23,7 @@ Layer::Layer(const Layer& other){
         pixels[i] = other.pixels[i];
     }
 }
+
 void Layer::operator=(Layer other){
     std::swap(size, other.size);
     std::swap(pixels, other.pixels);
@@ -35,6 +38,7 @@ void Layer::paintPixels(QPoint corner1, QPoint corner2, const Pixel& color){
         }
     }
 }
+
 void Layer::bucketFill(int x, int y, const Pixel& color){
     validateCoords(x, y);
     bool* visits = new bool[size * size]{};
@@ -42,7 +46,8 @@ void Layer::bucketFill(int x, int y, const Pixel& color){
     bucketFillDfs(x, y, visits, color, currentColor);
     delete[] visits;
 }
-void Layer::bucketFillDfs(int x, int y, bool*& visits, const Pixel& color, const Pixel& currentColor){
+
+void Layer::bucketFillDfs(int x, int y, bool* visits, const Pixel& color, const Pixel& currentColor){
     if(x < 0 || y < 0 || x >= size || y >= size || visits[y*size + x] || pixels[y*size + x] != currentColor){
         return;
     }
@@ -58,25 +63,46 @@ Pixel Layer::getPixel(int x, int y) const{
     validateCoords(x, y);
     return pixels[y* size + x];
 }
+
 void Layer::selectLayer(){
     for(int i = 0; i< size * size; i++){
         pixels[i].alpha = VISIBLE_ALPHA;
     }
 }
+
 void Layer::hideLayer(){
     for(int i = 0; i< size * size; i++){
         pixels[i].alpha = HIDDEN_ALPHA;
     }
 }
+
 void Layer::reflectVertical(){
-
+    for (int i = 0; i < size / 2; i++) {
+        for (int j = 0; j < size; j++) {
+            std::swap(pixels[i * size + j], pixels[(size - 1 - i) * size + j]);
+        }
+    }
 }
+
 void Layer::reflectHorizontal(){
-
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size / 2; j++) {
+            std::swap(pixels[i * size + j], pixels[i * size + (size - 1 - j)]);
+        }
+    }
 }
+
 void Layer::rotate90(){
-
+    Pixel* rotated = new Pixel[size * size];
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            rotated[j * size + (size - 1 - i)] = pixels[i * size + j];
+        }
+    }
+    std::swap(pixels, rotated);
+    delete[] rotated;
 }
+
 void Layer::resize(int newSize){
     if(newSize < 0){
         throw std::runtime_error("Invalid size");
@@ -96,6 +122,7 @@ void Layer::resize(int newSize){
     std::swap(pixels, newPixels);
     delete[] newPixels;
 }
+
 void Layer::validateCoords(int x, int y) const{
     if(x < 0 || y < 0 || x >= size || y >= size){
         throw std::runtime_error("Invalid coordinates");

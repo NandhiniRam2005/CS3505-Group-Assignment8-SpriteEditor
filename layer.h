@@ -23,7 +23,7 @@ public:
     void resize(int newSize);
 
 private:
-    void bucketFillDfs(int x, int y, bool*& visits, const Pixel& color, const Pixel& currentColor);
+    void bucketFillDfs(int x, int y, bool* visits, const Pixel& color, const Pixel& currentColor);
     Pixel* pixels;
     int size;
     void validateCoords(int x, int y) const;
