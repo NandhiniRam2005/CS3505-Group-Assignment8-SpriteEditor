@@ -9,7 +9,7 @@ using std::vector;
 class Frame
 {
 public:
-    Frame(unsigned int width, unsigned int height);
+    Frame(unsigned int size);
     ~Frame();
     Frame(const Frame& other);
     void operator=(Frame other);

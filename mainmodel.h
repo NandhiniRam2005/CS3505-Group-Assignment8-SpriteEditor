@@ -15,9 +15,9 @@ public:
     explicit MainModel(QObject *parent = nullptr);
 
 signals:
-    Pixel** newAnimationFrame();
-    Pixel** newDisplayImage();
-    Pixel** newSelectedFramePreview();
+    Pixel* newAnimationFrame();
+    Pixel* newDisplayImage();
+    Pixel* newSelectedFramePreview();
     Pixel newSelectedColor();
     bool loadJSONStatus();
     bool saveJSONStatus();
@@ -49,12 +49,11 @@ public slots:
 
 private:
     QVector<Frame> frames;
-    size_t selectedFrame;
+    qsizetype selectedFrame;
     unsigned int brushSize;
     unsigned int animationFPS;
     Pixel selectedColor;
-    unsigned int gridWidth;
-    unsigned int gridHeight;
+    unsigned int gridSize;
     unsigned int currentMouseX;
     unsigned int currentMouseY;
 };
