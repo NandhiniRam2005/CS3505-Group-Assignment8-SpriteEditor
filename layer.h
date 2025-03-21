@@ -1,30 +1,34 @@
 #ifndef LAYER_H
 #define LAYER_H
-
-#include "Pixel.h"
+#include <QVector>
+#include <QPoint>
+#include "pixel.h"
 
 class Layer
 {
 public:
-    Layer(unsigned int width, unsigned int height);
+    Layer(int width, int height);
     ~Layer();
     Layer(const Layer& other);
     void operator=(Layer other);
 
-    void paintPixels(unsigned int corner1, unsigned int corner2, const Pixel& color);
-    void bucketFill(unsigned int x, unsigned int y, const Pixel& color);
-    Pixel getPixel(unsigned int x, unsigned int y) const;
+    void paintPixels(QPoint corner1, QPoint corner2, const Pixel& color);
+    void bucketFill(int x, int y, const Pixel& color);
+    Pixel getPixel(int x, int y) const;
     void selectLayer();
     void hideLayer();
     void reflectVertical();
     void reflectHorizontal();
     void rotate90();
-    void resize(unsigned int newSize);
+    void resize(int newSize);
 
 private:
-    Pixel** pixels;
-    unsigned int width;
-    unsigned int height;
+    QVector<QVector<Pixel>> pixels;
+    int width;
+    int height;
+    void validateCoords(int x, int y) const;
+    const unsigned char VISIBLE_ALPHA = 255;
+    const unsigned char HIDDEN_ALPHA = 128;
 };
 
 #endif // LAYER_H
