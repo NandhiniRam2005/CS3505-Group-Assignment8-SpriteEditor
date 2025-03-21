@@ -2,6 +2,7 @@
 #define FRAME_H
 
 #include "layer.h"
+#include "pixel.h"
 #include <QVector>
 
 using std::vector;
@@ -14,8 +15,8 @@ public:
     Frame(const Frame& other);
     void operator=(Frame other);
 
-    Pixel** getLayeredImage() const;
-    Pixel** getRenderedImage() const;
+    QVector<QVector<Pixel>> getLayeredImage() const;
+    QVector<QVector<Pixel>> getRenderedImage() const;
 
     void selectLayer(unsigned int index);
     void deleteLayer();
@@ -32,7 +33,7 @@ public:
 private:
     QVector<Layer> layers;
     unsigned int activeLayer;
-    Pixel** layeredImage;
+    QVector<QVector<Pixel>> layeredImage;
     unsigned int width;
     unsigned int height;
 

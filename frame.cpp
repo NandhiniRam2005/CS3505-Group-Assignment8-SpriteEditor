@@ -14,11 +14,11 @@ void Frame::operator=(Frame other) {
 
 }
 
-Pixel** Frame::getLayeredImage() const {
+QVector<QVector<Pixel>> Frame::getLayeredImage() const {
 
 }
 
-Pixel** Frame::getRenderedImage() const {
+QVector<QVector<Pixel>> Frame::getRenderedImage() const {
 
 }
 
