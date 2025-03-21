@@ -15,12 +15,12 @@ public:
     explicit MainModel(QObject *parent = nullptr);
 
 signals:
-    Pixel* newAnimationFrame();
-    Pixel* newDisplayImage();
-    Pixel* newSelectedFramePreview();
-    Pixel newSelectedColor();
-    bool loadJSONStatus();
-    bool saveJSONStatus();
+    void newAnimationFrame(Pixel* pixelGrid);
+    void newDisplayImage(Pixel* pixelGrid);
+    void newSelectedFramePreview(Pixel* pixelGrid);
+    void newSelectedColor(Pixel color);
+    void loadJSONStatus(bool status);
+    void saveJSONStatus(bool status);
 
 public slots:
     void loadJSON(QString& filepath);
@@ -48,14 +48,16 @@ public slots:
     void setSelectedColorToPixel(unsigned int x, unsigned int y);
 
 private:
+    void sendDisplayImage();
     QVector<Frame> frames;
     qsizetype selectedFrame;
     unsigned int brushSize;
     unsigned int animationFPS;
     Pixel selectedColor;
     unsigned int gridSize;
-    unsigned int currentMouseX;
-    unsigned int currentMouseY;
+    int currentMouseX;
+    int currentMouseY;
+    const unsigned char HOVERED_ALPHA = 200;
 };
 
 #endif // MAINMODEL_H

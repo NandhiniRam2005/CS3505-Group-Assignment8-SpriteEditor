@@ -5,7 +5,6 @@ MainModel::MainModel(QObject *parent)
 {}
 
 //TODO: load / save JSON methods
-// mouseHovered / make grid transparent where mouse is hovering
 // send animation frames on a timer
 // attach signals / slots
 void MainModel::loadJSON(QString& filepath){}
@@ -16,6 +15,7 @@ void MainModel::resize(unsigned int newSize){
         frame.resize(newSize);
     }
     gridSize = newSize;
+    sendDisplayImage();
 }
 
 void MainModel::previousFrame(){
@@ -23,13 +23,17 @@ void MainModel::previousFrame(){
     if(selectedFrame >= frames.size()){
         selectedFrame = frames.size()-1;
     }
+    sendDisplayImage();
 }
+
 void MainModel::nextFrame(){
     selectedFrame += 1;
     if(selectedFrame == frames.size()){
         selectedFrame = 0;
     }
+    sendDisplayImage();
 }
+
 void MainModel::addFrame(bool copyPrevious){
     if(copyPrevious){
         frames.append(frames[frames.size()-1]);
@@ -55,6 +59,7 @@ void MainModel::changeLayer(unsigned int layer){
     }
     frames[selectedFrame].selectLayer(layer);
     selectedFrame = layer;
+    sendDisplayImage();
 }
 
 void MainModel::addLayer(){
@@ -67,39 +72,70 @@ void MainModel::deleteLayer(){
 
 void MainModel::changeBrushSize(unsigned int newBrushSize){
     brushSize = newBrushSize;
+    sendDisplayImage();
 }
 
 void MainModel::changeAnimationFPS(unsigned int newFPS){
     animationFPS = newFPS;
+    //TODO: Set timer here
 }
 
 void MainModel::changeSelectedColor(Pixel newColor){
     selectedColor = newColor;
+    emit newSelectedColor(selectedColor);
 }
 
 void MainModel::mouseHovered(unsigned int xCoord, unsigned int yCoord){
     currentMouseX = xCoord;
     currentMouseY = yCoord;
+    sendDisplayImage();
 }
 
 void MainModel::paintPixels(unsigned int topLeftX, unsigned int topLeftY){
     frames[selectedFrame].paintPixels(topLeftX, topLeftY, selectedColor);
+    sendDisplayImage();
 }
+
 void MainModel::erasePixels(unsigned int topLeftX, unsigned int topLeftY){
     frames[selectedFrame].paintPixels(topLeftX, topLeftY, Pixel(0,0,0,0));
+    sendDisplayImage();
 }
+
 void MainModel::bucketFill(unsigned int topLeftX, unsigned int topLeftY){
     frames[selectedFrame].bucketFill(topLeftX, topLeftY, selectedColor);
+    sendDisplayImage();
 }
+
 void MainModel::reflectVertical(){
     frames[selectedFrame].reflectVertical();
+    sendDisplayImage();
 }
+
 void MainModel::reflectHorizontal(){
     frames[selectedFrame].reflectHorizontal();
+    sendDisplayImage();
 }
+
 void MainModel::rotate90(){
     frames[selectedFrame].rotate90();
+    sendDisplayImage();
 }
+
 void MainModel::setSelectedColorToPixel(unsigned int x, unsigned int y){
     selectedColor = frames[selectedFrame].getPixel(x, y);
+    emit newSelectedColor(selectedColor);
+}
+
+void MainModel::sendDisplayImage(){
+    Pixel* image = frames[selectedFrame].getLayeredImage();
+    if(currentMouseX < 0 || currentMouseY < 0){
+        emit newDisplayImage(image);
+        return;
+    }
+    for(int i = currentMouseY; i< currentMouseY + brushSize; i++){
+        for(int j = currentMouseX; j< currentMouseX + brushSize; j++){
+            image[i * gridSize + j].alpha = HOVERED_ALPHA;
+        }
+    }
+    emit newDisplayImage(image);
 }

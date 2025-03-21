@@ -14,8 +14,8 @@ public:
     Frame(const Frame& other);
     void operator=(Frame other);
 
-    Pixel** getLayeredImage() const;
-    Pixel** getRenderedImage() const;
+    Pixel* getLayeredImage() const;
+    Pixel* getRenderedImage() const;
 
     void selectLayer(unsigned int index);
     void deleteLayer();
@@ -32,7 +32,7 @@ public:
 private:
     std::vector<Layer> layers;
     unsigned int activeLayer;
-    Pixel** layeredImage;
+    Pixel* layeredImage;
     unsigned int width;
     unsigned int height;
 
