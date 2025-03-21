@@ -30,12 +30,27 @@ private:
     unsigned int pixelResolutionWidth;
     unsigned int pixelResolutionHeight;
 
+    /**
+     * Maps the pixel coordinates to the correlated UI coordinate.
+     * @param pixelX - The pixel's x coordinate
+     * @param pixelY - The pixel's y coordinate
+     * @return A QPoint tuple with the UI coordinate conversion of the pixel coordinates.
+     */
     QPoint mapPixelCoordinateToUICoordinate(unsigned int pixelX, unsigned int pixelY);
 
+    /**
+     * Helper method for updating drawn image.
+     * @param pixelX
+     * @param pixelY
+     * @param currentPixel
+     */
     void drawPixel(unsigned int pixelX, unsigned int pixelY, Pixel currentPixel);
 
 public slots:
-    void updateDrawnImage(Pixel[][]);
+    /**
+     * @brief updateDrawnImage
+     */
+    void updateDrawnImage(Pixel imagePixels[][]);
 
 signals:
 };
