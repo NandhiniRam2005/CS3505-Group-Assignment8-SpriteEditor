@@ -6,7 +6,7 @@
 #include <QObject>
 
 #include "frame.h"
-#include "pixel.h"
+#include "Pixel.h"
 
 class MainModel : public QObject
 {

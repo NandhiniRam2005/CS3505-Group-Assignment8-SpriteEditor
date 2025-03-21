@@ -50,7 +50,7 @@ public slots:
     /**
      * @brief updateDrawnImage
      */
-    void updateDrawnImage(Pixel imagePixels[][]);
+    // void updateDrawnImage(Pixel imagePixels[][]);
 
 signals:
 };

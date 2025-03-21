@@ -2,7 +2,7 @@
 #include <QPoint>
 
 PixelDisplay::PixelDisplay(QWidget *parent)
-    : QWidget{parent}, width(32), height(32) // example 32x32 pixel resolution
+    // : QWidget{parent}, width(32), height(32) // example 32x32 pixel resolution
 {}
 
 QPoint PixelDisplay::mapPixelCoordinateToUICoordinate(unsigned int pixelX, unsigned int pixelY) {
