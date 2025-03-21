@@ -1,13 +1,13 @@
 #ifndef LAYER_H
 #define LAYER_H
-#include <QVector>
 #include <QPoint>
 #include "pixel.h"
 
 class Layer
 {
 public:
-    Layer(int width, int height);
+    Layer();
+    Layer(int size);
     ~Layer();
     Layer(const Layer& other);
     void operator=(Layer other);
@@ -23,9 +23,9 @@ public:
     void resize(int newSize);
 
 private:
-    QVector<QVector<Pixel>> pixels;
-    int width;
-    int height;
+    void bucketFillDfs(int x, int y, bool*& visits, const Pixel& color, const Pixel& currentColor);
+    Pixel* pixels;
+    int size;
     void validateCoords(int x, int y) const;
     const unsigned char VISIBLE_ALPHA = 255;
     const unsigned char HIDDEN_ALPHA = 128;

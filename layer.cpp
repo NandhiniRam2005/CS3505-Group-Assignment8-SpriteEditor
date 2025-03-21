@@ -1,24 +1,25 @@
 #include "layer.h"
 #include "pixel.h"
-#include <QVector>
 #include <QPoint>
 #include <stdexcept>
 
-Layer::Layer(int width, int height): width(width), height(height){
-    pixels = QVector<QVector<Pixel>>();
-    for(int i = 0; i<height; i++){
-        pixels.push_back(QVector<Pixel>());
-        for(int j = 0; j<width; j++){
-            pixels[i].push_back(Pixel(0,0,0,0));
-        }
+Layer::Layer():size(0), pixels(nullptr){}
+
+Layer::Layer(int size): size(size){
+    pixels = new Pixel[size * size];
+    for(int i = 0; i<size * size; i++){
+        pixels[i] = Pixel(0,0,0,0);
     }
 }
 Layer::~Layer(){
-
+    delete[] pixels;
 }
 Layer::Layer(const Layer& other){
     size = other.size;
-    pixels = other.pixels;
+    pixels = new Pixel[size * size];
+    for(int i = 0; i<size * size; i++){
+        pixels[i] = other.pixels[i];
+    }
 }
 void Layer::operator=(Layer other){
     std::swap(size, other.size);
@@ -30,30 +31,41 @@ void Layer::paintPixels(QPoint corner1, QPoint corner2, const Pixel& color){
     validateCoords(corner2.x(), corner2.y());
     for(int i = corner1.y(); i<= corner2.y(); i++){
         for(int j = corner1.x(); i<=corner2.x(); i++){
-            pixels[i][j] = color;
+            pixels[i*size + j] = color;
         }
     }
 }
 void Layer::bucketFill(int x, int y, const Pixel& color){
     validateCoords(x, y);
-
+    bool* visits = new bool[size * size]{};
+    Pixel& currentColor = pixels[y * size + x];
+    bucketFillDfs(x, y, visits, color, currentColor);
+    delete[] visits;
 }
+void Layer::bucketFillDfs(int x, int y, bool*& visits, const Pixel& color, const Pixel& currentColor){
+    if(x < 0 || y < 0 || x >= size || y >= size || visits[y*size + x] || pixels[y*size + x] != currentColor){
+        return;
+    }
+    visits[y*size + x] = true;
+    pixels[y*size + x] = color;
+    bucketFillDfs(x-1, y, visits, color, currentColor);
+    bucketFillDfs(x+1, y, visits, color, currentColor);
+    bucketFillDfs(x, y-1, visits, color, currentColor);
+    bucketFillDfs(x, y+1, visits, color, currentColor);
+}
+
 Pixel Layer::getPixel(int x, int y) const{
     validateCoords(x, y);
-    return pixels[y][x];
+    return pixels[y* size + x];
 }
 void Layer::selectLayer(){
-    for(QVector<Pixel>& vector : pixels){
-        for(Pixel& p: vector){
-            p.alpha = VISIBLE_ALPHA;
-        }
+    for(int i = 0; i< size * size; i++){
+        pixels[i].alpha = VISIBLE_ALPHA;
     }
 }
 void Layer::hideLayer(){
-    for(QVector<Pixel>& vector : pixels){
-        for(Pixel& p: vector){
-            p.alpha = HIDDEN_ALPHA;
-        }
+    for(int i = 0; i< size * size; i++){
+        pixels[i].alpha = HIDDEN_ALPHA;
     }
 }
 void Layer::reflectVertical(){
@@ -69,26 +81,20 @@ void Layer::resize(int newSize){
     if(newSize < 0){
         throw std::runtime_error("Invalid size");
     }
-    int diff = newSize - size;
-    if(diff < 0){
-        for(int i = 0; i<diff; i++){
-            pixels.pop_back();
-        }
-        for(QVector<Pixel>& vector : pixels){
-            for(int i = 0; i<diff; i++){
-                vector.pop_back();
-            }
-        }
-    }else if(diff > 0){
-        QVector<Pixel> newColumn;
-        for(int i = 0; i<newSize; i++){
-            newColumn.push_back(Pixel(0,0,0,0));
-        }
-        for(int i = 0; i<diff; i++){
-            pixels.push_back(newColumn);
+    if(newSize == size){
+        return;
+    }
+    Pixel* newPixels = new Pixel[newSize * newSize]{};
+
+    int smaller = std::min(newSize, size);
+    for(int i = 0; i<smaller; i++){
+        for(int j = 0; j<smaller; j++){
+            newPixels[i * newSize + j] = pixels[i * size + j];
         }
     }
     size = newSize;
+    std::swap(pixels, newPixels);
+    delete[] newPixels;
 }
 void Layer::validateCoords(int x, int y) const{
     if(x < 0 || y < 0 || x >= size || y >= size){
