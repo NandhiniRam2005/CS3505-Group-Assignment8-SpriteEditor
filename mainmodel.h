@@ -3,6 +3,7 @@
 
 #include <QVector>
 #include <QString>
+#include <QObject>
 
 #include "frame.h"
 #include "pixel.h"
@@ -38,9 +39,9 @@ public slots:
     void changeSelectedColor(Pixel newColor);
     void mouseHovered(unsigned int xCoord, unsigned int yCoord);
 
-    void paintPixels(unsigned int topLeftX, unsigned int, topLeftY);
-    void erasePixels(unsigned int topLeftX, unsigned int, topLeftY);
-    void bucketFill(unsigned int topLeftX, unsigned int, topLeftY);
+    void paintPixels(unsigned int topLeftX, unsigned int topLeftY);
+    void erasePixels(unsigned int topLeftX, unsigned int topLeftY);
+    void bucketFill(unsigned int topLeftX, unsigned int topLeftY);
     void reflectVertical();
     void reflectHorizontal();
     void rotate90();
