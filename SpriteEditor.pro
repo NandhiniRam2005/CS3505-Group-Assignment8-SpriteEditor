@@ -10,14 +10,20 @@ CONFIG += c++17
 
 SOURCES += \
     frame.cpp \
+    layer.cpp \
     main.cpp \
     mainmodel.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    pixel.cpp \
+    pixeldisplay.cpp
 
 HEADERS += \
     frame.h \
+    layer.h \
     mainmodel.h \
-    mainwindow.h
+    mainwindow.h \
+    pixel.h \
+    pixeldisplay.h
 
 FORMS += \
     mainwindow.ui
