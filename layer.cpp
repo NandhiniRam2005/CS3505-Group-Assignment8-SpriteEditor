@@ -6,10 +6,7 @@
 Layer::Layer():pixels(nullptr), size(0) {}
 
 Layer::Layer(int size): size(size){
-    pixels = new Pixel[size * size];
-    for(int i = 0; i<size * size; i++){
-        pixels[i] = Pixel(0,0,0,0);
-    }
+    pixels = new Pixel[size * size]();
 }
 
 Layer::~Layer(){
@@ -114,7 +111,7 @@ void Layer::resize(int newSize){
     if(newSize == size){
         return;
     }
-    Pixel* newPixels = new Pixel[newSize * newSize]{};
+    Pixel* newPixels = new Pixel[newSize * newSize]();
 
     int smaller = std::min(newSize, size);
     for(int i = 0; i<smaller; i++){

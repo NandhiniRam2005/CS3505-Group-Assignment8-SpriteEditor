@@ -3,30 +3,65 @@
 Frame::Frame(unsigned int size): size(size){
     layers.push_back(Layer(size));
     activeLayer = 0;
+    layeredImage = new Pixel[size * size]();
+    renderedImage = new Pixel[size * size]();
+    imageChanged = false;
 }
 
 Frame::~Frame() {
-
+    delete[] layeredImage;
+    delete[] renderedImage;
 }
 
 Frame::Frame(const Frame& other) {
     layers = other.layers;
     activeLayer = other.activeLayer;
     size = other.size;
+    renderImages();
 }
 
 void Frame::operator=(Frame other) {
     std::swap(layers, other.layers);
     std::swap(activeLayer, other.activeLayer);
     std::swap(size, other.size);
+    std::swap(layeredImage, other.layeredImage);
+    std::swap(renderedImage, other.renderedImage);
+    std::swap(imageChanged, other.imageChanged);
 }
 
-Pixel* Frame::getLayeredImage() const {
-
+Pixel* Frame::getLayeredImage() {
+    if(!imageChanged){
+        return layeredImage;
+    }
+    renderImages();
+    return layeredImage;
 }
 
-Pixel* Frame::getRenderedImage() const {
+Pixel* Frame::getRenderedImage() {
+    if(!imageChanged){
+        return renderedImage;
+    }
+    renderImages();
+    return renderedImage;
+}
 
+void Frame::renderImages(){
+    delete[] layeredImage;
+    delete[] renderedImage;
+
+    layeredImage = new Pixel[size * size]();
+    renderedImage = new Pixel[size * size]();
+    for(Layer& layer : layers){
+        const Pixel* layerPixels = layer.getLayer();
+        for(unsigned int i = 0; i<size*size; i++){
+            if(layerPixels[i].alpha != 0){
+                layeredImage[i] = layerPixels[i];
+                renderedImage[i] = layeredImage[i];
+                renderedImage[i].alpha = 255;
+            }
+        }
+    }
+    imageChanged = false;
 }
 
 void Frame::selectLayer(unsigned int index) {
@@ -36,6 +71,7 @@ void Frame::selectLayer(unsigned int index) {
     layers[activeLayer].hideLayer();
     activeLayer = index;
     layers[activeLayer].selectLayer();
+    imageChanged = true;
 }
 
 void Frame::deleteLayer() {
@@ -46,10 +82,12 @@ void Frame::deleteLayer() {
     if(activeLayer >= layers.size()){
         activeLayer = layers.size()-1;
     }
+    imageChanged = true;
 }
 
 void Frame::addLayer() {
     layers.push_back(Layer(size));
+    imageChanged = true;
 }
 
 void Frame::resize(unsigned int newSize) {
@@ -57,14 +95,17 @@ void Frame::resize(unsigned int newSize) {
         layer.resize(newSize);
     }
     size = newSize;
+    imageChanged = true;
 }
 
 void Frame::paintPixels(QPoint corner1, QPoint corner2, const Pixel& color) {
     layers[activeLayer].paintPixels(corner1, corner2, color);
+    imageChanged = true;
 }
 
 void Frame::bucketFill(unsigned int x, unsigned int y, const Pixel& color) {
     layers[activeLayer].bucketFill(x, y, color);
+    imageChanged = true;
 }
 
 Pixel Frame::getPixel(unsigned int x, unsigned int y) const {
@@ -73,12 +114,15 @@ Pixel Frame::getPixel(unsigned int x, unsigned int y) const {
 
 void Frame::reflectVertical() {
     layers[activeLayer].reflectVertical();
+    imageChanged = true;
 }
 
 void Frame::reflectHorizontal() {
     layers[activeLayer].reflectHorizontal();
+    imageChanged = true;
 }
 
 void Frame::rotate90() {
     layers[activeLayer].rotate90();
+    imageChanged = true;
 }

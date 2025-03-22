@@ -15,9 +15,9 @@ public:
     explicit MainModel(QObject *parent = nullptr);
 
 signals:
-    void newAnimationFrame(Pixel* pixelGrid);
-    void newDisplayImage(Pixel* pixelGrid);
-    void newSelectedFramePreview(Pixel* pixelGrid);
+    void newAnimationFrame(const Pixel* pixelGrid);
+    void newDisplayImage(const Pixel* pixelGrid);
+    void newSelectedFramePreview(const Pixel* pixelGrid);
     void newSelectedColor(Pixel color);
     void loadJSONStatus(bool status);
     void saveJSONStatus(bool status);
@@ -51,7 +51,7 @@ private:
     void sendDisplayImage();
     QVector<Frame> frames;
     qsizetype selectedFrame;
-    unsigned int brushSize;
+    int brushSize;
     unsigned int animationFPS;
     Pixel selectedColor;
     unsigned int gridSize;

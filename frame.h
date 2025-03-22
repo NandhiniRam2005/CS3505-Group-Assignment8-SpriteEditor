@@ -15,8 +15,8 @@ public:
     Frame(const Frame& other);
     void operator=(Frame other);
 
-    Pixel* getLayeredImage() const;
-    Pixel* getRenderedImage() const;
+    Pixel* getLayeredImage();
+    Pixel* getRenderedImage();
 
     void selectLayer(unsigned int index);
     void deleteLayer();
@@ -31,9 +31,13 @@ public:
     void rotate90();
 
 private:
+    void renderImages();
     QVector<Layer> layers;
     unsigned int activeLayer;
     unsigned int size;
+    Pixel* layeredImage;
+    Pixel* renderedImage;
+    bool imageChanged;
 };
 
 #endif // FRAME_H
