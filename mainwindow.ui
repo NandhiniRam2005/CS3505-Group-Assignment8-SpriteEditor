@@ -106,7 +106,18 @@
      </rect>
     </property>
     <property name="text">
-     <string>Vert</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normalon>icons/flip-vertical.png</normalon>
+     </iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>30</width>
+      <height>30</height>
+     </size>
     </property>
    </widget>
    <widget class="QPushButton" name="reflectHorizontalButto">
@@ -119,7 +130,18 @@
      </rect>
     </property>
     <property name="text">
-     <string>Horiz</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normalon>icons/flip-horizontal.png</normalon>
+     </iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>30</width>
+      <height>30</height>
+     </size>
     </property>
    </widget>
    <widget class="QPushButton" name="rotateButton">
@@ -132,7 +154,18 @@
      </rect>
     </property>
     <property name="text">
-     <string>Rotate</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normalon>icons/rotate.png</normalon>
+     </iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>30</width>
+      <height>30</height>
+     </size>
     </property>
    </widget>
    <widget class="QLabel" name="fpsLabel">
@@ -263,7 +296,18 @@
      </rect>
     </property>
     <property name="text">
-     <string>Add Frame</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normalon>icons/add.png</normalon>
+     </iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>30</width>
+      <height>30</height>
+     </size>
     </property>
    </widget>
    <widget class="QPushButton" name="deleteFrameButton">
@@ -276,7 +320,18 @@
      </rect>
     </property>
     <property name="text">
-     <string>Delete Frame</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normalon>icons/delete.png</normalon>
+     </iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>30</width>
+      <height>30</height>
+     </size>
     </property>
    </widget>
    <widget class="QLabel" name="layersLabel">
