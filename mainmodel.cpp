@@ -1,5 +1,10 @@
 #include "mainmodel.h"
 #include <stdexcept>
+#include <QJsonDocument>
+#include <QFile>
+#include <QJsonObject>
+#include <QJsonArray>
+
 MainModel::MainModel(QObject *parent)
     : QObject{parent}
 {}
@@ -8,7 +13,52 @@ MainModel::MainModel(QObject *parent)
 // send animation frames on a timer
 // attach signals / slots
 void MainModel::loadJSON(QString& filepath){}
-void MainModel::saveJSON(QString& filepath){}
+
+void MainModel::saveJSON(QString& filepath){
+    QFile file(filepath);
+
+    QJsonObject jsonSpriteCanvas;
+    jsonSpriteCanvas["size"] = (int) gridSize;
+
+    // Loop through frames in the model
+    QJsonArray jsonFrames;
+    for (const Frame& frame : frames) {
+        QJsonObject jsonFrame;
+        QJsonArray jsonLayers;
+
+        // Loop through each frame's layers
+        // HOW DO I LOOP THRU the frame's layers without liek having a getlayers method in frame (but doenst that break MVC? idk
+        for (const Layer& layer : ) {
+            QJsonObject jsonLayer;
+            QJsonArray pixelArray;
+
+            const Pixel* pixels = layer.getLayer();
+
+            // Add layer's pixels to the pixel array
+            for (unsigned int i = 0; i < gridSize * gridSize; i++) {
+                QJsonObject jsonPixel;
+                jsonPixel["red"] = pixels[i].red;
+                jsonPixel["green"] = pixels[i].green;
+                jsonPixel["blue"] = pixels[i].blue;
+                jsonPixel["alpha"] = pixels[i].alpha;
+                pixelArray.append(jsonPixel);
+            }
+            jsonLayer["pixels"] = pixelArray;
+            jsonLayer["size"] = (int) gridSize;
+            jsonLayers.append(jsonLayer);
+        }
+        jsonFrame["layers"] = jsonLayers;
+        jsonFrame["size"] = (int) gridSize;
+        jsonFrames.append(jsonFrame);
+    }
+    jsonSpriteCanvas["frames"] = jsonFrames;
+
+    // use jsonSpriteCanvas obj to make a document used to write to the file
+    QJsonDocument jsonDocument(jsonSpriteCanvas);
+    file.write(jsonDocument.toJson());
+
+    file.close();
+}
 
 void MainModel::resize(unsigned int newSize){
     for(Frame& frame : frames){
