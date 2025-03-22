@@ -314,7 +314,18 @@
       </rect>
      </property>
      <property name="text">
-      <string>brush</string>
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normalon>icons/brush.png</normalon>
+      </iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>35</width>
+       <height>35</height>
+      </size>
      </property>
     </widget>
     <widget class="QPushButton" name="eraserButton">
@@ -327,7 +338,18 @@
       </rect>
      </property>
      <property name="text">
-      <string>Eraser</string>
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normalon>icons/eraser.png</normalon>
+      </iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>35</width>
+       <height>35</height>
+      </size>
      </property>
     </widget>
     <widget class="QPushButton" name="paintBucketButton">
@@ -340,7 +362,18 @@
       </rect>
      </property>
      <property name="text">
-      <string>paintBucket</string>
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normalon>icons/paint-bucket.png</normalon>
+      </iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>35</width>
+       <height>35</height>
+      </size>
      </property>
     </widget>
     <widget class="QPushButton" name="eyeDropperButton">
@@ -353,7 +386,18 @@
       </rect>
      </property>
      <property name="text">
-      <string>eyeDropper</string>
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normalon>icons/eyedropper.png</normalon>
+      </iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>35</width>
+       <height>35</height>
+      </size>
      </property>
     </widget>
    </widget>
@@ -398,7 +442,7 @@
      <rect>
       <x>30</x>
       <y>420</y>
-      <width>81</width>
+      <width>91</width>
       <height>16</height>
      </rect>
     </property>
