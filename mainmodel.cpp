@@ -97,13 +97,13 @@ void MainModel::saveJSON(QString& filepath){
 
     // Loop through frames in the model
     QJsonArray jsonFrames;
-    for (const Frame& frame : frames) {
+    for (Frame& frame : frames) {
         QJsonObject jsonFrame;
         QJsonArray jsonLayers;
 
         // Loop through each frame's layers
         // HOW DO I LOOP THRU the frame's layers without liek having a getlayers method in frame (but doenst that break MVC? idk
-        for (const Layer& layer : ) {
+        for (const Layer& layer : frame.getLayers()) {
             QJsonObject jsonLayer;
             QJsonArray pixelArray;
 

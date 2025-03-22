@@ -126,3 +126,7 @@ void Frame::rotate90() {
     layers[activeLayer].rotate90();
     imageChanged = true;
 }
+
+QVector<Layer> Frame::getLayers() {
+    return layers;
+}

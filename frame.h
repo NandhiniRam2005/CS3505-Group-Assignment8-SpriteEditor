@@ -29,6 +29,7 @@ public:
     void reflectVertical();
     void reflectHorizontal();
     void rotate90();
+    QVector<Layer> getLayers();
 
 private:
     void renderImages();
