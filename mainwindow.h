@@ -73,6 +73,21 @@ public slots:
      */
     void displaySaveStatus(bool status);
 
+    void openColorDialogue();
+
+    void setFrameCopyVariable();
+
+    void addFrameHelper();
+
+    void setToolToBrush();
+
+    void setToolToBucket();
+
+    void setToolToEraser();
+
+    void setToolToEyeDropper();
+
+    void onLayerButtonClicked(int layerNumber);
 
 signals:
     /**
@@ -100,7 +115,7 @@ signals:
     /**
      * Signal to go to add a frame
      */
-    void addFrame();
+    void addFrame(bool copyPrevious);
 
     /**
      * Signal to go to delete a frame
@@ -126,6 +141,8 @@ signals:
     void reflectHorizontal();
     void rotate90();
     void setSelectedColortoPixel(unsigned int x, unsigned int y);
+    void changeLayer(int layerNumber);
+
 
 private:
     QWidget mouseListener;
@@ -144,6 +161,7 @@ private:
     Tool selectedTool;
     unsigned int width;
     unsigned int height;
+    bool frameBeingCopied;
 
     QPoint mapClickLocationToGridCoordinate(unsigned int x, unsigned int y);
 

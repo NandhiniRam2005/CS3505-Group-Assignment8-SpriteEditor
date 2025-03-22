@@ -11,6 +11,7 @@ CONFIG += c++17
 SOURCES += \
     frame.cpp \
     layer.cpp \
+    layerbutton.cpp \
     main.cpp \
     mainmodel.cpp \
     mainwindow.cpp \
@@ -20,6 +21,7 @@ SOURCES += \
 HEADERS += \
     frame.h \
     layer.h \
+    layerbutton.h \
     mainmodel.h \
     mainwindow.h \
     pixel.h \
