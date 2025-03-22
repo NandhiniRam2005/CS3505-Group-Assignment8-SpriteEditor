@@ -9,13 +9,88 @@ MainModel::MainModel(QObject *parent)
     : QObject{parent}
 {}
 
-//TODO: load / save JSON methods
+//TODO: load / save JSON methods --- DONE MAYBE? : look at saveJson tho! :(
 // send animation frames on a timer
 // attach signals / slots
-void MainModel::loadJSON(QString& filepath){}
+void MainModel::loadJSON(QString& filepath){
+    QFile file(filepath);
+
+    //try to open the file on readonly mode to see if its a valid filename
+    if (!file.open(QIODevice::ReadOnly)) {
+        emit loadJSONStatus(false);
+        return;
+    }
+
+    QByteArray fileData = file.readAll();
+    QJsonDocument jsonDocument = QJsonDocument::fromJson(fileData);
+
+    if (jsonDocument.isNull()) {
+        emit loadJSONStatus(false);
+        return;
+    }
+
+    QJsonObject jsonSpriteCanvas = jsonDocument.object();
+
+    //Read size
+    if (jsonSpriteCanvas.contains("size")) {
+        gridSize = jsonSpriteCanvas["size"].toInt();
+    } else {
+        emit loadJSONStatus(false);
+        return;
+    }
+
+    //Read frames
+    if (jsonSpriteCanvas.contains("frames")) {
+        QJsonArray jsonFrames = jsonSpriteCanvas["frames"].toArray();
+
+        for (const QJsonValue& frameValue : jsonFrames) {
+            QJsonObject jsonFrame = frameValue.toObject();
+            Frame frame(gridSize);
+
+            //Read layers
+            if (jsonFrame.contains("layers")) {
+                QJsonArray jsonLayers = jsonFrame["layers"].toArray();
+
+                for (const QJsonValue& layerValue : jsonLayers) {
+                    QJsonObject jsonLayer = layerValue.toObject();
+                    Layer layer(gridSize);
+
+                    //Read Pixels
+                    if (jsonLayer.contains("pixels")) {
+                        QJsonArray pixelArray = jsonLayer["pixels"].toArray();
+                        Pixel* pixels = layer.getLayer();
+
+                        for (unsigned int i = 0; i < pixelArray.size(); i++) {
+                            QJsonObject jsonPixel = pixelArray[i].toObject();
+                            pixels[i].red = jsonPixel["red"].toInt();
+                            pixels[i].green = jsonPixel["green"].toInt();
+                            pixels[i].blue = jsonPixel["blue"].toInt();
+                            pixels[i].alpha = jsonPixel["alpha"].toInt();
+                        }
+                    }
+                    frame.addLayer();
+                }
+            }
+            frames.append(frame);
+        }
+    } else {
+        emit loadJSONStatus(false);
+        return;
+    }
+
+    file.close();
+    emit loadJSONStatus(true);
+}
+
 
 void MainModel::saveJSON(QString& filepath){
     QFile file(filepath);
+
+    //try to open the file on writeonly mode to see if its a valid filename
+    if (!file.open(QIODevice::WriteOnly)) {
+        emit saveJSONStatus(false);
+        return;
+    }
 
     QJsonObject jsonSpriteCanvas;
     jsonSpriteCanvas["size"] = (int) gridSize;
@@ -56,8 +131,8 @@ void MainModel::saveJSON(QString& filepath){
     // use jsonSpriteCanvas obj to make a document used to write to the file
     QJsonDocument jsonDocument(jsonSpriteCanvas);
     file.write(jsonDocument.toJson());
-
     file.close();
+    emit saveJSONStatus(true);
 }
 
 void MainModel::resize(unsigned int newSize){
