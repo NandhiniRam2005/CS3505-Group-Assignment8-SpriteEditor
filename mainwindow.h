@@ -20,6 +20,7 @@ March 21, 2025
 #include <QPushButton>
 #include <QPoint>
 #include <QSlider>
+#include "mainmodel.h"
 
 /*
  * Enumeration of all tools in the GUi.
@@ -46,7 +47,7 @@ public:
      * Constructor that Initializes the MainWindow with an optional parent widget
      * @param parent - parent widget (default is nullptr)
      */
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow(MainModel* model,QWidget *parent = nullptr);
 
     /**
      * Destructor for the mainwindow class.
