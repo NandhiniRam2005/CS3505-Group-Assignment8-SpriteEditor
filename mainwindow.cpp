@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(MainModel* model,QWidget *parent)
+MainWindow::MainWindow(MainModel *model, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
@@ -42,7 +42,10 @@ MainWindow::MainWindow(MainModel* model,QWidget *parent)
 
     //Update displays
     connect(model, &MainModel::newDisplayImage, ui->mainDrawing, &PixelDisplay::updateDrawnImage);
-    connect(model, &MainModel::newDisplayImage, ui->animationDisplay, &PixelDisplay::updateDrawnImage);
+    connect(model,
+            &MainModel::newDisplayImage,
+            ui->animationDisplay,
+            &PixelDisplay::updateDrawnImage);
     connect(model, &MainModel::newDisplayImage, ui->frameDisplay, &PixelDisplay::updateDrawnImage);
 
     //Update color
@@ -69,53 +72,64 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::displayColorChange(Pixel pixel) {
-    // TODO: Implement displayColorChange
+void MainWindow::displayColorChange(Pixel pixel)
+{
+    colorButton.setStyleSheet(QString("background-color: rgba(%1, %2, %3, %4);").arg(pixel.red).arg(pixel.green).arg(pixel.blue).arg(pixel.alpha));
 }
 
-void MainWindow::displayLoadStatus(bool status) {
+void MainWindow::displayLoadStatus(bool status)
+{
     // TODO: Implement displayLoadStatus
 }
 
-void MainWindow::displaySaveStatus(bool status) {
+void MainWindow::displaySaveStatus(bool status)
+{
     // TODO: Implement displaySaveStatus
 }
 
-void MainWindow::openColorDialogue() {
-    // TODO: Implement openColorDialogue
+void MainWindow::openColorDialogue()
+{
+    QColor color = QColorDialog::getColor(Qt::white, this, "Select a Color", QColorDialog::ShowAlphaChannel);
+    if (color.isValid()) {
+        emit changeColor(Pixel(color.red(), color.green(), color.blue(), color.alpha()));
+    }
 }
 
-void MainWindow::setFrameCopyVariable() {
+void MainWindow::setFrameCopyVariable()
+{
     // TODO: Implement setFrameCopyVariable
 }
 
-void MainWindow::addFrameHelper() {
+void MainWindow::addFrameHelper()
+{
     // TODO: Implement addFrameHelper
 }
 
-void MainWindow::setToolToBrush() {
-    // TODO: Implement setToolToBrush
+void MainWindow::setToolToBrush()
+{
+    selectedTool = Brush;
 }
 
-void MainWindow::setToolToBucket() {
-    // TODO: Implement setToolToBucket
+void MainWindow::setToolToBucket()
+{
+    selectedTool = PaintBucket;
 }
 
-void MainWindow::setToolToEraser() {
-    // TODO: Implement setToolToEraser
+void MainWindow::setToolToEraser()
+{
+    selectedTool = Eraser;
 }
 
-void MainWindow::setToolToEyeDropper() {
-    // TODO: Implement setToolToEyeDropper
+void MainWindow::setToolToEyeDropper()
+{
+    selectedTool = EyeDropper;
 }
 
-void MainWindow::onLayerButtonClicked(int layerNumber) {
+void MainWindow::onLayerButtonClicked(int layerNumber)
+{
     // TODO: Implement onLayerButtonClicked
 }
 
-QPoint MainWindow::mapClickLocationToGridCoordinate(unsigned int x, unsigned int y){
-
-}
+QPoint MainWindow::mapClickLocationToGridCoordinate(unsigned int x, unsigned int y) {}
 
 // WE NEED TO ADD A SLOT for adding buttons dynamically for layers
-

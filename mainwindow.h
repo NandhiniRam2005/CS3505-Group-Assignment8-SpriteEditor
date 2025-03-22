@@ -14,13 +14,15 @@ March 21, 2025
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <pixeldisplay.h>
-#include <pixel.h>
-#include <QToolBar>
-#include <QPushButton>
 #include <QPoint>
+#include <QPushButton>
 #include <QSlider>
+#include <QToolBar>
 #include "mainmodel.h"
+#include <pixel.h>
+#include <pixeldisplay.h>
+#include <QColorDialog>
+
 
 /*
  * Enumeration of all tools in the GUi.
@@ -29,7 +31,7 @@ enum Tool {
     Brush,
     PaintBucket,
     Eraser,
-    Eyedropper,
+    EyeDropper,
 };
 
 QT_BEGIN_NAMESPACE
@@ -47,7 +49,7 @@ public:
      * Constructor that Initializes the MainWindow with an optional parent widget
      * @param parent - parent widget (default is nullptr)
      */
-    MainWindow(MainModel* model,QWidget *parent = nullptr);
+    MainWindow(MainModel *model, QWidget *parent = nullptr);
 
     /**
      * Destructor for the mainwindow class.
@@ -143,7 +145,6 @@ signals:
     void setSelectedColortoPixel(unsigned int x, unsigned int y);
     void changeLayer(int layerNumber);
 
-
 private:
     QWidget mouseListener;
     PixelDisplay mainDrawing;
@@ -166,9 +167,5 @@ private:
     QPoint mapClickLocationToGridCoordinate(unsigned int x, unsigned int y);
 
     Ui::MainWindow *ui;
-
-
 };
 #endif // MAINWINDOW_H
-
-
