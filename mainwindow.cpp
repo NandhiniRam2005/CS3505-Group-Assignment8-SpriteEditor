@@ -69,24 +69,51 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void displayColorChange(Pixel pixel);
+void MainWindow::displayColorChange(Pixel pixel) {
+    // TODO: Implement displayColorChange
+}
 
-void displayLoadStatus(bool status);
+void MainWindow::displayLoadStatus(bool status) {
+    // TODO: Implement displayLoadStatus
+}
 
-void displaySaveStatus(bool status);
+void MainWindow::displaySaveStatus(bool status) {
+    // TODO: Implement displaySaveStatus
+}
 
-void openColorDialogue();
+void MainWindow::openColorDialogue() {
+    // TODO: Implement openColorDialogue
+}
 
-void updateColorDisplay(unsigned int red, unsigned int green, unsigned int blue, unsigned int alpha);
+void MainWindow::setFrameCopyVariable() {
+    // TODO: Implement setFrameCopyVariable
+}
 
-void setFrameCopyVariable();
+void MainWindow::addFrameHelper() {
+    // TODO: Implement addFrameHelper
+}
 
-void addFrameHelper();
+void MainWindow::setToolToBrush() {
+    // TODO: Implement setToolToBrush
+}
 
-void setToolToBrush();
+void MainWindow::setToolToBucket() {
+    // TODO: Implement setToolToBucket
+}
 
-void setToolToBucket();
+void MainWindow::setToolToEraser() {
+    // TODO: Implement setToolToEraser
+}
 
-void setToolToEraser();
+void MainWindow::setToolToEyeDropper() {
+    // TODO: Implement setToolToEyeDropper
+}
 
-void setToolToEyeDropper();
+void MainWindow::onLayerButtonClicked(int layerNumber) {
+    // TODO: Implement onLayerButtonClicked
+}
+
+QPoint MainWindow::mapClickLocationToGridCoordinate(unsigned int x, unsigned int y){
+
+}
+
