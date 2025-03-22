@@ -64,7 +64,7 @@ Pixel Layer::getPixel(int x, int y) const{
 void Layer::selectLayer(){
     for(int i = 0; i< size * size; i++){
         if(pixels[i].alpha != 0){
-            pixels[i].alpha = VISIBLE_ALPHA;
+            pixels[i].alpha = 255;
         }
     }
 }

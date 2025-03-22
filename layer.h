@@ -28,7 +28,6 @@ private:
     Pixel* pixels;
     int size;
     void validateCoords(int x, int y) const;
-    const unsigned char VISIBLE_ALPHA = 255;
     const unsigned char HIDDEN_ALPHA = 128;
 };
 
