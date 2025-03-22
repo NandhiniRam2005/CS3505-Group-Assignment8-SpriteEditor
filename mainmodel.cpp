@@ -139,3 +139,7 @@ void MainModel::sendDisplayImage(){
     }
     emit newDisplayImage(image);
 }
+
+void MainModel::getGridSize() {
+    emit gridSizeUpdated(gridSize);
+}

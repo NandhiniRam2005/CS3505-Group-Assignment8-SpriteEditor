@@ -7,6 +7,7 @@ MainWindow::MainWindow(MainModel *model, QWidget *parent)
 {
     ui->setupUi(this);
     selectedTool = Brush;
+    brushSize = 5;
     ui->layerOne->setProperty("layerNumber", 1);
 
     //connections
@@ -64,7 +65,15 @@ MainWindow::MainWindow(MainModel *model, QWidget *parent)
 
     //Drawing connections NOT DONE
 
-    //Set brush size connections NOT DONE:
+    //Set brush size connections - DO WE WANT A SLIDER FOR BRUSH SIZE??? (havnt added to ui cuz aint sure hehe)
+    connect(ui->brushSizeSlider, &QSlider::valueChanged, this, &MainWindow::setBrushSize);
+
+    // Grid size connection between model and window (cuz i was jus gonna add a getter for it
+    // in model but doe sthat break MVC? so jus added signal/slot) (for mapClickLocationToGridCoordinate method) !!!
+    connect(this, &MainWindow::askGridSize, model, &MainModel::getGridSize);
+    connect(model, &MainModel::gridSizeUpdated, this, &MainWindow::updateGridSize);
+
+    emit askGridSize();
 }
 
 MainWindow::~MainWindow()
@@ -100,9 +109,16 @@ void MainWindow::setFrameCopyVariable()
     // TODO: Implement setFrameCopyVariable
 }
 
+void MainWindow::setBrushSize(int size)
+{
+    brushSize = size;
+    emit changeBrushSize(brushSize);
+}
+
 void MainWindow::addFrameHelper()
 {
     // TODO: Implement addFrameHelper
+    emit addFrame(frameBeingCopied);
 }
 
 void MainWindow::setToolToBrush()
@@ -128,8 +144,24 @@ void MainWindow::setToolToEyeDropper()
 void MainWindow::onLayerButtonClicked(int layerNumber)
 {
     // TODO: Implement onLayerButtonClicked
+    emit changeLayer(layerNumber);
 }
 
-QPoint MainWindow::mapClickLocationToGridCoordinate(unsigned int x, unsigned int y) {}
+void MainWindow::updateGridSize(unsigned int gridSize) {
+    currentGridSize = gridSize;
+}
+
+QPoint MainWindow::mapClickLocationToGridCoordinate(unsigned int x, unsigned int y) {
+    int canvasWidthPixels = ui->mainDrawing->width();
+    int canvasHeightPixels = ui->mainDrawing->height();
+
+    int cellWidth = canvasWidthPixels / currentGridSize;
+    int cellHeight = canvasHeightPixels / currentGridSize;
+
+    int gridXCoordinate = x / cellWidth;
+    int gridYCoordinate = y / cellHeight;
+
+    return QPoint(gridXCoordinate, gridYCoordinate);
+}
 
 // WE NEED TO ADD A SLOT for adding buttons dynamically for layers

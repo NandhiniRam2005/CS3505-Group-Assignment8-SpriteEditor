@@ -72,6 +72,8 @@ signals:
      */
     void saveJSONStatus(bool status);
 
+    void gridSizeUpdated(unsigned int gridSize);
+
 public slots:
     /**
      * Loads a JSON file containing canvas' data.
@@ -198,6 +200,8 @@ public slots:
      * @param y - y-coordinate of the pixel.
      */
     void setSelectedColorToPixel(unsigned int x, unsigned int y);
+
+    void getGridSize();
 
 private:
     /**

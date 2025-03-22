@@ -91,6 +91,10 @@ public slots:
 
     void onLayerButtonClicked(int layerNumber);
 
+    void setBrushSize(int size);
+
+    void updateGridSize(unsigned int gridSize);
+
 signals:
     /**
      * Signal to load file
@@ -144,6 +148,7 @@ signals:
     void rotate90();
     void setSelectedColortoPixel(unsigned int x, unsigned int y);
     void changeLayer(int layerNumber);
+    void askGridSize();
 
 private:
     QWidget mouseListener;
@@ -159,10 +164,13 @@ private:
     QPushButton refelectHorizontalButton;
     QPushButton rotateButton;
     QSlider fpsSlider;
+    QSlider brushSizeSlider; // DO WE WANT A SLIDER FOR BRUSH SIZE????!!!!!
     Tool selectedTool;
     unsigned int width;
     unsigned int height;
     bool frameBeingCopied;
+    unsigned int brushSize;
+    unsigned int currentGridSize;
 
     QPoint mapClickLocationToGridCoordinate(unsigned int x, unsigned int y);
 
