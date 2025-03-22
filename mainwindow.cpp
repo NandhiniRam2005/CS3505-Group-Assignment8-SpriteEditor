@@ -117,3 +117,5 @@ QPoint MainWindow::mapClickLocationToGridCoordinate(unsigned int x, unsigned int
 
 }
 
+// WE NEED TO ADD A SLOT for adding buttons dynamically for layers
+
