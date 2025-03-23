@@ -19,6 +19,7 @@ March 21, 2025
 #include <QSlider>
 #include <QToolBar>
 #include "mainmodel.h"
+#include "layerbutton.h"
 #include <pixel.h>
 #include <pixeldisplay.h>
 #include <QColorDialog>
@@ -95,6 +96,10 @@ public slots:
 
     void updateGridSize(unsigned int gridSize);
 
+    void addLayerButton();
+
+    void deleteLayerButton();
+
 signals:
     /**
      * Signal to load file
@@ -132,7 +137,7 @@ signals:
      * Signal for chnaging the current layer
      * @param layerNumber - number/index of the layer to change
      */
-    void changeLayer(unsigned int layerNumber);
+    void changeLayer(int layerNumber);
 
     void addLayer();
     void deleteLayer();
@@ -147,7 +152,6 @@ signals:
     void reflectHorizontal();
     void rotate90();
     void setSelectedColortoPixel(unsigned int x, unsigned int y);
-    void changeLayer(int layerNumber);
     void askGridSize();
 
 private:
@@ -163,6 +167,7 @@ private:
     QPushButton refelectVerticalButton;
     QPushButton refelectHorizontalButton;
     QPushButton rotateButton;
+    QPushButton* layerOne;
     QSlider fpsSlider;
     QSlider brushSizeSlider; // DO WE WANT A SLIDER FOR BRUSH SIZE????!!!!!
     Tool selectedTool;
@@ -171,9 +176,12 @@ private:
     bool frameBeingCopied;
     unsigned int brushSize;
     unsigned int currentGridSize;
-
+    int currentIndexOfLayerButtons;
+    int numberOfLayerButtons;
+    bool deleteLayerDisabled;
+    QList<LayerButton*> layerButtons;
     QPoint mapClickLocationToGridCoordinate(unsigned int x, unsigned int y);
-
+    LayerButton* selectedLayerButton;
     Ui::MainWindow *ui;
 };
 #endif // MAINWINDOW_H

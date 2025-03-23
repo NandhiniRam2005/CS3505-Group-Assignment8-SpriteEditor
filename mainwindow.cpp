@@ -8,7 +8,11 @@ MainWindow::MainWindow(MainModel *model, QWidget *parent)
     ui->setupUi(this);
     selectedTool = Brush;
     brushSize = 5;
+    currentIndexOfLayerButtons = 1;
+    selectedLayerButton = ui->layerOne;
     ui->layerOne->setProperty("layerNumber", 1);
+    layerButtons.append(ui->layerOne);
+    deleteLayerDisabled = true;
 
     //connections
 
@@ -21,10 +25,11 @@ MainWindow::MainWindow(MainModel *model, QWidget *parent)
     connect(ui->nextFrameButton, &QPushButton::clicked, model, &MainModel::nextFrame);
     connect(ui->deleteFrameButton, &QPushButton::clicked, model, &MainModel::deleteFrame);
     connect(ui->addFrameButton, &QPushButton::clicked, this, &MainWindow::addFrameHelper);
+    connect(this, &MainWindow::addFrame, model, &MainModel::addFrame);
 
     //Add delete layers
-    connect(ui->addLayerButton, &QPushButton::clicked, model, &MainModel::addLayer);
-    connect(this, &MainWindow::addFrame, model, &MainModel::addFrame);
+    connect(ui->addLayerButton, &QPushButton::clicked, this, &MainWindow::addLayerButton);
+    connect(this, &MainWindow::addLayer, model, &MainModel::addLayer);
     connect(ui->deleteLayerButton, &QPushButton::clicked, model, &MainModel::deleteLayer);
 
     //Select layers they will be dynamically created and connected else where.
@@ -32,6 +37,8 @@ MainWindow::MainWindow(MainModel *model, QWidget *parent)
         int layerNumber = ui->layerOne->property("layerNumber").toInt();
         onLayerButtonClicked(layerNumber);
     });
+
+    connect(ui->addLayerButton, &QPushButton::clicked, this, &MainWindow::addLayer);
 
     //Change fps
     connect(ui->fpsSlider, &QSlider::sliderMoved, model, &MainModel::changeAnimationFPS);
@@ -106,7 +113,7 @@ void MainWindow::openColorDialogue()
 
 void MainWindow::setFrameCopyVariable()
 {
-    // TODO: Implement setFrameCopyVariable
+    frameBeingCopied = !frameBeingCopied;
 }
 
 void MainWindow::setBrushSize(int size)
@@ -117,7 +124,6 @@ void MainWindow::setBrushSize(int size)
 
 void MainWindow::addFrameHelper()
 {
-    // TODO: Implement addFrameHelper
     emit addFrame(frameBeingCopied);
 }
 
@@ -164,4 +170,33 @@ QPoint MainWindow::mapClickLocationToGridCoordinate(unsigned int x, unsigned int
     return QPoint(gridXCoordinate, gridYCoordinate);
 }
 
-// WE NEED TO ADD A SLOT for adding buttons dynamically for layers
+void MainWindow::addLayerButton(){
+    currentIndexOfLayerButtons++;
+    numberOfLayerButtons++;
+    //renable delete button
+    if(deleteLayerDisabled){
+        deleteLayerDisabled = false;
+        ui->deleteLayerButton->setEnabled(true);
+    }
+    LayerButton* button = new LayerButton(currentIndexOfLayerButtons, this);
+    connect(button, &QPushButton::clicked, this, [this, button]() {selectedLayerButton = button; onLayerButtonClicked(button->getLayerNumber());});
+    ui->layerButtonLayout->addWidget(button);
+    layerButtons.append(button);
+    emit addLayer();
+}
+
+void MainWindow::deleteLayerButton(){
+    if(numberOfLayerButtons == 1) return;
+    numberOfLayerButtons--;
+    ui->layerButtonLayout->removeWidget(selectedLayerButton);
+    layerButtons.removeOne(selectedLayerButton);
+    delete selectedLayerButton;
+    selectedLayerButton = layerButtons.first(); // when layer deleted it selects some button
+    emit changeLayer(selectedLayerButton->getLayerNumber());
+
+    if(numberOfLayerButtons == 1){
+        deleteLayerDisabled = true;
+        ui->deleteLayerButton->setEnabled(false);
+    }
+
+}

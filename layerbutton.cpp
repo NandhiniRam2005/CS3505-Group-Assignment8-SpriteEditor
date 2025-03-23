@@ -5,5 +5,7 @@ LayerButton::LayerButton(int givenLayerNumber, QWidget *parent) : QPushButton(pa
     QString buttonText = "Layer " + QString::number(layerNumber);
     setText(buttonText);
 }
-
+int LayerButton::getLayerNumber() const{
+    return this->layerNumber;
+}
 

@@ -227,17 +227,25 @@
         <height>80</height>
        </rect>
       </property>
-      <widget class="QWidget" name="verticalLayoutWidget">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>101</width>
-         <height>111</height>
-        </rect>
-       </property>
-       <layout class="QVBoxLayout" name="buttonLayout"/>
-      </widget>
+     </widget>
+     <widget class="QWidget" name="verticalLayoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>111</width>
+        <height>111</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="layerButtonLayout">
+       <item>
+        <widget class="LayerButton" name="layerOne">
+         <property name="text">
+          <string>Layer 1</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </widget>
    </widget>
@@ -512,6 +520,19 @@
      <string/>
     </property>
    </widget>
+   <widget class="QRadioButton" name="copyFrameButton">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>500</y>
+      <width>99</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Copy Frame?</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="toolBar">
@@ -568,6 +589,11 @@
    <extends>QWidget</extends>
    <header>pixeldisplay.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>LayerButton</class>
+   <extends>QPushButton</extends>
+   <header>layerbutton.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
