@@ -110,7 +110,7 @@ public:
      * Gets a pointer to the array of pixels in this layer
      * @return a pointer to the pixels.
      */
-    Pixel* getLayer() const;
+    const Pixel* getLayer() const;
 
 private:
     /**

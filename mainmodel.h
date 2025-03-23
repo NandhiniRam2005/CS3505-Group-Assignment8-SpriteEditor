@@ -20,7 +20,7 @@ March 21, 2025
 #include <QObject>
 
 #include "frame.h"
-#include "Pixel.h"
+#include "pixel.h"
 
 class MainModel : public QObject
 {
