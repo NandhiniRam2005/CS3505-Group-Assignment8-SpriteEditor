@@ -18,7 +18,7 @@
     <property name="geometry">
      <rect>
       <x>440</x>
-      <y>430</y>
+      <y>440</y>
       <width>111</width>
       <height>71</height>
      </rect>
@@ -31,16 +31,19 @@
     <property name="geometry">
      <rect>
       <x>170</x>
-      <y>430</y>
+      <y>440</y>
       <width>111</width>
       <height>71</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
     </property>
     <property name="text">
      <string>Previous Frame</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="transformationsLabel">
     <property name="geometry">
      <rect>
       <x>590</x>
@@ -53,7 +56,7 @@
      <string>Transformations</string>
     </property>
    </widget>
-   <widget class="pixeldisplay" name="mainDrawing" native="true">
+   <widget class="PixelDisplay" name="mainDrawing" native="true">
     <property name="geometry">
      <rect>
       <x>170</x>
@@ -63,17 +66,17 @@
      </rect>
     </property>
    </widget>
-   <widget class="pixeldisplay" name="frameDisplay" native="true">
+   <widget class="PixelDisplay" name="frameDisplay" native="true">
     <property name="geometry">
      <rect>
-      <x>310</x>
+      <x>300</x>
       <y>420</y>
       <width>111</width>
       <height>101</height>
      </rect>
     </property>
    </widget>
-   <widget class="pixeldisplay" name="animationDisplay" native="true">
+   <widget class="PixelDisplay" name="animationDisplay" native="true">
     <property name="geometry">
      <rect>
       <x>600</x>
@@ -106,7 +109,18 @@
      </rect>
     </property>
     <property name="text">
-     <string>Vert</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normalon>icons/flip-vertical.png</normalon>
+     </iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>30</width>
+      <height>30</height>
+     </size>
     </property>
    </widget>
    <widget class="QPushButton" name="reflectHorizontalButto">
@@ -119,7 +133,18 @@
      </rect>
     </property>
     <property name="text">
-     <string>Horiz</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normalon>icons/flip-horizontal.png</normalon>
+     </iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>30</width>
+      <height>30</height>
+     </size>
     </property>
    </widget>
    <widget class="QPushButton" name="rotateButton">
@@ -132,7 +157,18 @@
      </rect>
     </property>
     <property name="text">
-     <string>Rotate</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normalon>icons/rotate.png</normalon>
+     </iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>30</width>
+      <height>30</height>
+     </size>
     </property>
    </widget>
    <widget class="QLabel" name="fpsLabel">
@@ -191,17 +227,25 @@
         <height>80</height>
        </rect>
       </property>
-      <widget class="QWidget" name="verticalLayoutWidget">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>101</width>
-         <height>111</height>
-        </rect>
-       </property>
-       <layout class="QVBoxLayout" name="buttonLayout"/>
-      </widget>
+     </widget>
+     <widget class="QWidget" name="verticalLayoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>111</width>
+        <height>111</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="layerButtonLayout">
+       <item>
+        <widget class="LayerButton" name="layerOne">
+         <property name="text">
+          <string>Layer 1</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </widget>
    </widget>
@@ -209,7 +253,7 @@
     <property name="geometry">
      <rect>
       <x>60</x>
-      <y>300</y>
+      <y>310</y>
       <width>58</width>
       <height>16</height>
      </rect>
@@ -218,27 +262,11 @@
      <string>Color</string>
     </property>
    </widget>
-   <widget class="QLabel" name="colorDisplay">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>320</y>
-      <width>71</width>
-      <height>71</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: black;</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
    <widget class="QSlider" name="horizontalSlider">
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>400</y>
+      <y>390</y>
       <width>81</width>
       <height>25</height>
      </rect>
@@ -256,40 +284,253 @@
    <widget class="QPushButton" name="addFrameButton">
     <property name="geometry">
      <rect>
-      <x>559</x>
-      <y>440</y>
+      <x>560</x>
+      <y>450</y>
       <width>81</width>
       <height>51</height>
      </rect>
     </property>
     <property name="text">
-     <string>Add Frame</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normalon>icons/add.png</normalon>
+     </iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>30</width>
+      <height>30</height>
+     </size>
     </property>
    </widget>
    <widget class="QPushButton" name="deleteFrameButton">
     <property name="geometry">
      <rect>
       <x>80</x>
-      <y>440</y>
+      <y>450</y>
       <width>81</width>
       <height>51</height>
      </rect>
     </property>
     <property name="text">
-     <string>Delete Frame</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normalon>icons/delete.png</normalon>
+     </iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>30</width>
+      <height>30</height>
+     </size>
     </property>
    </widget>
-   <widget class="QLabel" name="label_2">
+   <widget class="QLabel" name="layersLabel">
     <property name="geometry">
      <rect>
-      <x>660</x>
-      <y>340</y>
-      <width>58</width>
+      <x>650</x>
+      <y>350</y>
+      <width>41</width>
       <height>16</height>
      </rect>
     </property>
     <property name="text">
      <string>Layers</string>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBox">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>10</y>
+      <width>120</width>
+      <height>301</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Tools</string>
+    </property>
+    <widget class="QPushButton" name="brushButton">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>100</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normalon>icons/brush.png</normalon>
+      </iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>35</width>
+       <height>35</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="eraserButton">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>100</y>
+       <width>100</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normalon>icons/eraser.png</normalon>
+      </iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>35</width>
+       <height>35</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="paintBucketButton">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>170</y>
+       <width>100</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normalon>icons/paint-bucket.png</normalon>
+      </iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>35</width>
+       <height>35</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="eyeDropperButton">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>240</y>
+       <width>100</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normalon>icons/eyedropper.png</normalon>
+      </iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>35</width>
+       <height>35</height>
+      </size>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="addLayerButton">
+    <property name="geometry">
+     <rect>
+      <x>700</x>
+      <y>340</y>
+      <width>31</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>+</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="deleteLayerButton">
+    <property name="geometry">
+     <rect>
+      <x>740</x>
+      <y>340</y>
+      <width>31</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>-</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="mouseListener" native="true">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>30</y>
+      <width>360</width>
+      <height>360</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>420</y>
+      <width>91</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Transparency</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="colorButton">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>330</y>
+      <width>71</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: black;
+    border-style: outset;
+    border-width: 2px;
+    border-color: beige;
+ </string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="copyFrameButton">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>500</y>
+      <width>99</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Copy Frame?</string>
     </property>
    </widget>
   </widget>
@@ -344,10 +585,15 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>pixeldisplay</class>
+   <class>PixelDisplay</class>
    <extends>QWidget</extends>
    <header>pixeldisplay.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>LayerButton</class>
+   <extends>QPushButton</extends>
+   <header>layerbutton.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
