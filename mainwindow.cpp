@@ -180,6 +180,8 @@ void MainWindow::addLayerButton(){
         ui->deleteLayerButton->setEnabled(true);
     }
     LayerButton* button = new LayerButton(numberOfLayerButtons, this);
+    button->setMinimumHeight(32);
+    button->setMinimumWidth(99);
     connect(button, &QPushButton::clicked, this, [this, button]() {selectedLayerButton = button; onLayerButtonClicked(button->getLayerNumber());});
     ui->layerButtonLayout->addWidget(button);
     layerButtons.push_back(button);
