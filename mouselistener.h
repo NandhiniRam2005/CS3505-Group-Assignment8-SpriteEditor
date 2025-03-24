@@ -12,6 +12,7 @@ public:
 
 signals:
     void mouseClicked(QPoint p);
+
 private:
     void mousePressEvent(QMouseEvent *event) override;
 

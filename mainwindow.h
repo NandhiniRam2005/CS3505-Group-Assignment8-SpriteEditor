@@ -103,6 +103,12 @@ public slots:
 
     void mapClickLocationToGridCoordinate(QPoint p);
 
+    void openFileChooserLoad();
+
+    void openFileChooserSave();
+
+
+
 
 signals:
     /**
@@ -157,7 +163,6 @@ signals:
     void rotate90();
     void setSelectedColortoPixel(unsigned int x, unsigned int y);
     void askGridSize();
-
 
 private:
     MouseListener mouseListener;

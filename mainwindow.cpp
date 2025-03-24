@@ -1,5 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QFileDialog>
+
 
 MainWindow::MainWindow(MainModel *model, QWidget *parent)
     : QMainWindow(parent)
@@ -17,8 +19,8 @@ MainWindow::MainWindow(MainModel *model, QWidget *parent)
     //connections
 
     //Save/Load
-    connect(ui->actionLoad, &QAction::triggered, model, &MainModel::loadJSON);
-    connect(ui->actionSave, &QAction::triggered, model, &MainModel::saveJSON);
+    connect(ui->actionLoad, &QAction::triggered, this, &MainWindow::openFileChooserLoad);
+    connect(ui->actionSave, &QAction::triggered, this, &MainWindow::openFileChooserSave);
 
     //Add delete frames
     connect(ui->previousFrameButton, &QPushButton::clicked, model, &MainModel::previousFrame);
@@ -50,12 +52,9 @@ MainWindow::MainWindow(MainModel *model, QWidget *parent)
     connect(ui->rotateButton, &QPushButton::clicked, model, &MainModel::rotate90);
 
     //Update displays
-    connect(model, &MainModel::newDisplayImage, ui->mainDrawing, &PixelDisplay::updateDrawnImage);
-    connect(model,
-            &MainModel::newDisplayImage,
-            ui->animationDisplay,
-            &PixelDisplay::updateDrawnImage);
-    connect(model, &MainModel::newDisplayImage, ui->frameDisplay, &PixelDisplay::updateDrawnImage);
+    // connect(model, &MainModel::newDisplayImage, ui->mainDrawing, &PixelDisplay::updateDrawnImage);
+    // connect(model, &MainModel::newDisplayImage, ui->animationDisplay, &PixelDisplay::updateDrawnImage);
+    // connect(model, &MainModel::newDisplayImage, ui->frameDisplay, &PixelDisplay::updateDrawnImage);
 
     //Update color
     connect(ui->colorButton, &QPushButton::clicked, this, &MainWindow::openColorDialogue);
@@ -199,4 +198,15 @@ void MainWindow::deleteLayerButton(){
         ui->deleteLayerButton->setEnabled(false);
     }
 
+}
+
+void MainWindow::openFileChooserLoad(){
+    QString filename = QFileDialog::getOpenFileName(nullptr, "Open File", "", "ssp", nullptr);
+
+    emit loadFile(filename);
+}
+void MainWindow::openFileChooserSave(){
+    QString filename = QFileDialog::getOpenFileName(nullptr, "Open File", "", "ssp", nullptr);
+
+    emit saveFile(filename);
 }
