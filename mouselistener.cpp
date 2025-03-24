@@ -6,5 +6,6 @@ MouseListener::MouseListener(QWidget *parent)
 
 void MouseListener::mousePressEvent(QMouseEvent* event){
     QPoint screenCoords = event->pos();
+
     emit mouseClicked(screenCoords);
 }
