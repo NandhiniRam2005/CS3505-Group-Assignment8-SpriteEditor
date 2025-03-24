@@ -17,8 +17,8 @@ MainWindow::MainWindow(MainModel *model, QWidget *parent)
     //connections
 
     //Save/Load
-    connect(ui->actionLoad, &QAction::triggered, model, &MainModel::loadJSON);
-    connect(ui->actionSave, &QAction::triggered, model, &MainModel::saveJSON);
+  //  connect(ui->actionLoad, &QAction::triggered, model, &MainModel::loadJSON);
+  //  connect(ui->actionSave, &QAction::triggered, model, &MainModel::saveJSON);
 
     //Add delete frames
     connect(ui->previousFrameButton, &QPushButton::clicked, model, &MainModel::previousFrame);

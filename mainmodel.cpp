@@ -8,7 +8,7 @@
 MainModel::MainModel(QObject *parent)
     : QObject{parent}
 {}
-
+/*
 //TODO: load / save JSON methods --- DONE MAYBE? : look at saveJson tho! :(
 // send animation frames on a timer
 // attach signals / slots
@@ -134,7 +134,7 @@ void MainModel::saveJSON(QString& filepath){
     file.close();
     emit saveJSONStatus(true);
 }
-
+*/
 void MainModel::resize(unsigned int newSize){
     for(Frame& frame : frames){
         frame.resize(newSize);
