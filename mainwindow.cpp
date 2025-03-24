@@ -217,7 +217,6 @@ void MainWindow::deleteLayerButton(){
     emit changeLayer(selectedLayerButton->getLayerNumber() - 1);
 
     if (numberOfLayerButtons == 3) {
-        int currentHeight = ui->scrollArea->widget()->minimumHeight();
         ui->scrollArea->widget()->setMinimumHeight(0);
 
     } else if (numberOfLayerButtons > 3) {
