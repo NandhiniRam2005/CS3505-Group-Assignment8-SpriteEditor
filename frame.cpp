@@ -15,8 +15,10 @@ Frame::~Frame() {
 
 Frame::Frame(const Frame& other) {
     layers = other.layers;
-    activeLayer = other.activeLayer;
     size = other.size;
+    renderedImage = new Pixel[size* size];
+    layeredImage = new Pixel[size * size];
+    imageChanged = true;
     renderImages();
 }
 
