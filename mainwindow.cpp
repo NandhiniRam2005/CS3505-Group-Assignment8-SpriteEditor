@@ -185,7 +185,7 @@ void MainWindow::addLayerButton(){
     button->setMinimumWidth(99);
     connect(button, &QPushButton::clicked, this, [this, button]() {selectedLayerButton = button; onLayerButtonClicked(button->getLayerNumber());});
     ui->layerButtonLayout->addWidget(button);
-    if (numberOfLayerButtons == 3) {
+    if (numberOfLayerButtons == 4) {
         int currentHeight = ui->scrollArea->widget()->minimumHeight();
         ui->scrollArea->widget()->setMinimumHeight(currentHeight + 150);
 
@@ -218,9 +218,9 @@ void MainWindow::deleteLayerButton(){
 
     if (numberOfLayerButtons == 3) {
         int currentHeight = ui->scrollArea->widget()->minimumHeight();
-        ui->scrollArea->widget()->setMinimumHeight(currentHeight - 150);
+        ui->scrollArea->widget()->setMinimumHeight(0);
 
-    } else if (numberOfLayerButtons > 4) {
+    } else if (numberOfLayerButtons > 3) {
         int currentHeight = ui->scrollArea->widget()->minimumHeight();
         ui->scrollArea->widget()->setMinimumHeight(currentHeight - 38);
     }
