@@ -9,3 +9,7 @@ int LayerButton::getLayerNumber() const{
     return this->layerNumber;
 }
 
+void LayerButton::setLayerNumber(int newLayerNumber){
+    this->layerNumber = newLayerNumber;
+}
+

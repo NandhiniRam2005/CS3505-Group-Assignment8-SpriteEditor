@@ -179,7 +179,7 @@ private:
     int currentIndexOfLayerButtons;
     int numberOfLayerButtons;
     bool deleteLayerDisabled;
-    QList<LayerButton*> layerButtons;
+    QVector<LayerButton*> layerButtons;
     QPoint mapClickLocationToGridCoordinate(unsigned int x, unsigned int y);
     LayerButton* selectedLayerButton;
     Ui::MainWindow *ui;

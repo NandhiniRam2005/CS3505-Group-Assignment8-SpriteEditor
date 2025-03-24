@@ -10,8 +10,8 @@ MainWindow::MainWindow(MainModel *model, QWidget *parent)
     brushSize = 5;
     currentIndexOfLayerButtons = 1;
     selectedLayerButton = ui->layerOne;
-    ui->layerOne->setProperty("layerNumber", 1);
-    layerButtons.append(ui->layerOne);
+    ui->layerOne->setLayerNumber(1);
+    layerButtons.push_back(ui->layerOne);
     deleteLayerDisabled = true;
 
     //connections
@@ -30,7 +30,8 @@ MainWindow::MainWindow(MainModel *model, QWidget *parent)
     //Add delete layers
     connect(ui->addLayerButton, &QPushButton::clicked, this, &MainWindow::addLayerButton);
     connect(this, &MainWindow::addLayer, model, &MainModel::addLayer);
-    connect(ui->deleteLayerButton, &QPushButton::clicked, model, &MainModel::deleteLayer);
+    connect(ui->deleteLayerButton, &QPushButton::clicked, this, &MainWindow::deleteLayerButton);
+    connect(this, &MainWindow::deleteLayer, model, &MainModel::deleteLayer);
 
     //Select layers they will be dynamically created and connected else where.
     connect(ui->layerOne, &QPushButton::clicked, this, [this]() {
@@ -149,7 +150,6 @@ void MainWindow::setToolToEyeDropper()
 
 void MainWindow::onLayerButtonClicked(int layerNumber)
 {
-    // TODO: Implement onLayerButtonClicked
     emit changeLayer(layerNumber);
 }
 
@@ -181,7 +181,7 @@ void MainWindow::addLayerButton(){
     LayerButton* button = new LayerButton(currentIndexOfLayerButtons, this);
     connect(button, &QPushButton::clicked, this, [this, button]() {selectedLayerButton = button; onLayerButtonClicked(button->getLayerNumber());});
     ui->layerButtonLayout->addWidget(button);
-    layerButtons.append(button);
+    layerButtons.push_back(button);
     emit addLayer();
 }
 
@@ -190,8 +190,9 @@ void MainWindow::deleteLayerButton(){
     numberOfLayerButtons--;
     ui->layerButtonLayout->removeWidget(selectedLayerButton);
     layerButtons.removeOne(selectedLayerButton);
+    emit deleteLayer(); // Hey dont we need to delete a specific layer not just any layer
     delete selectedLayerButton;
-    selectedLayerButton = layerButtons.first(); // when layer deleted it selects some button
+    selectedLayerButton = layerButtons.first(); // when layer deleted it selects some button & layer
     emit changeLayer(selectedLayerButton->getLayerNumber());
 
     if(numberOfLayerButtons == 1){
