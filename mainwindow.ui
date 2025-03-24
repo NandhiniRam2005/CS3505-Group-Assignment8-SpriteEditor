@@ -112,9 +112,8 @@
      <string/>
     </property>
     <property name="icon">
-     <iconset>
-      <normalon>icons/flip-vertical.png</normalon>
-     </iconset>
+     <iconset resource="resources.qrc">
+      <normaloff>:/icons/icons/flip-vertical.png</normaloff>:/icons/icons/flip-vertical.png</iconset>
     </property>
     <property name="iconSize">
      <size>
@@ -136,9 +135,8 @@
      <string/>
     </property>
     <property name="icon">
-     <iconset>
-      <normalon>icons/flip-horizontal.png</normalon>
-     </iconset>
+     <iconset resource="resources.qrc">
+      <normaloff>:/icons/icons/flip-horizontal.png</normaloff>:/icons/icons/flip-horizontal.png</iconset>
     </property>
     <property name="iconSize">
      <size>
@@ -160,9 +158,8 @@
      <string/>
     </property>
     <property name="icon">
-     <iconset>
-      <normalon>icons/rotate.png</normalon>
-     </iconset>
+     <iconset resource="resources.qrc">
+      <normaloff>:/icons/icons/rotate.png</normaloff>:/icons/icons/rotate.png</iconset>
     </property>
     <property name="iconSize">
      <size>
@@ -300,9 +297,8 @@
      <string/>
     </property>
     <property name="icon">
-     <iconset>
-      <normalon>icons/add.png</normalon>
-     </iconset>
+     <iconset resource="resources.qrc">
+      <normaloff>:/icons/icons/add.png</normaloff>:/icons/icons/add.png</iconset>
     </property>
     <property name="iconSize">
      <size>
@@ -324,9 +320,8 @@
      <string/>
     </property>
     <property name="icon">
-     <iconset>
-      <normalon>icons/delete.png</normalon>
-     </iconset>
+     <iconset resource="resources.qrc">
+      <normaloff>:/icons/icons/delete.png</normaloff>:/icons/icons/delete.png</iconset>
     </property>
     <property name="iconSize">
      <size>
@@ -373,9 +368,8 @@
       <string/>
      </property>
      <property name="icon">
-      <iconset>
-       <normalon>icons/brush.png</normalon>
-      </iconset>
+      <iconset resource="resources.qrc">
+       <normaloff>:/icons/icons/brush.png</normaloff>:/icons/icons/brush.png</iconset>
      </property>
      <property name="iconSize">
       <size>
@@ -397,9 +391,8 @@
       <string/>
      </property>
      <property name="icon">
-      <iconset>
-       <normalon>icons/eraser.png</normalon>
-      </iconset>
+      <iconset resource="resources.qrc">
+       <normaloff>:/icons/icons/eraser.png</normaloff>:/icons/icons/eraser.png</iconset>
      </property>
      <property name="iconSize">
       <size>
@@ -421,9 +414,8 @@
       <string/>
      </property>
      <property name="icon">
-      <iconset>
-       <normalon>icons/paint-bucket.png</normalon>
-      </iconset>
+      <iconset resource="resources.qrc">
+       <normaloff>:/icons/icons/paint-bucket.png</normaloff>:/icons/icons/paint-bucket.png</iconset>
      </property>
      <property name="iconSize">
       <size>
@@ -445,9 +437,8 @@
       <string/>
      </property>
      <property name="icon">
-      <iconset>
-       <normalon>icons/eyedropper.png</normalon>
-      </iconset>
+      <iconset resource="resources.qrc">
+       <normaloff>:/icons/icons/eyedropper.png</normaloff>:/icons/icons/eyedropper.png</iconset>
      </property>
      <property name="iconSize">
       <size>
@@ -608,6 +599,8 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

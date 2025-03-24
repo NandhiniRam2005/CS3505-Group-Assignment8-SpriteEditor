@@ -4,7 +4,7 @@
 #include <iostream>
 
 
-MainWindow::MainWindow(MainModel *model, QWidget *parent)
+MainWindow::MainWindow(MainModel* model, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {

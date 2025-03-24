@@ -7,7 +7,14 @@
 
 MainModel::MainModel(QObject *parent)
     : QObject{parent}
-{}
+{
+    brushSize = 1;
+    gridSize = 32;
+    animationFPS = 12;
+    frames.push_back(Frame(gridSize));
+    selectedFrame = 0;
+    selectedColor = Pixel(0,0,0,0);
+}
 /*
 //TODO: load / save JSON methods --- DONE MAYBE? : look at saveJson tho! :(
 // send animation frames on a timer
@@ -145,7 +152,7 @@ void MainModel::resize(unsigned int newSize){
 
 void MainModel::previousFrame(){
     selectedFrame -= 1;
-    if(selectedFrame >= frames.size()){
+    if(selectedFrame < 0){
         selectedFrame = frames.size()-1;
     }
     sendDisplayImage();
