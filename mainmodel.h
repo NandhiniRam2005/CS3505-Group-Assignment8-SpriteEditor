@@ -18,6 +18,7 @@ March 21, 2025
 #include <QVector>
 #include <QString>
 #include <QObject>
+#include <QTimer>
 
 #include "frame.h"
 #include "pixel.h"
@@ -209,6 +210,12 @@ private:
      */
     void sendDisplayImage();
 
+
+    /**
+     * Sends the next animation frame image to the animation preview.
+     */
+    void sendAnimationFrame();
+
     /**
      * vector collection of frames in the animation.
      */
@@ -228,6 +235,16 @@ private:
      * frames per second of the animation
      */
     unsigned int animationFPS;
+
+    /**
+     * the timer for the animation preview
+     */
+    QTimer *animationTimer;
+
+    /**
+     * the current frame of the animation preview
+     */
+    unsigned int currentAnimationFrame;
 
     /**
      * currently selected color for painting

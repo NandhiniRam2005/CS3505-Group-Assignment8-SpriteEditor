@@ -14,7 +14,14 @@ MainModel::MainModel(QObject *parent)
     frames.push_back(Frame(gridSize));
     selectedFrame = 0;
     selectedColor = Pixel(0,0,0,0);
-}
+
+    animationTimer = new QTimer();
+
+    connect(animationTimer, &QTimer::timeout, this, &MainModel::sendAnimationFrame);
+
+    animationTimer->start(33);
+    currentAnimationFrame = 0;
+    }
 /*
 //TODO: load / save JSON methods --- DONE MAYBE? : look at saveJson tho! :(
 // send animation frames on a timer
@@ -209,7 +216,10 @@ void MainModel::changeBrushSize(unsigned int newBrushSize){
 
 void MainModel::changeAnimationFPS(unsigned int newFPS){
     animationFPS = newFPS;
-    //TODO: Set timer here
+    if (newFPS > 0 and newFPS > 1000)
+        animationTimer->setInterval(1000/newFPS);
+    else
+        animationTimer->stop();
 }
 
 void MainModel::changeSelectedColor(Pixel newColor){
@@ -271,6 +281,15 @@ void MainModel::sendDisplayImage(){
     }
     emit newDisplayImage(image);
 }
+
+void MainModel::sendAnimationFrame(){
+    currentAnimationFrame += 1;
+    if(currentAnimationFrame == frames.size()){
+        currentAnimationFrame = 0;
+    }
+    emit newAnimationFrame(frames[currentAnimationFrame].getLayeredImage());
+}
+
 
 void MainModel::getGridSize() {
     emit gridSizeUpdated(gridSize);
