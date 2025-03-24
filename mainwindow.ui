@@ -198,16 +198,16 @@
     <property name="geometry">
      <rect>
       <x>650</x>
-      <y>370</y>
+      <y>380</y>
       <width>120</width>
-      <height>141</height>
+      <height>131</height>
      </rect>
     </property>
     <property name="verticalScrollBarPolicy">
-     <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOn</enum>
+     <enum>Qt::ScrollBarPolicy::ScrollBarAsNeeded</enum>
     </property>
     <property name="horizontalScrollBarPolicy">
-     <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOn</enum>
+     <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
     </property>
     <property name="sizeAdjustPolicy">
      <enum>QAbstractScrollArea::SizeAdjustPolicy::AdjustToContents</enum>
@@ -221,8 +221,23 @@
        <x>0</x>
        <y>0</y>
        <width>118</width>
-       <height>139</height>
+       <height>129</height>
       </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="baseSize">
+      <size>
+       <width>0</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::ContextMenuPolicy::PreventContextMenu</enum>
      </property>
      <widget class="QWidget" name="widget" native="true">
       <property name="geometry">
@@ -230,8 +245,20 @@
         <x>10</x>
         <y>10</y>
         <width>91</width>
-        <height>80</height>
+        <height>500</height>
        </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>500</height>
+       </size>
+      </property>
+      <property name="baseSize">
+       <size>
+        <width>0</width>
+        <height>500</height>
+       </size>
       </property>
      </widget>
      <widget class="QWidget" name="verticalLayoutWidget">
@@ -239,11 +266,14 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>101</width>
-        <height>111</height>
+        <width>111</width>
+        <height>121</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="layerButtonLayout">
+       <property name="sizeConstraint">
+        <enum>QLayout::SizeConstraint::SetFixedSize</enum>
+       </property>
        <item>
         <widget class="LayerButton" name="layerOneButton">
          <property name="sizePolicy">

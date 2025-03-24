@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QFileDialog>
+#include <QScrollBar>
 #include <iostream>
 
 
@@ -184,6 +185,18 @@ void MainWindow::addLayerButton(){
     button->setMinimumWidth(99);
     connect(button, &QPushButton::clicked, this, [this, button]() {selectedLayerButton = button; onLayerButtonClicked(button->getLayerNumber());});
     ui->layerButtonLayout->addWidget(button);
+    if (numberOfLayerButtons == 3) {
+        int currentHeight = ui->scrollArea->widget()->minimumHeight();
+        ui->scrollArea->widget()->setMinimumHeight(currentHeight + 150);
+
+    } else if (numberOfLayerButtons > 4) {
+        int currentHeight = ui->scrollArea->widget()->minimumHeight();
+        ui->scrollArea->widget()->setMinimumHeight(currentHeight + 38);
+    }
+
+    QScrollBar* verticalScrollBar = ui->scrollArea->verticalScrollBar();
+    verticalScrollBar->setValue(verticalScrollBar->maximum());
+
     layerButtons.push_back(button);
     emit addLayer();
 }
@@ -202,6 +215,18 @@ void MainWindow::deleteLayerButton(){
     }
     selectedLayerButton = layerButtons.first(); // when layer deleted it selects some button & layer
     emit changeLayer(selectedLayerButton->getLayerNumber() - 1);
+
+    if (numberOfLayerButtons == 3) {
+        int currentHeight = ui->scrollArea->widget()->minimumHeight();
+        ui->scrollArea->widget()->setMinimumHeight(currentHeight - 150);
+
+    } else if (numberOfLayerButtons > 4) {
+        int currentHeight = ui->scrollArea->widget()->minimumHeight();
+        ui->scrollArea->widget()->setMinimumHeight(currentHeight - 38);
+    }
+
+    QScrollBar* verticalScrollBar = ui->scrollArea->verticalScrollBar();
+    verticalScrollBar->setValue(verticalScrollBar->maximum());
 
     if(numberOfLayerButtons == 1){
         deleteLayerDisabled = true;
