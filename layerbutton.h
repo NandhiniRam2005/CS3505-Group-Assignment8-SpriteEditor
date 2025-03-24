@@ -5,6 +5,8 @@
 
 class LayerButton : public QPushButton
 {
+    Q_OBJECT
+
 public:
     explicit LayerButton(int givenLayerNumber, QWidget *parent);
     int getLayerNumber() const;

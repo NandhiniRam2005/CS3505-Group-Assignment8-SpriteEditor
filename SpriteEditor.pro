@@ -15,6 +15,7 @@ SOURCES += \
     main.cpp \
     mainmodel.cpp \
     mainwindow.cpp \
+    mouselistener.cpp \
     pixel.cpp \
     pixeldisplay.cpp
 
@@ -24,6 +25,7 @@ HEADERS += \
     layerbutton.h \
     mainmodel.h \
     mainwindow.h \
+    mouselistener.h \
     pixel.h \
     pixeldisplay.h
 

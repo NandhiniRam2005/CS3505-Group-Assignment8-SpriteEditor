@@ -9,9 +9,9 @@ MainWindow::MainWindow(MainModel *model, QWidget *parent)
     selectedTool = Brush;
     brushSize = 5;
     currentIndexOfLayerButtons = 1;
-    selectedLayerButton = ui->layerOne;
-    ui->layerOne->setLayerNumber(1);
-    layerButtons.push_back(ui->layerOne);
+    selectedLayerButton = ui->layerOneButton;
+    ui->layerOneButton->setLayerNumber(1);
+    layerButtons.push_back(ui->layerOneButton);
     deleteLayerDisabled = true;
 
     //connections
@@ -34,8 +34,8 @@ MainWindow::MainWindow(MainModel *model, QWidget *parent)
     connect(this, &MainWindow::deleteLayer, model, &MainModel::deleteLayer);
 
     //Select layers they will be dynamically created and connected else where.
-    connect(ui->layerOne, &QPushButton::clicked, this, [this]() {
-        int layerNumber = ui->layerOne->property("layerNumber").toInt();
+    connect(ui->layerOneButton, &QPushButton::clicked, this, [this]() {
+        int layerNumber = ui->layerOneButton->getLayerNumber();
         onLayerButtonClicked(layerNumber);
     });
 
@@ -72,9 +72,9 @@ MainWindow::MainWindow(MainModel *model, QWidget *parent)
     connect(ui->eraserButton, &QPushButton::clicked, this, &MainWindow::setToolToEraser);
 
     //Drawing connections NOT DONE
-
+    connect(ui->mouseListener, &MouseListener::mouseClicked, this, &MainWindow::mapClickLocationToGridCoordinate);
     //Set brush size connections - DO WE WANT A SLIDER FOR BRUSH SIZE??? (havnt added to ui cuz aint sure hehe)
-    connect(ui->brushSizeSlider, &QSlider::valueChanged, this, &MainWindow::setBrushSize);
+    //connect(ui->brushSizeSlider, &QSlider::valueChanged, this, &MainWindow::setBrushSize);
 
     // Grid size connection between model and window (cuz i was jus gonna add a getter for it
     // in model but doe sthat break MVC? so jus added signal/slot) (for mapClickLocationToGridCoordinate method) !!!
@@ -157,17 +157,16 @@ void MainWindow::updateGridSize(unsigned int gridSize) {
     currentGridSize = gridSize;
 }
 
-QPoint MainWindow::mapClickLocationToGridCoordinate(unsigned int x, unsigned int y) {
+void MainWindow::mapClickLocationToGridCoordinate(QPoint screenPoint) {
     int canvasWidthPixels = ui->mainDrawing->width();
     int canvasHeightPixels = ui->mainDrawing->height();
 
     int cellWidth = canvasWidthPixels / currentGridSize;
     int cellHeight = canvasHeightPixels / currentGridSize;
 
-    int gridXCoordinate = x / cellWidth;
-    int gridYCoordinate = y / cellHeight;
+    int gridXCoordinate = screenPoint.x() / cellWidth;
+    int gridYCoordinate = screenPoint.y() / cellHeight;
 
-    return QPoint(gridXCoordinate, gridYCoordinate);
 }
 
 void MainWindow::addLayerButton(){

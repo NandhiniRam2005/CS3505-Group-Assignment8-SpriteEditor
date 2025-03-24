@@ -239,7 +239,7 @@
       </property>
       <layout class="QVBoxLayout" name="layerButtonLayout">
        <item>
-        <widget class="LayerButton" name="layerOne">
+        <widget class="LayerButton" name="layerOneButton">
          <property name="text">
           <string>Layer 1</string>
          </property>
@@ -477,7 +477,7 @@
      <string>-</string>
     </property>
    </widget>
-   <widget class="QWidget" name="mouseListener" native="true">
+   <widget class="MouseListener" name="mouseListener" native="true">
     <property name="geometry">
      <rect>
       <x>170</x>
@@ -594,6 +594,12 @@
    <class>LayerButton</class>
    <extends>QPushButton</extends>
    <header>layerbutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MouseListener</class>
+   <extends>QWidget</extends>
+   <header>mouselistener.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

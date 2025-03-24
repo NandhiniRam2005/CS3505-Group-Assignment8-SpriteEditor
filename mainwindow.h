@@ -20,6 +20,7 @@ March 21, 2025
 #include <QToolBar>
 #include "mainmodel.h"
 #include "layerbutton.h"
+#include "mouselistener.h"
 #include <pixel.h>
 #include <pixeldisplay.h>
 #include <QColorDialog>
@@ -100,6 +101,9 @@ public slots:
 
     void deleteLayerButton();
 
+    void mapClickLocationToGridCoordinate(QPoint p);
+
+
 signals:
     /**
      * Signal to load file
@@ -154,8 +158,9 @@ signals:
     void setSelectedColortoPixel(unsigned int x, unsigned int y);
     void askGridSize();
 
+
 private:
-    QWidget mouseListener;
+    MouseListener mouseListener;
     PixelDisplay mainDrawing;
     PixelDisplay animationDisplay;
     PixelDisplay frameDisplay;
@@ -180,7 +185,6 @@ private:
     int numberOfLayerButtons;
     bool deleteLayerDisabled;
     QVector<LayerButton*> layerButtons;
-    QPoint mapClickLocationToGridCoordinate(unsigned int x, unsigned int y);
     LayerButton* selectedLayerButton;
     Ui::MainWindow *ui;
 };
