@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QFileDialog>
+#include <iostream>
 
 
 MainWindow::MainWindow(MainModel *model, QWidget *parent)
@@ -9,11 +10,14 @@ MainWindow::MainWindow(MainModel *model, QWidget *parent)
 {
     ui->setupUi(this);
     selectedTool = Brush;
-    brushSize = 5;
+    brushSize = 1;
     currentIndexOfLayerButtons = 1;
+    numberOfLayerButtons = 1;
     selectedLayerButton = ui->layerOneButton;
     ui->layerOneButton->setLayerNumber(1);
     layerButtons.push_back(ui->layerOneButton);
+    std::cout << layerButtons.size() << std::endl;
+    std::cout << selectedLayerButton << std::endl;
     deleteLayerDisabled = true;
 
     //connections
@@ -31,9 +35,9 @@ MainWindow::MainWindow(MainModel *model, QWidget *parent)
 
     //Add delete layers
     connect(ui->addLayerButton, &QPushButton::clicked, this, &MainWindow::addLayerButton);
-    connect(this, &MainWindow::addLayer, model, &MainModel::addLayer);
+    // connect(this, &MainWindow::addLayer, model, &MainModel::addLayer);
     connect(ui->deleteLayerButton, &QPushButton::clicked, this, &MainWindow::deleteLayerButton);
-    connect(this, &MainWindow::deleteLayer, model, &MainModel::deleteLayer);
+    // connect(this, &MainWindow::deleteLayer, model, &MainModel::deleteLayer);
 
     //Select layers they will be dynamically created and connected else where.
     connect(ui->layerOneButton, &QPushButton::clicked, this, [this]() {
@@ -169,14 +173,13 @@ void MainWindow::mapClickLocationToGridCoordinate(QPoint screenPoint) {
 }
 
 void MainWindow::addLayerButton(){
-    currentIndexOfLayerButtons++;
     numberOfLayerButtons++;
     //renable delete button
     if(deleteLayerDisabled){
         deleteLayerDisabled = false;
         ui->deleteLayerButton->setEnabled(true);
     }
-    LayerButton* button = new LayerButton(currentIndexOfLayerButtons, this);
+    LayerButton* button = new LayerButton(numberOfLayerButtons, this);
     connect(button, &QPushButton::clicked, this, [this, button]() {selectedLayerButton = button; onLayerButtonClicked(button->getLayerNumber());});
     ui->layerButtonLayout->addWidget(button);
     layerButtons.push_back(button);
@@ -190,8 +193,13 @@ void MainWindow::deleteLayerButton(){
     layerButtons.removeOne(selectedLayerButton);
     emit deleteLayer(); // Hey dont we need to delete a specific layer not just any layer
     delete selectedLayerButton;
+    for(int i = 0; i < numberOfLayerButtons; i++){
+        QString buttonText = "Layer " + QString::number(i + 1);
+        layerButtons.at(i)->setLayerNumber(i);
+        layerButtons.at(i)->setText(buttonText);
+    }
     selectedLayerButton = layerButtons.first(); // when layer deleted it selects some button & layer
-    emit changeLayer(selectedLayerButton->getLayerNumber());
+    emit changeLayer(selectedLayerButton->getLayerNumber() - 1);
 
     if(numberOfLayerButtons == 1){
         deleteLayerDisabled = true;

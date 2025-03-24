@@ -206,6 +206,12 @@
       <height>141</height>
      </rect>
     </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+    </property>
+    <property name="sizeAdjustPolicy">
+     <enum>QAbstractScrollArea::SizeAdjustPolicy::AdjustIgnored</enum>
+    </property>
     <property name="widgetResizable">
      <bool>true</bool>
     </property>
