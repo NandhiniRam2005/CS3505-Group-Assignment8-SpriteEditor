@@ -95,7 +95,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::displayColorChange(Pixel pixel)
 {
-    colorButton.setStyleSheet(QString("background-color: rgba(%1, %2, %3, %4);").arg(pixel.red).arg(pixel.green).arg(pixel.blue).arg(pixel.alpha));
+    ui->colorButton->setStyleSheet(QString("background-color: rgba(%1, %2, %3, %4); border-style: outset; border-width: 2px; border-color: beige;").arg(pixel.red).arg(pixel.green).arg(pixel.blue).arg(pixel.alpha));
 }
 
 void MainWindow::displayLoadStatus(bool status)
