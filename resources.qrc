@@ -9,5 +9,6 @@
         <file>icons/flip-vertical.png</file>
         <file>icons/paint-bucket.png</file>
         <file>icons/rotate.png</file>
+        <file>icons/next.png</file>
     </qresource>
 </RCC>
