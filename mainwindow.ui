@@ -528,6 +528,9 @@
       <height>360</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>CrossCursor</cursorShape>
+    </property>
    </widget>
    <widget class="QLabel" name="label">
     <property name="geometry">
