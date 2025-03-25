@@ -10,7 +10,7 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    selectedTool = Brush;
+    selectedTool = Tool::Brush;
     brushSize = 1;
     currentIndexOfLayerButtons = 1;
     numberOfLayerButtons = 1;
@@ -134,22 +134,22 @@ void MainWindow::addFrameHelper()
 
 void MainWindow::setToolToBrush()
 {
-    selectedTool = Brush;
+    selectedTool = Tool::Brush;
 }
 
 void MainWindow::setToolToBucket()
 {
-    selectedTool = PaintBucket;
+    selectedTool = Tool::PaintBucket;
 }
 
 void MainWindow::setToolToEraser()
 {
-    selectedTool = Eraser;
+    selectedTool = Tool::Eraser;
 }
 
 void MainWindow::setToolToEyeDropper()
 {
-    selectedTool = EyeDropper;
+    selectedTool = Tool::EyeDropper;
 }
 
 void MainWindow::onLayerButtonClicked(int layerNumber)

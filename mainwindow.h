@@ -29,7 +29,7 @@ March 21, 2025
 /*
  * Enumeration of all tools in the GUi.
  */
-enum Tool {
+enum class Tool {
     Brush,
     PaintBucket,
     Eraser,
