@@ -138,21 +138,37 @@ void MainWindow::addFrameHelper()
 
 void MainWindow::setToolToBrush()
 {
+    ui->brushButton->setStyleSheet("border: 2px solid blue; border-radius: 5px; padding: 5px;");
+    ui->eraserButton->setStyleSheet("");
+    ui->paintBucketButton->setStyleSheet("");
+    ui->eyeDropperButton->setStyleSheet("");
     selectedTool = Tool::Brush;
 }
 
 void MainWindow::setToolToBucket()
 {
+    ui->brushButton->setStyleSheet("");
+    ui->eraserButton->setStyleSheet("");
+    ui->paintBucketButton->setStyleSheet("border: 2px solid blue; border-radius: 5px; padding: 5px;");
+    ui->eyeDropperButton->setStyleSheet("");
     selectedTool = Tool::PaintBucket;
 }
 
 void MainWindow::setToolToEraser()
 {
+    ui->brushButton->setStyleSheet("");
+    ui->eraserButton->setStyleSheet("border: 2px solid blue; border-radius: 5px; padding: 5px;");
+    ui->paintBucketButton->setStyleSheet("");
+    ui->eyeDropperButton->setStyleSheet("");
     selectedTool = Tool::Eraser;
 }
 
 void MainWindow::setToolToEyeDropper()
 {
+    ui->brushButton->setStyleSheet("");
+    ui->eraserButton->setStyleSheet("");
+    ui->paintBucketButton->setStyleSheet("");
+    ui->eyeDropperButton->setStyleSheet("border: 2px solid blue; border-radius: 5px; padding: 5px;");
     selectedTool = Tool::EyeDropper;
 }
 
