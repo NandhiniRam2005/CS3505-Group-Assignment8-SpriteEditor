@@ -11,4 +11,15 @@ QPoint PixelDisplay::mapPixelCoordinateToUICoordinate(unsigned int pixelX, unsig
     return QPoint(uiX, uiY);
 }
 
+void drawPixel(unsigned int pixelX, unsigned int pixelY, Pixel currentPixel) {
 
+}
+
+void updateDrawnImage(const QVector<QVector<Pixel>> &image) {
+    for (int x = 0; x < image.size(); x++) {
+        for (int y = 0; y < image[x].size(); y++) {
+            Pixel currentPixel = image[x][y];
+            drawPixel(x, y, currentPixel);
+        }
+    }
+}
