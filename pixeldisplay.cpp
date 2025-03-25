@@ -7,8 +7,8 @@ PixelDisplay::PixelDisplay(QWidget *parent)
 {}
 
 QPoint PixelDisplay::mapPixelCoordinateToUICoordinate(unsigned int pixelX, unsigned int pixelY) {
-    const float cellW = width() / static_cast<float>(pixelResolutionWidth);
-    const float cellH = height() / static_cast<float>(pixelResolutionHeight);
+    const float cellW = width() / pixelResolutionWidth;
+    const float cellH = height() / pixelResolutionHeight;
     return QPoint(pixelX * cellW, pixelY * cellH);
 }
 
