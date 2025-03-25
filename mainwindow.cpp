@@ -15,10 +15,10 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent)
     currentIndexOfLayerButtons = 1;
     numberOfLayerButtons = 1;
     selectedLayerButton = ui->layerOneButton;
+    selectedLayerButton->setStyleSheet("border: 2px solid blue; border-radius: 5px; padding: 5px;");
+    previouslySelected = nullptr;
     ui->layerOneButton->setLayerNumber(1);
     layerButtons.push_back(ui->layerOneButton);
-    std::cout << layerButtons.size() << std::endl;
-    std::cout << selectedLayerButton << std::endl;
     deleteLayerDisabled = true;
 
     //connections
@@ -36,12 +36,16 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent)
 
     //Add delete layers
     connect(ui->addLayerButton, &QPushButton::clicked, this, &MainWindow::addLayerButton);
+    // connect(this, &MainWindow::selectedLayerChanged, this, &MainWindow::displayLayerButtonSelection);
     // connect(this, &MainWindow::addLayer, model, &MainModel::addLayer);
     connect(ui->deleteLayerButton, &QPushButton::clicked, this, &MainWindow::deleteLayerButton);
     // connect(this, &MainWindow::deleteLayer, model, &MainModel::deleteLayer);
 
     //Select layers they will be dynamically created and connected else where.
     connect(ui->layerOneButton, &QPushButton::clicked, this, [this]() {
+        selectedLayerButton->setStyleSheet("");
+        selectedLayerButton = ui->layerOneButton;
+        selectedLayerButton->setStyleSheet("border: 2px solid blue; border-radius: 5px; padding: 5px;");
         int layerNumber = ui->layerOneButton->getLayerNumber();
         onLayerButtonClicked(layerNumber);
     });
@@ -153,7 +157,7 @@ void MainWindow::setToolToEyeDropper()
 }
 
 void MainWindow::onLayerButtonClicked(int layerNumber)
-{
+{   
     emit changeLayer(layerNumber);
 }
 
@@ -183,7 +187,7 @@ void MainWindow::addLayerButton(){
     LayerButton* button = new LayerButton(numberOfLayerButtons, this);
     button->setMinimumHeight(32);
     button->setMinimumWidth(99);
-    connect(button, &QPushButton::clicked, this, [this, button]() {selectedLayerButton = button; onLayerButtonClicked(button->getLayerNumber());});
+    connect(button, &QPushButton::clicked, this, [this, button]() { selectedLayerButton->setStyleSheet(""); selectedLayerButton = button;  selectedLayerButton->setStyleSheet("border: 2px solid blue; border-radius: 5px; padding: 5px;"); onLayerButtonClicked(button->getLayerNumber());});
     ui->layerButtonLayout->addWidget(button);
     if (numberOfLayerButtons == 4) {
         int currentHeight = ui->scrollArea->widget()->minimumHeight();
@@ -207,6 +211,7 @@ void MainWindow::deleteLayerButton(){
     ui->layerButtonLayout->removeWidget(selectedLayerButton);
     layerButtons.removeOne(selectedLayerButton);
     emit deleteLayer(); // Hey dont we need to delete a specific layer not just any layer
+    selectedLayerButton->setStyleSheet("");
     delete selectedLayerButton;
     for(int i = 0; i < numberOfLayerButtons; i++){
         QString buttonText = "Layer " + QString::number(i + 1);
@@ -214,8 +219,8 @@ void MainWindow::deleteLayerButton(){
         layerButtons.at(i)->setText(buttonText);
     }
     selectedLayerButton = layerButtons.first(); // when layer deleted it selects some button & layer
+    selectedLayerButton->setStyleSheet("border: 2px solid blue; border-radius: 5px; padding: 5px;");
     emit changeLayer(selectedLayerButton->getLayerNumber() - 1);
-
     if (numberOfLayerButtons == 3) {
         ui->scrollArea->widget()->setMinimumHeight(0);
 

@@ -107,6 +107,8 @@ public slots:
 
     void openFileChooserSave();
 
+    // void displayLayerButtonSelection();
+
 
 
 
@@ -163,6 +165,7 @@ signals:
     void rotate90();
     void setSelectedColortoPixel(unsigned int x, unsigned int y);
     void askGridSize();
+    // void selectedLayerChanged();
 
 private:
     MouseListener mouseListener;
@@ -191,6 +194,7 @@ private:
     bool deleteLayerDisabled;
     QVector<LayerButton*> layerButtons;
     LayerButton* selectedLayerButton;
+    LayerButton* previouslySelected;
     Ui::MainWindow *ui;
 };
 #endif // MAINWINDOW_H
