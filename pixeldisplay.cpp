@@ -10,3 +10,5 @@ QPoint PixelDisplay::mapPixelCoordinateToUICoordinate(unsigned int pixelX, unsig
     unsigned int uiY = pixelY * (800 / pixelResolutionHeight); // 800 is the widget height
     return QPoint(uiX, uiY);
 }
+
+
