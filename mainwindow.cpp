@@ -238,7 +238,7 @@ void MainWindow::deleteLayerButton(){
         layerButtons.at(i)->setLayerNumber(i);
         layerButtons.at(i)->setText(buttonText);
     }
-    selectedLayerButton = layerButtons.last(); // when layer deleted it selects some button & layer
+    selectedLayerButton = layerButtons.first(); // when layer deleted it selects some button & layer
     selectedLayerButton->setStyleSheet("border: 2px solid blue; border-radius: 5px; padding: 5px;");
     emit changeLayer(selectedLayerButton->getLayerNumber() - 1);
     if (numberOfLayerButtons == 3) {
