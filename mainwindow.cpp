@@ -189,6 +189,10 @@ void MainWindow::addLayerButton(){
     button->setMinimumWidth(99);
     connect(button, &QPushButton::clicked, this, [this, button]() { selectedLayerButton->setStyleSheet(""); selectedLayerButton = button;  selectedLayerButton->setStyleSheet("border: 2px solid blue; border-radius: 5px; padding: 5px;"); onLayerButtonClicked(button->getLayerNumber());});
     ui->layerButtonLayout->addWidget(button);
+    selectedLayerButton->setStyleSheet("");
+    selectedLayerButton = button;
+    selectedLayerButton->setStyleSheet("border: 2px solid blue; border-radius: 5px; padding: 5px;");
+    emit changeLayer(selectedLayerButton->getLayerNumber() - 1);
     if (numberOfLayerButtons == 4) {
         int currentHeight = ui->scrollArea->widget()->minimumHeight();
         ui->scrollArea->widget()->setMinimumHeight(currentHeight + 150);
