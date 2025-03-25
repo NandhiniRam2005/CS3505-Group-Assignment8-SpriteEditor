@@ -44,14 +44,14 @@ private:
      * @param pixelY - The pixel's y coordinate
      * @param currentPixel - The pixel to be drawn
      */
-   // void drawPixel(unsigned int pixelX, unsigned int pixelY, Pixel currentPixel);
+    void drawPixel(unsigned int pixelX, unsigned int pixelY, Pixel currentPixel);
 
 public slots:
     /**
      * Updates the pixel image displayed
      * @param image - The image to be displayed
      */
-   // void updateDrawnImage(const QVector<QVector<Pixel>> &image);
+    void updateDrawnImage(const QVector<QVector<Pixel>> &image);
 
 signals:
 };

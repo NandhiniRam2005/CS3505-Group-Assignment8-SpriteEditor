@@ -6,8 +6,8 @@ PixelDisplay::PixelDisplay(QWidget *parent)
 {}
 
 QPoint PixelDisplay::mapPixelCoordinateToUICoordinate(unsigned int pixelX, unsigned int pixelY) {
-    unsigned int uiX = pixelX * (800 / pixelResolutionWidth); // 800 is the widget width
-    unsigned int uiY = pixelY * (800 / pixelResolutionHeight); // 800 is the widget height
+    unsigned int uiX = pixelX * (360 / pixelResolutionWidth); // 360 is the widget width
+    unsigned int uiY = pixelY * (360 / pixelResolutionHeight); // 360 is the widget height
     return QPoint(uiX, uiY);
 }
 
