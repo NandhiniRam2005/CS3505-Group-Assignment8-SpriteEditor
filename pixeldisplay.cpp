@@ -33,7 +33,7 @@ void PixelDisplay::paintEvent(QPaintEvent* event) {
     for (unsigned int y = 0; y < gridSize; ++y) {
         for (unsigned int x = 0; x < gridSize; ++x) {
             const Pixel& pixel = currentImage[y * gridSize + x];
-            QColor color(pixel.red, pixel.green, pixel.blue);
+            QColor color(pixel.red, pixel.green, pixel.blue, pixel.alpha);
 
             painter.fillRect(
                 x * pixelWidth,
