@@ -269,7 +269,7 @@ private:
     /**
      * alpha value for hovered pixels
      */
-    const unsigned char HOVERED_ALPHA = 200;
+    const unsigned char HOVERED_ALPHA = 128;
 };
 
 #endif // MAINMODEL_H
