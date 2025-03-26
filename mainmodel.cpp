@@ -13,7 +13,7 @@ MainModel::MainModel(QObject *parent)
     animationFPS = 12;
     frames.push_back(Frame(gridSize));
     selectedFrame = 0;
-    selectedColor = Pixel(0,0,0,0);
+    selectedColor = Pixel(0,0,0,255);
 
     animationTimer = new QTimer();
 

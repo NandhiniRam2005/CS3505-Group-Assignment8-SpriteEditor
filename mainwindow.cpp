@@ -182,14 +182,20 @@ void MainWindow::updateGridSize(unsigned int gridSize) {
 }
 
 void MainWindow::mapClickLocationToGridCoordinate(QPoint screenPoint) {
-    int canvasWidthPixels = ui->mainDrawing->width();
-    int canvasHeightPixels = ui->mainDrawing->height();
+    // Convert to FLOAT division first
+    const float canvasWidth = ui->mainDrawing->width();
+    const float canvasHeight = ui->mainDrawing->height();
 
-    int cellWidth = canvasWidthPixels / currentGridSize;
-    int cellHeight = canvasHeightPixels / currentGridSize;
+    const float cellW = canvasWidth / currentGridSize;
+    const float cellH = canvasHeight / currentGridSize;
 
-    int gridXCoordinate = screenPoint.x() / cellWidth;
-    int gridYCoordinate = screenPoint.y() / cellHeight;
+    // Get precise grid coordinates
+    int gridXCoordinate = static_cast<int>(screenPoint.x() / cellW);
+    int gridYCoordinate = static_cast<int>(screenPoint.y() / cellH);
+
+    // Add bounds checking
+    gridXCoordinate = qBound(0, gridXCoordinate, static_cast<int>(currentGridSize) - 1);
+    gridYCoordinate = qBound(0, gridYCoordinate, static_cast<int>(currentGridSize) - 1);
 
     switch (selectedTool) {
     case Tool::Brush:
