@@ -27,8 +27,9 @@ public:
     explicit PixelDisplay(QWidget *parent = nullptr);
 
 private:
-    unsigned int pixelResolutionWidth;
-    unsigned int pixelResolutionHeight;
+    const Pixel* currentImage;
+    unsigned int gridSize;
+    QVector<Pixel> defaultImage;
 
     /**
      * Maps the pixel coordinates to the correlated UI coordinate
@@ -46,12 +47,15 @@ private:
      */
     void drawPixel(unsigned int pixelX, unsigned int pixelY, Pixel currentPixel);
 
+protected:
+    void paintEvent(QPaintEvent* event) override;
+
 public slots:
     /**
      * Updates the pixel image displayed
      * @param image - The image to be displayed
      */
-    void updateDrawnImage(const QVector<QVector<Pixel>> &image);
+    void updateDrawnImage(const Pixel* image, unsigned int gridSize);
 
 signals:
 };

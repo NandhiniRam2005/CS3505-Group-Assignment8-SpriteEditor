@@ -271,7 +271,7 @@ void MainModel::setSelectedColorToPixel(unsigned int x, unsigned int y){
 void MainModel::sendDisplayImage(){
     Pixel* image = frames[selectedFrame].getLayeredImage();
     if(currentMouseX < 0 || currentMouseY < 0){
-        emit newDisplayImage(image);
+        emit newDisplayImage(image, gridSize);
         return;
     }
     for(int i = currentMouseY; i< currentMouseY + brushSize; i++){
@@ -279,7 +279,7 @@ void MainModel::sendDisplayImage(){
             image[i * gridSize + j].alpha = HOVERED_ALPHA;
         }
     }
-    emit newDisplayImage(image);
+    emit newDisplayImage(image, gridSize);
 }
 
 void MainModel::sendAnimationFrame(){

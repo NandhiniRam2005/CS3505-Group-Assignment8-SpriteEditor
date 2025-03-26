@@ -61,7 +61,7 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent)
     connect(ui->rotateButton, &QPushButton::clicked, model, &MainModel::rotate90);
 
     //Update displays
-    //connect(model, &MainModel::newDisplayImage, ui->mainDrawing, &PixelDisplay::updateDrawnImage);
+    connect(model, &MainModel::newDisplayImage, ui->mainDrawing, &PixelDisplay::updateDrawnImage);
     //connect(model, &MainModel::newAnimationFrame, ui->animationDisplay, &PixelDisplay::updateDrawnImage);
     //connect(model, &MainModel::newDisplayImage, ui->frameDisplay, &PixelDisplay::updateDrawnImage);
 
@@ -191,6 +191,20 @@ void MainWindow::mapClickLocationToGridCoordinate(QPoint screenPoint) {
     int gridXCoordinate = screenPoint.x() / cellWidth;
     int gridYCoordinate = screenPoint.y() / cellHeight;
 
+    switch (selectedTool) {
+    case Tool::Brush:
+        emit paintPixels(gridXCoordinate, gridYCoordinate);
+        break;
+    case Tool::Eraser:
+        emit erasePixels(gridXCoordinate, gridYCoordinate);
+        break;
+    case Tool::EyeDropper:
+        emit setSelectedColortoPixel(gridXCoordinate, gridYCoordinate);
+        break;
+    case Tool::PaintBucket:
+        emit bucketFill(gridXCoordinate, gridYCoordinate);
+        break;
+    }
 }
 
 void MainWindow::addLayerButton(){
