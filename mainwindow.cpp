@@ -173,7 +173,7 @@ void MainWindow::setToolToEyeDropper()
 }
 
 void MainWindow::onLayerButtonClicked(int layerNumber)
-{   
+{
     emit changeLayer(layerNumber);
 }
 
@@ -182,20 +182,14 @@ void MainWindow::updateGridSize(unsigned int gridSize) {
 }
 
 void MainWindow::mapClickLocationToGridCoordinate(QPoint screenPoint) {
-    // Convert to FLOAT division first
-    const float canvasWidth = ui->mainDrawing->width();
-    const float canvasHeight = ui->mainDrawing->height();
+    int canvasWidthPixels = ui->mainDrawing->width();
+    int canvasHeightPixels = ui->mainDrawing->height();
 
-    const float cellW = canvasWidth / currentGridSize;
-    const float cellH = canvasHeight / currentGridSize;
+    int cellWidth = canvasWidthPixels / currentGridSize;
+    int cellHeight = canvasHeightPixels / currentGridSize;
 
-    // Get precise grid coordinates
-    int gridXCoordinate = static_cast<int>(screenPoint.x() / cellW);
-    int gridYCoordinate = static_cast<int>(screenPoint.y() / cellH);
-
-    // Add bounds checking
-    gridXCoordinate = qBound(0, gridXCoordinate, static_cast<int>(currentGridSize) - 1);
-    gridYCoordinate = qBound(0, gridYCoordinate, static_cast<int>(currentGridSize) - 1);
+    int gridXCoordinate = screenPoint.x() / cellWidth;
+    int gridYCoordinate = screenPoint.y() / cellHeight;
 
     switch (selectedTool) {
     case Tool::Brush:
