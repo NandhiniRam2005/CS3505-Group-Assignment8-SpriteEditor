@@ -25,7 +25,6 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent)
     //connections
 
     //For Hover
-    connect(ui->mouseListener, &MouseListener::mouseMoved, this, &MainWindow::handleHover);
     connect(ui->mouseListener, &MouseListener::mouseLeft, this, &MainWindow::handleHoverLeave);
     connect(ui->mouseListener, &MouseListener::mouseLeft, model, &MainModel::mouseLeft);
 
@@ -108,17 +107,6 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
-}
-
-void MainWindow::handleHover(QPoint point)
-{
-    // Get widget dimensions
-    const QRect widgetRect = ui->mouseListener->rect();
-
-    // Check if point is within widget bounds
-    if(widgetRect.contains(point)) {
-        qDebug() << "should be hovering";
-    }
 }
 
 void MainWindow::handleHoverLeave()

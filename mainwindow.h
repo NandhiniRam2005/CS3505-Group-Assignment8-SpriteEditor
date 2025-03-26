@@ -111,8 +111,6 @@ public slots:
 
     // void displayLayerButtonSelection();
 
-
-    void handleHover(QPoint point);
     void handleHoverLeave();
 
 signals:
