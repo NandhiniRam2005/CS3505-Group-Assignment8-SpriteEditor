@@ -9,7 +9,7 @@
 MainModel::MainModel(QObject *parent)
     : QObject{parent}
 {
-    brushSize = 1;
+    brushSize = 4;
     gridSize = 32;
     animationFPS = 12;
     frames.push_back(Frame(gridSize));
@@ -281,17 +281,26 @@ void MainModel::mouseLeft()
 }
 
 void MainModel::sendDisplayImage(){
-    Pixel* image = frames[selectedFrame].getLayeredImage();
-    if(currentMouseX < 0 || currentMouseY < 0){
-        emit newDisplayImage(image);
-        return;
-    }
-    for(int i = currentMouseY; i< currentMouseY + brushSize; i++){
-        for(int j = currentMouseX; j< currentMouseX + brushSize; j++){
-            image[i * gridSize + j].alpha = HOVERED_ALPHA;
+    // Get original image
+    Pixel* baseImage = frames[selectedFrame].getLayeredImage();
+    // Create temporary copy
+    QVector<Pixel> tempImage(gridSize * gridSize);
+    std::copy(baseImage, baseImage + gridSize * gridSize, tempImage.begin());
+
+    if(currentMouseX >= 0 && currentMouseY >= 0) {
+        // Apply hover to COPY
+        const int maxX = std::min(currentMouseX + brushSize, static_cast<int>(gridSize));
+        const int maxY = std::min(currentMouseY + brushSize, static_cast<int>(gridSize));
+
+        for(int y = std::max(0, currentMouseY); y < maxY; ++y) {
+            for(int x = std::max(0, currentMouseX); x < maxX; ++x) {
+                tempImage[y * gridSize + x].alpha = HOVERED_ALPHA;
+            }
         }
     }
-    emit newDisplayImage(image);
+
+    // Emit temporary copy
+    emit newDisplayImage(tempImage.data());
 }
 
 void MainModel::sendAnimationFrame(){

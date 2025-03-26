@@ -27,6 +27,25 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent)
     //For Hover
     connect(ui->mouseListener, &MouseListener::mouseLeft, this, &MainWindow::handleHoverLeave);
     connect(ui->mouseListener, &MouseListener::mouseLeft, model, &MainModel::mouseLeft);
+    connect(ui->mouseListener, &MouseListener::mouseMoved,
+            this, [this, model](QPoint point) {
+                const int canvasWidth = ui->mainDrawing->width();
+                const int canvasHeight = ui->mainDrawing->height();
+
+                if (canvasWidth == 0 || canvasHeight == 0) return;
+
+                const int cellWidth = canvasWidth / currentGridSize;
+                const int cellHeight = canvasHeight / currentGridSize;
+
+                const int gridX = point.x() / cellWidth;
+                const int gridY = point.y() / cellHeight;
+
+                if (gridX >= 0 && gridY >= 0 &&
+                    gridX < static_cast<int>(currentGridSize) &&
+                    gridY < static_cast<int>(currentGridSize)) {
+                    model->mouseHovered(gridX, gridY);
+                }
+            });
 
     //Save/Load
     connect(ui->actionLoad, &QAction::triggered, this, &MainWindow::openFileChooserLoad);
