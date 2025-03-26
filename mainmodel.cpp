@@ -294,7 +294,7 @@ void MainModel::sendAnimationFrame(){
     if(currentAnimationFrame == frames.size()){
         currentAnimationFrame = 0;
     }
-    emit newAnimationFrame(frames[currentAnimationFrame].getLayeredImage());
+    emit newAnimationFrame(frames[currentAnimationFrame].getRenderedImage());
 }
 
 

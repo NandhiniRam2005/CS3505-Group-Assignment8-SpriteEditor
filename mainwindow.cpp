@@ -66,7 +66,7 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent)
     connect(this, &MainWindow::paintPixels, model, &MainModel::paintPixels);
     connect(this, &MainWindow::erasePixels, model, &MainModel::erasePixels);
     connect(this, &MainWindow::bucketFill, model, &MainModel::bucketFill);
-    // connect(model, &MainModel::newAnimationFrame, ui->animationDisplay, &PixelDisplay::updateDrawnImage);
+    connect(model, &MainModel::newAnimationFrame, ui->animationDisplay, &PixelDisplay::updateDrawnImage);
     connect(model, &MainModel::newDisplayImage, ui->frameDisplay, &PixelDisplay::updateDrawnImage);
 
     //Update color
@@ -198,6 +198,10 @@ void MainWindow::mapClickLocationToGridCoordinate(QPoint screenPoint) {
 
     int gridXCoordinate = screenPoint.x() / cellWidth;
     int gridYCoordinate = screenPoint.y() / cellHeight;
+
+    if(gridXCoordinate < 0 || gridYCoordinate < 0 || gridXCoordinate >= currentGridSize ||gridYCoordinate>= currentGridSize){
+        return; //clicked / dragged outside of the canvas
+    }
 
     switch (selectedTool) {
     case Tool::Brush:
