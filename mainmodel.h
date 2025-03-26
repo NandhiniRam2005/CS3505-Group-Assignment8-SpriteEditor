@@ -261,17 +261,18 @@ private:
     /**
      * x coordinate of the mouse position currently
      */
-    int currentMouseX;
+    int currentMouseX = -1;
 
     /**
      * y coordinate of the mouse position currently
      */
-    int currentMouseY;
+    int currentMouseY = -1;
 
     /**
      * alpha value for hovered pixels
      */
     const unsigned char HOVERED_ALPHA = 128;
+
 };
 
 #endif // MAINMODEL_H
