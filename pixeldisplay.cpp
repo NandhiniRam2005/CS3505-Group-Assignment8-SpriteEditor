@@ -3,7 +3,11 @@
 #include <QPoint>
 #include <QRect>
 
-PixelDisplay::PixelDisplay(QWidget *parent) : QWidget(parent), gridSize(32), painter(this) {}
+PixelDisplay::PixelDisplay(QWidget *parent)
+    : QWidget(parent), gridSize(32), currentImage(gridSize * gridSize)
+{
+    //You can put a default image here
+}
 
 QPoint PixelDisplay::mapPixelCoordinateToUICoordinate(unsigned int pixelX, unsigned int pixelY) {
     // Calculate the size of each pixel based on the widget's size
@@ -17,50 +21,35 @@ QPoint PixelDisplay::mapPixelCoordinateToUICoordinate(unsigned int pixelX, unsig
     return QPoint(uiX, uiY);
 }
 
-void PixelDisplay::drawPixel(unsigned int pixelX, unsigned int pixelY, Pixel currentPixel) {
-    // Calculate the size of each pixel based on the widget's size
-    int pixelWidth = width() / gridSize;
-    int pixelHeight = height() / gridSize;
+void PixelDisplay::paintEvent(QPaintEvent* event) {
+    QWidget::paintEvent(event);
 
-    // Set the brush color based on the pixel's color
-    QColor pixelColor(currentPixel.red, currentPixel.green, currentPixel.blue);
-    painter.setBrush(pixelColor);
-    painter.setPen(pixelColor);
+    QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing, false); // For crisp pixels
 
-    // Calculate the rectangle for the pixel
-    QRect pixelRect(
-        pixelX * pixelWidth,  // x
-        pixelY * pixelHeight, // y
-        pixelWidth,
-        pixelHeight
-        );
+    const int pixelWidth = width() / gridSize;
+    const int pixelHeight = height() / gridSize;
 
-    // Draw the pixel
-    painter.drawRect(pixelRect);
+    for (unsigned int y = 0; y < gridSize; ++y) {
+        for (unsigned int x = 0; x < gridSize; ++x) {
+            const Pixel& pixel = currentImage[y * gridSize + x];
+            QColor color(pixel.red, pixel.green, pixel.blue);
+
+            painter.fillRect(
+                x * pixelWidth,
+                y * pixelHeight,
+                pixelWidth,
+                pixelHeight,
+                color
+                );
+        }
+    }
 }
 
 void PixelDisplay::updateDrawnImage(const Pixel* image) {
     // Iterate through the entire image array and draw each pixel
-    for (unsigned int y = 0; y < gridSize; ++y) {
-        for (unsigned int x = 0; x < gridSize; ++x) {
-            // Calculate the index in the 1D array
-            unsigned int index = y * gridSize + x;
-
-            // Draw the pixel at its corresponding location
-            drawPixel(x, y, image[index]);
-        }
+    for (unsigned int i = 0; i < gridSize * gridSize; i++) {
+        currentImage[i] = image[i];
     }
-
-    // Force a repaint of the widget
-    update();
-}
-
-void PixelDisplay::paintEvent(QPaintEvent* event) {
-
-
-    QWidget::paintEvent(event);
-
-
-
-    update();
+    update(); // Schedule a repaint
 }

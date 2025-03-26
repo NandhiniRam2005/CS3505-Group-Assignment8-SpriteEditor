@@ -29,7 +29,7 @@ public:
 
 private:
     unsigned int gridSize;   // Stores the grid size
-    QPainter painter;
+    QVector<Pixel> currentImage;
 
 
     /**
