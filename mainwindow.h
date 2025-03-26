@@ -103,6 +103,8 @@ public slots:
 
     void mapClickLocationToGridCoordinate(QPoint p);
 
+    void handleMouseDrag(QPoint screenPoint);
+
     void openFileChooserLoad();
 
     void openFileChooserSave();

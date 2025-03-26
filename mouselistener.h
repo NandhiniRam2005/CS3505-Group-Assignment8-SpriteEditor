@@ -12,9 +12,15 @@ public:
 
 signals:
     void mouseClicked(QPoint p);
+    void mouseMoved(QPoint screenCoords);
+    void mouseReleased();
 
 private:
+    bool isMousePressed = false;
+
     void mousePressEvent(QMouseEvent *event) override;
+    void mouseMoveEvent(QMouseEvent* event) override;
+    void mouseReleaseEvent(QMouseEvent* event) override;
 
 };
 
