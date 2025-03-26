@@ -204,6 +204,8 @@ public slots:
 
     void getGridSize();
 
+    void mouseLeft();
+
 private:
     /**
      * Sends the current display image to the display.

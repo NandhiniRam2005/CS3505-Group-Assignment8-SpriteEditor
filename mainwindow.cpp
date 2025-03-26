@@ -27,6 +27,7 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent)
     //For Hover
     connect(ui->mouseListener, &MouseListener::mouseMoved, this, &MainWindow::handleHover);
     connect(ui->mouseListener, &MouseListener::mouseLeft, this, &MainWindow::handleHoverLeave);
+    connect(ui->mouseListener, &MouseListener::mouseLeft, model, &MainModel::mouseLeft);
 
     //Save/Load
     connect(ui->actionLoad, &QAction::triggered, this, &MainWindow::openFileChooserLoad);

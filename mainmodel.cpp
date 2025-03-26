@@ -275,6 +275,13 @@ void MainModel::setSelectedColorToPixel(unsigned int x, unsigned int y){
     emit newSelectedColor(selectedColor);
 }
 
+void MainModel::mouseLeft()
+{
+    currentMouseX = -1;
+    currentMouseY = -1;
+    sendDisplayImage();
+}
+
 void MainModel::sendDisplayImage(){
     Pixel* image = frames[selectedFrame].getLayeredImage();
     if(currentMouseX < 0 || currentMouseY < 0){
