@@ -14,6 +14,8 @@ MainModel::MainModel(QObject *parent)
     frames.push_back(Frame(gridSize));
     selectedFrame = 0;
     selectedColor = Pixel(0,0,0,255);
+    currentMouseX = -1;
+    currentMouseY = -1;
 
     animationTimer = new QTimer();
 
