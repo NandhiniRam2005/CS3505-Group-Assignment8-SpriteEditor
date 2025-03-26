@@ -62,8 +62,8 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent)
 
     //Update displays
     connect(model, &MainModel::newDisplayImage, ui->mainDrawing, &PixelDisplay::updateDrawnImage);
-    //connect(model, &MainModel::newAnimationFrame, ui->animationDisplay, &PixelDisplay::updateDrawnImage);
-    //connect(model, &MainModel::newDisplayImage, ui->frameDisplay, &PixelDisplay::updateDrawnImage);
+    // connect(model, &MainModel::newAnimationFrame, ui->animationDisplay, &PixelDisplay::updateDrawnImage);
+    connect(model, &MainModel::newDisplayImage, ui->frameDisplay, &PixelDisplay::updateDrawnImage);
 
     //Update color
     connect(ui->colorButton, &QPushButton::clicked, this, &MainWindow::openColorDialogue);
@@ -88,6 +88,9 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent)
     // in model but doe sthat break MVC? so jus added signal/slot) (for mapClickLocationToGridCoordinate method) !!!
     connect(this, &MainWindow::askGridSize, model, &MainModel::getGridSize);
     connect(model, &MainModel::gridSizeUpdated, this, &MainWindow::updateGridSize);
+
+    //Connect MouseListener
+    connect(ui->mouseListener, &MouseListener::mouseClicked, this, &MainWindow::mapClickLocationToGridCoordinate);
 
     emit askGridSize();
 }
