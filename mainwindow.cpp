@@ -25,7 +25,6 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent)
     //connections
 
     //For Hover
-    connect(ui->mouseListener, &MouseListener::mouseLeft, this, &MainWindow::handleHoverLeave);
     connect(ui->mouseListener, &MouseListener::mouseLeft, model, &MainModel::mouseLeft);
     connect(ui->mouseListener, &MouseListener::mouseMoved,
             this, [this, model](QPoint point) {
@@ -126,11 +125,6 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
-}
-
-void MainWindow::handleHoverLeave()
-{
-    qDebug() << "leaves window";
 }
 
 void MainWindow::displayColorChange(Pixel pixel)

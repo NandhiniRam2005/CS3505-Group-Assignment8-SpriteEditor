@@ -111,8 +111,6 @@ public slots:
 
     // void displayLayerButtonSelection();
 
-    void handleHoverLeave();
-
 signals:
     /**
      * Signal to load file

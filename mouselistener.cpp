@@ -24,7 +24,6 @@ void MouseListener::mouseReleaseEvent(QMouseEvent* event) {
 
 void MouseListener::leaveEvent(QEvent *event)
 {
-    qDebug() << "Mouse left widget";
     emit mouseLeft();
     QWidget::leaveEvent(event);
 }
