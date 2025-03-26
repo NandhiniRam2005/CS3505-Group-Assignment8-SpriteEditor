@@ -11,10 +11,8 @@ void MouseListener::mousePressEvent(QMouseEvent* event){
 }
 
 void MouseListener::mouseMoveEvent(QMouseEvent* event) {
-    if (isMousePressed) {
-        QPoint screenCoords = event->pos();
-        emit mouseMoved(screenCoords);
-    }
+    QPoint screenCoords = event->pos();
+    emit mouseMoved(screenCoords);
 }
 
 void MouseListener::mouseReleaseEvent(QMouseEvent* event) {
