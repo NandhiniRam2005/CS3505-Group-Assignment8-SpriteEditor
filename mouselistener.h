@@ -14,6 +14,7 @@ signals:
     void mouseClicked(QPoint p);
     void mouseMoved(QPoint screenCoords);
     void mouseReleased();
+    void mouseLeft();
 
 private:
     bool isMousePressed = false;
@@ -21,6 +22,7 @@ private:
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent* event) override;
     void mouseReleaseEvent(QMouseEvent* event) override;
+    void leaveEvent(QEvent *event) override;
 
 };
 

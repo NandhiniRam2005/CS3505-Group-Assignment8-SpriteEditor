@@ -2,7 +2,9 @@
 
 MouseListener::MouseListener(QWidget *parent)
     : QWidget{parent}
-{}
+{
+    setMouseTracking(true);
+}
 
 void MouseListener::mousePressEvent(QMouseEvent* event){
     QPoint screenCoords = event->pos();
@@ -18,4 +20,11 @@ void MouseListener::mouseMoveEvent(QMouseEvent* event) {
 void MouseListener::mouseReleaseEvent(QMouseEvent* event) {
     isMousePressed = false;
     emit mouseReleased();
+}
+
+void MouseListener::leaveEvent(QEvent *event)
+{
+    qDebug() << "Mouse left widget";
+    emit mouseLeft();
+    QWidget::leaveEvent(event);
 }
