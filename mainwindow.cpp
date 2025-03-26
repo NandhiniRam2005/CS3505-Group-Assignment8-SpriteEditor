@@ -224,10 +224,10 @@ void MainWindow::mapClickLocationToGridCoordinate(QPoint screenPoint) {
     int cellWidth = canvasWidthPixels / currentGridSize;
     int cellHeight = canvasHeightPixels / currentGridSize;
 
-    int gridXCoordinate = screenPoint.x() / cellWidth;
-    int gridYCoordinate = screenPoint.y() / cellHeight;
+    unsigned int gridXCoordinate = screenPoint.x() / cellWidth;
+    unsigned int gridYCoordinate = screenPoint.y() / cellHeight;
 
-    if(gridXCoordinate < 0 || gridYCoordinate < 0 || gridXCoordinate >= currentGridSize ||gridYCoordinate>= currentGridSize){
+    if(gridXCoordinate < 0 || gridYCoordinate < 0 || gridXCoordinate >= currentGridSize ||gridYCoordinate >= currentGridSize){
         return; //clicked / dragged outside of the canvas
     }
 
