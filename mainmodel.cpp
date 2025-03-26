@@ -9,7 +9,7 @@
 MainModel::MainModel(QObject *parent)
     : QObject{parent}
 {
-    brushSize = 1;
+    brushSize = 4;
     gridSize = 32;
     animationFPS = 12;
     frames.push_back(Frame(gridSize));
@@ -239,7 +239,13 @@ void MainModel::mouseHovered(unsigned int xCoord, unsigned int yCoord){
 }
 
 void MainModel::paintPixels(unsigned int topLeftX, unsigned int topLeftY){
-    frames[selectedFrame].paintPixels(QPoint(topLeftX, topLeftY), QPoint(topLeftX + brushSize - 1, topLeftY + brushSize - 1), selectedColor);
+    // Add boundary checks
+    if(topLeftX >= gridSize || topLeftY >= gridSize) return;
+
+    const unsigned int maxX = std::min(topLeftX + brushSize, gridSize);
+    const unsigned int maxY = std::min(topLeftY + brushSize, gridSize);
+
+    frames[selectedFrame].paintPixels(QPoint(topLeftX, topLeftY), QPoint(maxX-1, maxY-1), selectedColor);
     sendDisplayImage();
 }
 
