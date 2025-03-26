@@ -84,6 +84,8 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent)
 
     //Drawing connections NOT DONE
     connect(ui->mouseListener, &MouseListener::mouseClicked, this, &MainWindow::mapClickLocationToGridCoordinate);
+    connect(ui->mouseListener, &MouseListener::mouseClicked, this, &MainWindow::mapClickLocationToGridCoordinate);
+    connect(ui->mouseListener, &MouseListener::mouseMoved, this, &MainWindow::handleMouseDrag);
     //Set brush size connections - DO WE WANT A SLIDER FOR BRUSH SIZE??? (havnt added to ui cuz aint sure hehe)
     //connect(ui->brushSizeSlider, &QSlider::valueChanged, this, &MainWindow::setBrushSize);
 
@@ -210,6 +212,12 @@ void MainWindow::mapClickLocationToGridCoordinate(QPoint screenPoint) {
     case Tool::PaintBucket:
         emit bucketFill(gridXCoordinate, gridYCoordinate);
         break;
+    }
+}
+
+void MainWindow::handleMouseDrag(QPoint screenPoint) {
+    if(QApplication::mouseButtons() & Qt::LeftButton) {
+        mapClickLocationToGridCoordinate(screenPoint);
     }
 }
 
