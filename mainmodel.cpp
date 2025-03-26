@@ -251,12 +251,8 @@ void MainModel::erasePixels(unsigned int topLeftX, unsigned int topLeftY){
 }
 
 void MainModel::bucketFill(unsigned int topLeftX, unsigned int topLeftY){
-    std::cout<< "bucket filling" << std::endl;
-    std::cout<< "selected Color:(" << (int)selectedColor.red << ','<<(int)selectedColor.green << ','<< (int)selectedColor.blue<< ',' <<(int)selectedColor.alpha <<")" << std::endl;
     frames[selectedFrame].bucketFill(topLeftX, topLeftY, selectedColor);
-    std::cout<< "bucket filling done?" << std::endl;
     sendDisplayImage();
-    std::cout<< "sent" << std::endl;
 }
 
 void MainModel::reflectVertical(){

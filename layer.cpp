@@ -40,26 +40,16 @@ void Layer::paintPixels(QPoint corner1, QPoint corner2, const Pixel& color) {
 void Layer::bucketFill(int x, int y, const Pixel& color){
     validateCoords(x, y);
     bool* visits = new bool[size * size]{};
-    Pixel& currentColor = pixels[y * size + x];
-    std::cout<< "current Color:(" << (int)currentColor.red << ','<<(int)currentColor.green << ','<< (int)currentColor.blue<< ',' <<(int)currentColor.alpha <<")" << std::endl;
-
+    Pixel currentColor = pixels[y * size + x];
     bucketFillDfs(x, y, visits, color, currentColor);
-    std::cout << "done" << std::endl;
     delete[] visits;
 }
 
 void Layer::bucketFillDfs(int x, int y, bool* visits, const Pixel& color, const Pixel& currentColor){
-    std::cout << "x: " << x << " y: " << y << " size: " << size << std::endl;
     if(x < 0 || y < 0 || x >= size || y >= size || visits[y*size + x] || pixels[y*size + x] != currentColor){
-        std::cout << "visited: " << visits[y*size + x] << std::endl;
         Pixel pixColor = pixels[y*size + x];
-        std::cout<< "Color:(" << (int)pixColor.red << ','<<(int)pixColor.green << ','<< (int)pixColor.blue<< ',' <<(int)pixColor.alpha <<")" << std::endl;
-        std::cout << "Colors equal: "<< (pixColor == currentColor) << std::endl;
-        std::cout << "Colors not equal: "<< (pixColor != currentColor) << std::endl;
-        std::cout << "leaving" << std::endl;
         return;
     }
-    std::cout << "painting" << std::endl;
     visits[y*size + x] = true;
     pixels[y*size + x] = color;
     bucketFillDfs(x-1, y, visits, color, currentColor);
