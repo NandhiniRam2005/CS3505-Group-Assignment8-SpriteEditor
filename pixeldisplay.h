@@ -31,7 +31,6 @@ private:
     unsigned int gridSize;   // Stores the grid size
     QVector<Pixel> currentImage;
 
-
     /**
      * Maps the pixel coordinates to the correlated UI coordinate
      * @param pixelX - The pixel's x coordinate
@@ -39,14 +38,6 @@ private:
      * @return A QPoint tuple with the UI coordinate conversion of the pixel coordinates
      */
     QPoint mapPixelCoordinateToUICoordinate(unsigned int pixelX, unsigned int pixelY);
-
-    /**
-     * Helper method for updating drawn image. Draws a pixel at a specific location.
-     * @param pixelX - The pixel's x coordinate
-     * @param pixelY - The pixel's y coordinate
-     * @param currentPixel - The pixel to be drawn
-     */
-    void drawPixel(unsigned int pixelX, unsigned int pixelY, Pixel currentPixel);
 
 protected:
     /**

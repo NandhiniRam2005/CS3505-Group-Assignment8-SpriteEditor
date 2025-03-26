@@ -25,7 +25,6 @@ void PixelDisplay::paintEvent(QPaintEvent* event) {
     QWidget::paintEvent(event);
 
     QPainter painter(this);
-    painter.setRenderHint(QPainter::Antialiasing, false); // For crisp pixels
 
     const int pixelWidth = width() / gridSize;
     const int pixelHeight = height() / gridSize;
