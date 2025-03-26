@@ -56,9 +56,8 @@ public slots:
     /**
      * Updates the pixel image displayed.
      * @param image - The image to be displayed
-     * @param gridSize - The new grid size
      */
-    void updateDrawnImage(const Pixel* image, unsigned int gridSize);
+    void updateDrawnImage(const Pixel* image);
 
 signals:
 };

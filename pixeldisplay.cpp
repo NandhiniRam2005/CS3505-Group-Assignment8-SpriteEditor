@@ -14,7 +14,7 @@ void PixelDisplay::drawPixel(unsigned int pixelX, unsigned int pixelY, Pixel cur
 
 }
 
-void PixelDisplay::updateDrawnImage(const Pixel* image, unsigned int size) {
+void PixelDisplay::updateDrawnImage(const Pixel* image) {
 
 }
 
