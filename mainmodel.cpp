@@ -179,6 +179,7 @@ void MainModel::addFrame(bool copyPrevious){
     }else{
         frames.append(Frame(gridSize));
     }
+    sendDisplayImage();
 }
 
 void MainModel::deleteFrame(){
@@ -190,6 +191,7 @@ void MainModel::deleteFrame(){
     if(selectedFrame <= frames.size()){
         selectedFrame = frames.size()-1;
     }
+    sendDisplayImage();
 }
 
 void MainModel::changeLayer(unsigned int layer){
@@ -203,10 +205,12 @@ void MainModel::changeLayer(unsigned int layer){
 
 void MainModel::addLayer(){
     frames[selectedFrame].addLayer();
+    sendDisplayImage();
 }
 
 void MainModel::deleteLayer(){
     frames[selectedFrame].deleteLayer();
+    sendDisplayImage();
 }
 
 void MainModel::changeBrushSize(unsigned int newBrushSize){
