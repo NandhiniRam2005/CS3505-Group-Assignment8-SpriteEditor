@@ -3,7 +3,7 @@
 #include <QPoint>
 #include <QRect>
 
-PixelDisplay::PixelDisplay(QWidget *parent) : QWidget(parent), gridSize(32) {}
+PixelDisplay::PixelDisplay(QWidget *parent) : QWidget(parent), gridSize(32), painter(this) {}
 
 QPoint PixelDisplay::mapPixelCoordinateToUICoordinate(unsigned int pixelX, unsigned int pixelY) {
     // Calculate the size of each pixel based on the widget's size
@@ -21,9 +21,6 @@ void PixelDisplay::drawPixel(unsigned int pixelX, unsigned int pixelY, Pixel cur
     // Calculate the size of each pixel based on the widget's size
     int pixelWidth = width() / gridSize;
     int pixelHeight = height() / gridSize;
-
-    // Create a painter for the widget
-    QPainter painter(this);
 
     // Set the brush color based on the pixel's color
     QColor pixelColor(currentPixel.red, currentPixel.green, currentPixel.blue);
@@ -59,7 +56,11 @@ void PixelDisplay::updateDrawnImage(const Pixel* image) {
 }
 
 void PixelDisplay::paintEvent(QPaintEvent* event) {
-    // This method is called automatically when the widget needs to be redrawn
-    // We don't need to do anything special here, as updateDrawnImage handles the drawing
+
+
     QWidget::paintEvent(event);
+
+
+
+    update();
 }

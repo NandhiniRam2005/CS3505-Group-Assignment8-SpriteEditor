@@ -13,7 +13,7 @@ March 21, 2025
 #define PIXELDISPLAY_H
 
 #include <QWidget>
-#include <QVector>
+#include <QPainter>
 #include "pixel.h"
 
 class PixelDisplay : public QWidget
@@ -29,6 +29,8 @@ public:
 
 private:
     unsigned int gridSize;   // Stores the grid size
+    QPainter painter;
+
 
     /**
      * Maps the pixel coordinates to the correlated UI coordinate
