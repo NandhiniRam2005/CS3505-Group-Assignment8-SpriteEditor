@@ -5,9 +5,7 @@
 
 PixelDisplay::PixelDisplay(QWidget *parent)
     : QWidget(parent), gridSize(32), currentImage(gridSize * gridSize)
-{
-    //You can put a default image here
-}
+{}
 
 QPoint PixelDisplay::mapPixelCoordinateToUICoordinate(unsigned int pixelX, unsigned int pixelY) {
     // Calculate the size of each pixel based on the widget's size
