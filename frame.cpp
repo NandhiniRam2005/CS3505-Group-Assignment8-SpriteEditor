@@ -59,7 +59,6 @@ void Frame::renderImages(){
             if(layerPixels[i].alpha != 0){
                 layeredImage[i] = layerPixels[i];
                 renderedImage[i] = layeredImage[i];
-                renderedImage[i].alpha = 255;
             }
         }
     }

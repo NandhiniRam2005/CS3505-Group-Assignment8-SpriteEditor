@@ -7,8 +7,8 @@ Pixel::Pixel(unsigned char red, unsigned char green, unsigned char blue, unsigne
 
 }
 bool Pixel::operator==(const Pixel& other) const{
-    return red == other.red && green==other.green && blue==other.blue && alpha == other.alpha;
+    return (red == other.red) && (green==other.green) && (blue==other.blue) && (alpha == other.alpha);
 }
 bool Pixel::operator!=(const Pixel& other) const{
-    return operator== (other);
+    return (red != other.red) || (green !=other.green) || (blue !=other.blue) || (alpha != other.alpha);
 }
