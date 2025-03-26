@@ -119,6 +119,9 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent)
     //Connect MouseListener
     connect(ui->mouseListener, &MouseListener::mouseClicked, this, &MainWindow::mapClickLocationToGridCoordinate);
 
+    //Load and save
+    // connect(this, &MainWindow::saveFile, model, &MainModel::saveJSON);
+
     emit askGridSize();
 }
 
@@ -319,7 +322,9 @@ void MainWindow::openFileChooserLoad(){
     emit loadFile(filename);
 }
 void MainWindow::openFileChooserSave(){
-    QString filename = QFileDialog::getOpenFileName(nullptr, "Open File", "", "ssp", nullptr);
+    QString filename = QFileDialog::getSaveFileName(nullptr, "Save File", "", "ssp", nullptr);
+
+    qDebug() << filename;
 
     emit saveFile(filename);
 }

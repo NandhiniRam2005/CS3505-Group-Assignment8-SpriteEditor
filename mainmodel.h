@@ -80,13 +80,13 @@ public slots:
      * Loads a JSON file containing canvas' data.
      * @param filepath - path to the JSON file to load.
      */
-  //  void loadJSON(QString& filepath);
+   void loadJSON(QString& filepath);
 
     /**
      * Saves the current canvas' data to a JSON file.
      * @param filepath - path to the JSON file where data will be saved.
      */
-  //  void saveJSON(QString& filepath);
+   void saveJSON(QString& filepath);
 
     /**
      * Resizes the grid size for all frames.
