@@ -250,7 +250,13 @@ void MainModel::paintPixels(unsigned int topLeftX, unsigned int topLeftY){
 }
 
 void MainModel::erasePixels(unsigned int topLeftX, unsigned int topLeftY){
-    frames[selectedFrame].paintPixels(QPoint(topLeftX, topLeftY), QPoint(topLeftX + brushSize - 1, topLeftY + brushSize - 1), Pixel(0,0,0,0));
+    // Add boundary checks
+    if(topLeftX >= gridSize || topLeftY >= gridSize) return;
+
+    const unsigned int maxX = std::min(topLeftX + brushSize, gridSize);
+    const unsigned int maxY = std::min(topLeftY + brushSize, gridSize);
+
+    frames[selectedFrame].paintPixels(QPoint(topLeftX, topLeftY), QPoint(maxX - 1, maxY - 1), Pixel(0, 0, 0, 0));
     sendDisplayImage();
 }
 
