@@ -13,6 +13,7 @@ March 21, 2025
 #define PIXELDISPLAY_H
 
 #include <QWidget>
+#include <QVector>
 #include "pixel.h"
 
 class PixelDisplay : public QWidget
@@ -27,9 +28,7 @@ public:
     explicit PixelDisplay(QWidget *parent = nullptr);
 
 private:
-    const Pixel* currentImage;
-    unsigned int gridSize;
-    QVector<Pixel> defaultImage;
+    unsigned int gridSize;   // Stores the grid size
 
     /**
      * Maps the pixel coordinates to the correlated UI coordinate
@@ -40,7 +39,7 @@ private:
     QPoint mapPixelCoordinateToUICoordinate(unsigned int pixelX, unsigned int pixelY);
 
     /**
-     * Helper method for updating drawn image.Draws a pixel at a specific location
+     * Helper method for updating drawn image. Draws a pixel at a specific location.
      * @param pixelX - The pixel's x coordinate
      * @param pixelY - The pixel's y coordinate
      * @param currentPixel - The pixel to be drawn
@@ -48,12 +47,16 @@ private:
     void drawPixel(unsigned int pixelX, unsigned int pixelY, Pixel currentPixel);
 
 protected:
+    /**
+     * Handles the painting of pixels onto the widget.
+     */
     void paintEvent(QPaintEvent* event) override;
 
 public slots:
     /**
-     * Updates the pixel image displayed
+     * Updates the pixel image displayed.
      * @param image - The image to be displayed
+     * @param gridSize - The new grid size
      */
     void updateDrawnImage(const Pixel* image, unsigned int gridSize);
 
