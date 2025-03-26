@@ -46,7 +46,7 @@ signals:
      * Signal emitted when a new display image is available.
      * @param pixelGrid - Pointer to the new pixel grid for display.
      */
-    void newDisplayImage(const Pixel* pixelGrid, unsigned int gridSize);
+    void newDisplayImage(const Pixel* pixelGrid);
 
     /**
      * Signal emitted when a new preview of the selected frame is available.
