@@ -26,12 +26,12 @@ void Layer::operator=(Layer other){
     std::swap(pixels, other.pixels);
 }
 
-void Layer::paintPixels(QPoint corner1, QPoint corner2, const Pixel& color){
+void Layer::paintPixels(QPoint corner1, QPoint corner2, const Pixel& color) {
     validateCoords(corner1.x(), corner1.y());
     validateCoords(corner2.x(), corner2.y());
-    for(int i = corner1.y(); i<= corner2.y(); i++){
-        for(int j = corner1.x(); i<=corner2.x(); i++){
-            pixels[i*size + j] = color;
+    for (int i = corner1.y(); i <= corner2.y(); i++) {
+        for (int j = corner1.x(); j <= corner2.x(); j++) { // Fixed 'i' to 'j'
+            pixels[i * size + j] = color;
         }
     }
 }
