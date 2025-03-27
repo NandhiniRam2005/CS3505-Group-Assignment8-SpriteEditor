@@ -338,8 +338,15 @@ void MainWindow::openFileChooserLoad(){
     emit loadFile(filename);
 }
 void MainWindow::openFileChooserSave(){
-    QString filename = QFileDialog::getSaveFileName(nullptr, "Save File", "", "ssp", nullptr);
-    emit saveFile(filename);
+    QString fileName = QFileDialog::getSaveFileName(nullptr, "Save File", "", "ssp", nullptr);
+    // QString fileName = QFileDialog::getSaveFileName(this, "Save File", "", "Sprite Project (*.ssp);;All Files (*)");
+
+    if (!fileName.isEmpty()) {
+        if (!fileName.endsWith(".ssp")) {
+            fileName += ".ssp";
+        }
+        emit saveFile(fileName);
+    }
 }
 
 void MainWindow::changeGridSize(int sizeOption) {
