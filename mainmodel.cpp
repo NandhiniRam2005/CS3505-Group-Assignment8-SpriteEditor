@@ -9,14 +9,12 @@
 MainModel::MainModel(QObject *parent)
     : QObject{parent}
 {
-    brushSize = 1;
+    brushSize = 4;
     gridSize = 32;
     animationFPS = 12;
     frames.push_back(Frame(gridSize));
     selectedFrame = 0;
     selectedColor = Pixel(0,0,0,255);
-    currentMouseX = -1;
-    currentMouseY = -1;
 
     animationTimer = new QTimer();
 
@@ -25,7 +23,7 @@ MainModel::MainModel(QObject *parent)
     animationTimer->start(33);
     currentAnimationFrame = 0;
     }
-/*
+
 //TODO: load / save JSON methods --- DONE MAYBE? : look at saveJson tho! :(
 // send animation frames on a timer
 // attach signals / slots
@@ -151,7 +149,7 @@ void MainModel::saveJSON(QString& filepath){
     file.close();
     emit saveJSONStatus(true);
 }
-*/
+
 void MainModel::resize(unsigned int newSize){
     for(Frame& frame : frames){
         frame.resize(newSize);
@@ -241,12 +239,24 @@ void MainModel::mouseHovered(unsigned int xCoord, unsigned int yCoord){
 }
 
 void MainModel::paintPixels(unsigned int topLeftX, unsigned int topLeftY){
-    frames[selectedFrame].paintPixels(QPoint(topLeftX, topLeftY), QPoint(topLeftX + brushSize - 1, topLeftY + brushSize - 1), selectedColor);
+    // Add boundary checks
+    if(topLeftX >= gridSize || topLeftY >= gridSize) return;
+
+    const unsigned int maxX = std::min(topLeftX + brushSize, gridSize);
+    const unsigned int maxY = std::min(topLeftY + brushSize, gridSize);
+
+    frames[selectedFrame].paintPixels(QPoint(topLeftX, topLeftY), QPoint(maxX-1, maxY-1), selectedColor);
     sendDisplayImage();
 }
 
 void MainModel::erasePixels(unsigned int topLeftX, unsigned int topLeftY){
-    frames[selectedFrame].paintPixels(QPoint(topLeftX, topLeftY), QPoint(topLeftX + brushSize - 1, topLeftY + brushSize - 1), Pixel(0,0,0,0));
+    // Add boundary checks
+    if(topLeftX >= gridSize || topLeftY >= gridSize) return;
+
+    const unsigned int maxX = std::min(topLeftX + brushSize, gridSize);
+    const unsigned int maxY = std::min(topLeftY + brushSize, gridSize);
+
+    frames[selectedFrame].paintPixels(QPoint(topLeftX, topLeftY), QPoint(maxX - 1, maxY - 1), Pixel(0, 0, 0, 0));
     sendDisplayImage();
 }
 
@@ -275,18 +285,34 @@ void MainModel::setSelectedColorToPixel(unsigned int x, unsigned int y){
     emit newSelectedColor(selectedColor);
 }
 
+void MainModel::mouseLeft()
+{
+    currentMouseX = -1;
+    currentMouseY = -1;
+    sendDisplayImage();
+}
+
 void MainModel::sendDisplayImage(){
-    Pixel* image = frames[selectedFrame].getLayeredImage();
-    if(currentMouseX < 0 || currentMouseY < 0){
-        emit newDisplayImage(image);
-        return;
-    }
-    for(int i = currentMouseY; i< currentMouseY + brushSize; i++){
-        for(int j = currentMouseX; j< currentMouseX + brushSize; j++){
-            image[i * gridSize + j].alpha = HOVERED_ALPHA;
+    // Get original image
+    Pixel* baseImage = frames[selectedFrame].getLayeredImage();
+    // Create temporary copy
+    QVector<Pixel> tempImage(gridSize * gridSize);
+    std::copy(baseImage, baseImage + gridSize * gridSize, tempImage.begin());
+
+    if(currentMouseX >= 0 && currentMouseY >= 0) {
+        // Apply hover to COPY
+        const int maxX = std::min(currentMouseX + brushSize, static_cast<int>(gridSize));
+        const int maxY = std::min(currentMouseY + brushSize, static_cast<int>(gridSize));
+
+        for(int y = std::max(0, currentMouseY); y < maxY; ++y) {
+            for(int x = std::max(0, currentMouseX); x < maxX; ++x) {
+                tempImage[y * gridSize + x].alpha = HOVERED_ALPHA;
+            }
         }
     }
-    emit newDisplayImage(image);
+
+    // Emit temporary copy
+    emit newDisplayImage(tempImage.data());
 }
 
 void MainModel::sendAnimationFrame(){

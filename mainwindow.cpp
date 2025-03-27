@@ -24,6 +24,28 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent)
 
     //connections
 
+    //For Hover
+    connect(ui->mouseListener, &MouseListener::mouseLeft, model, &MainModel::mouseLeft);
+    connect(ui->mouseListener, &MouseListener::mouseMoved,
+            this, [this, model](QPoint point) {
+                const int canvasWidth = ui->mainDrawing->width();
+                const int canvasHeight = ui->mainDrawing->height();
+
+                if (canvasWidth == 0 || canvasHeight == 0) return;
+
+                const int cellWidth = canvasWidth / currentGridSize;
+                const int cellHeight = canvasHeight / currentGridSize;
+
+                const int gridX = point.x() / cellWidth;
+                const int gridY = point.y() / cellHeight;
+
+                if (gridX >= 0 && gridY >= 0 &&
+                    gridX < static_cast<int>(currentGridSize) &&
+                    gridY < static_cast<int>(currentGridSize)) {
+                    model->mouseHovered(gridX, gridY);
+                }
+            });
+
     //Save/Load
     connect(ui->actionLoad, &QAction::triggered, this, &MainWindow::openFileChooserLoad);
     connect(ui->actionSave, &QAction::triggered, this, &MainWindow::openFileChooserSave);
@@ -100,6 +122,9 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent)
 
     //Connect MouseListener
     connect(ui->mouseListener, &MouseListener::mouseClicked, this, &MainWindow::mapClickLocationToGridCoordinate);
+
+    //Load and save
+    // connect(this, &MainWindow::saveFile, model, &MainModel::saveJSON);
 
     emit askGridSize();
 }
@@ -200,10 +225,10 @@ void MainWindow::mapClickLocationToGridCoordinate(QPoint screenPoint) {
     int cellWidth = canvasWidthPixels / currentGridSize;
     int cellHeight = canvasHeightPixels / currentGridSize;
 
-    int gridXCoordinate = screenPoint.x() / cellWidth;
-    int gridYCoordinate = screenPoint.y() / cellHeight;
+    unsigned int gridXCoordinate = screenPoint.x() / cellWidth;
+    unsigned int gridYCoordinate = screenPoint.y() / cellHeight;
 
-    if(gridXCoordinate < 0 || gridYCoordinate < 0 || gridXCoordinate >= currentGridSize ||gridYCoordinate>= currentGridSize){
+    if(gridXCoordinate < 0 || gridYCoordinate < 0 || gridXCoordinate >= currentGridSize ||gridYCoordinate >= currentGridSize){
         return; //clicked / dragged outside of the canvas
     }
 
@@ -301,7 +326,9 @@ void MainWindow::openFileChooserLoad(){
     emit loadFile(filename);
 }
 void MainWindow::openFileChooserSave(){
-    QString filename = QFileDialog::getOpenFileName(nullptr, "Open File", "", "ssp", nullptr);
+    QString filename = QFileDialog::getSaveFileName(nullptr, "Save File", "", "ssp", nullptr);
+
+    qDebug() << filename;
 
     emit saveFile(filename);
 }

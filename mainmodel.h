@@ -80,13 +80,13 @@ public slots:
      * Loads a JSON file containing canvas' data.
      * @param filepath - path to the JSON file to load.
      */
-  //  void loadJSON(QString& filepath);
+   void loadJSON(QString& filepath);
 
     /**
      * Saves the current canvas' data to a JSON file.
      * @param filepath - path to the JSON file where data will be saved.
      */
-  //  void saveJSON(QString& filepath);
+   void saveJSON(QString& filepath);
 
     /**
      * Resizes the grid size for all frames.
@@ -204,6 +204,8 @@ public slots:
 
     void getGridSize();
 
+    void mouseLeft();
+
 private:
     /**
      * Sends the current display image to the display.
@@ -259,17 +261,18 @@ private:
     /**
      * x coordinate of the mouse position currently
      */
-    int currentMouseX;
+    int currentMouseX = -1;
 
     /**
      * y coordinate of the mouse position currently
      */
-    int currentMouseY;
+    int currentMouseY = -1;
 
     /**
      * alpha value for hovered pixels
      */
-    const unsigned char HOVERED_ALPHA = 200;
+    const unsigned char HOVERED_ALPHA = 128;
+
 };
 
 #endif // MAINMODEL_H

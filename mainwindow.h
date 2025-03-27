@@ -111,9 +111,6 @@ public slots:
 
     // void displayLayerButtonSelection();
 
-
-
-
 signals:
     /**
      * Signal to load file
