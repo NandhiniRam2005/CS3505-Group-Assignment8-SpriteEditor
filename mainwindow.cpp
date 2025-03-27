@@ -348,15 +348,19 @@ void MainWindow::openFileChooserSave(){
 void MainWindow::changeGridSize(int sizeOption) {
     switch (sizeOption) {
     case 0:
+        currentGridSize = 8;
         emit resize(8);
         break;
     case 1:
+        currentGridSize = 16;
         emit resize(16);
         break;
     case 2:
+        currentGridSize = 32;
         emit resize(32);
         break;
     case 3:
+        currentGridSize = 64;
         emit resize(64);
         break;
     }
