@@ -209,19 +209,15 @@ void MainModel::deleteFrame(){
 
 void MainModel::changeLayer(unsigned int layer){
     if(layer >= frames[selectedFrame].getLayers().size()){
-        std::cout << "selecting layer " << layer << " which is invalid" << std::endl;
-        std::cout << "error in change Layer" << std::endl;
         throw std::runtime_error("Invalid layer index");
     }
     frames[selectedFrame].selectLayer(layer);
-    //selectedFrame = layer;
     sendDisplayImage();
 }
 
 void MainModel::addLayer(){
     frames[selectedFrame].addLayer();
     sendDisplayImage();
-    std::cout << "addedLayer selecting new layer.." << std::endl;
 }
 
 void MainModel::deleteLayer(int layerIndex){
