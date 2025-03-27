@@ -268,11 +268,6 @@ private:
      */
     int currentMouseY = -1;
 
-    /**
-     * alpha value for hovered pixels
-     */
-    const unsigned char HOVERED_ALPHA = 128;
-
 };
 
 #endif // MAINMODEL_H

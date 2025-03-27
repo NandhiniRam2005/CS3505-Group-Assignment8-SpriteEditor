@@ -141,10 +141,6 @@ private:
      */
     int size;
 
-    /**
-     * Alpha value of the pixels in an unselected layer (grayed out)
-     */
-    const unsigned char HIDDEN_ALPHA = 128;
 };
 
 #endif // LAYER_H
