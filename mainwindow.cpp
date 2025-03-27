@@ -11,7 +11,7 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent)
 {
     ui->setupUi(this);
     setToolToBrush();
-    brushSize = 5;
+    brushSize = 4;
     currentIndexOfLayerButtons = 1;
     numberOfLayerButtons = 1;
     numberOfFrameButtonClicks = 0;
