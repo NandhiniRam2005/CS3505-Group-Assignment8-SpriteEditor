@@ -165,7 +165,7 @@ signals:
     void reflectVertical();
     void reflectHorizontal();
     void rotate90();
-    void setSelectedColortoPixel(unsigned int x, unsigned int y);
+    void setSelectedColorToPixel(unsigned int x, unsigned int y);
     void askGridSize();
     // void selectedLayerChanged();
 

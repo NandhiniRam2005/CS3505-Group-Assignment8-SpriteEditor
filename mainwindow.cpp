@@ -61,11 +61,14 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent)
     connect(ui->reflectVerticalButton, &QPushButton::clicked, model, &MainModel::reflectVertical);
     connect(ui->rotateButton, &QPushButton::clicked, model, &MainModel::rotate90);
 
-    //Update displays
-    connect(model, &MainModel::newDisplayImage, ui->mainDrawing, &PixelDisplay::updateDrawnImage);
+    // Toolbar connections
     connect(this, &MainWindow::paintPixels, model, &MainModel::paintPixels);
     connect(this, &MainWindow::erasePixels, model, &MainModel::erasePixels);
     connect(this, &MainWindow::bucketFill, model, &MainModel::bucketFill);
+    connect(this, &MainWindow::setSelectedColorToPixel, model, &MainModel::setSelectedColorToPixel);
+
+    //Update displays
+    connect(model, &MainModel::newDisplayImage, ui->mainDrawing, &PixelDisplay::updateDrawnImage);
     connect(model, &MainModel::newAnimationFrame, ui->animationDisplay, &PixelDisplay::updateDrawnImage);
     connect(model, &MainModel::newDisplayImage, ui->frameDisplay, &PixelDisplay::updateDrawnImage);
 
@@ -73,6 +76,7 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent)
     connect(ui->colorButton, &QPushButton::clicked, this, &MainWindow::openColorDialogue);
     connect(this, &MainWindow::changeColor, this, &MainWindow::displayColorChange);
     connect(this, &MainWindow::changeColor, model, &MainModel::changeSelectedColor);
+    connect(model, &MainModel::newSelectedColor, this, &MainWindow::displayColorChange);
 
     //Frame being copied?
     connect(ui->copyFrameButton, &QRadioButton::clicked, this, &MainWindow::setFrameCopyVariable);
@@ -211,7 +215,7 @@ void MainWindow::mapClickLocationToGridCoordinate(QPoint screenPoint) {
         emit erasePixels(gridXCoordinate, gridYCoordinate);
         break;
     case Tool::EyeDropper:
-        emit setSelectedColortoPixel(gridXCoordinate, gridYCoordinate);
+        emit setSelectedColorToPixel(gridXCoordinate, gridYCoordinate);
         break;
     case Tool::PaintBucket:
         emit bucketFill(gridXCoordinate, gridYCoordinate);
