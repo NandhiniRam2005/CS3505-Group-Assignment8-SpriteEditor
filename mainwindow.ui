@@ -614,6 +614,22 @@
      <string>Copy Frame?</string>
     </property>
    </widget>
+   <widget class="QComboBox" name="resizeBox">
+    <property name="geometry">
+     <rect>
+      <x>551</x>
+      <y>330</y>
+      <width>91</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="currentText">
+     <string/>
+    </property>
+    <property name="placeholderText">
+     <string>32 x 32</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="toolBar">

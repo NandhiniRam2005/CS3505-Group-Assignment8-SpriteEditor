@@ -21,6 +21,11 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent)
     ui->layerOneButton->setLayerNumber(1);
     layerButtons.push_back(ui->layerOneButton);
     deleteLayerDisabled = true;
+    ui->resizeBox->addItem("8 x 8");
+    ui->resizeBox->addItem("16 x 16");
+    ui->resizeBox->addItem("32 x 32");
+    ui->resizeBox->addItem("64 x 64");
+
 
     //connections
 
@@ -82,6 +87,13 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent)
     connect(ui->reflectHorizontalButton, &QPushButton::clicked, model, &MainModel::reflectHorizontal);
     connect(ui->reflectVerticalButton, &QPushButton::clicked, model, &MainModel::reflectVertical);
     connect(ui->rotateButton, &QPushButton::clicked, model, &MainModel::rotate90);
+
+    // Resize
+    connect(ui->resizeBox, &QComboBox::currentIndexChanged, this, &MainWindow::changeGridSize);
+    connect(this, &MainWindow::resize, ui->mainDrawing, &PixelDisplay::setGridSize);
+    connect(this, &MainWindow::resize, ui->animationDisplay, &PixelDisplay::setGridSize);
+    connect(this, &MainWindow::resize, ui->frameDisplay, &PixelDisplay::setGridSize);
+    connect(this, &MainWindow::resize, model, &MainModel::resize);
 
     // Toolbar connections
     connect(this, &MainWindow::paintPixels, model, &MainModel::paintPixels);
@@ -332,3 +344,21 @@ void MainWindow::openFileChooserSave(){
 
     emit saveFile(filename);
 }
+
+void MainWindow::changeGridSize(int sizeOption) {
+    switch (sizeOption) {
+    case 0:
+        emit resize(8);
+        break;
+    case 1:
+        emit resize(16);
+        break;
+    case 2:
+        emit resize(32);
+        break;
+    case 3:
+        emit resize(64);
+        break;
+    }
+}
+

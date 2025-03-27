@@ -2,7 +2,7 @@
 #include "pixel.h"
 #include <QPoint>
 #include <stdexcept>
-#include <iostream>
+#include <QDebug>
 
 Layer::Layer():pixels(nullptr), size(0) {}
 

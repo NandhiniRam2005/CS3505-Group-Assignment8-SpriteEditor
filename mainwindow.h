@@ -97,6 +97,8 @@ public slots:
 
     void updateGridSize(unsigned int gridSize);
 
+    void changeGridSize(int sizeOption);
+
     void addLayerButton();
 
     void deleteLayerButton();
@@ -164,6 +166,7 @@ signals:
     void rotate90();
     void setSelectedColorToPixel(unsigned int x, unsigned int y);
     void askGridSize();
+    void resize(unsigned int newSize);
     // void selectedLayerChanged();
 
 private:

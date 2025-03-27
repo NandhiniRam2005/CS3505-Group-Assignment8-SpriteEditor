@@ -4,7 +4,7 @@
 #include <QRect>
 
 PixelDisplay::PixelDisplay(QWidget *parent)
-    : QWidget(parent), gridSize(32), currentImage(gridSize * gridSize)
+    : QWidget(parent), gridSize(32), currentImage(64 * 64)
 {}
 
 QPoint PixelDisplay::mapPixelCoordinateToUICoordinate(unsigned int pixelX, unsigned int pixelY) {
@@ -49,4 +49,8 @@ void PixelDisplay::updateDrawnImage(const Pixel* image) {
         currentImage[i] = image[i];
     }
     update(); // Schedule a repaint
+}
+
+void PixelDisplay::setGridSize(unsigned int newSize) {
+    gridSize = newSize;
 }

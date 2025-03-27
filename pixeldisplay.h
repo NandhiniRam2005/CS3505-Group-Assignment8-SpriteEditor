@@ -52,6 +52,8 @@ public slots:
      */
     void updateDrawnImage(const Pixel* image);
 
+    void setGridSize(unsigned int GridSize);
+
 signals:
 };
 
