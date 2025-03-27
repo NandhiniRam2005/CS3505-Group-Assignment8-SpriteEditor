@@ -53,6 +53,8 @@ signals:
      */
     void newAnimationFrame(const Pixel* pixelGrid);
 
+    void newFrameImage(const Pixel* pixelGrid);
+
     /**
      * Signal emitted when a new display image is available.
      * @param pixelGrid - Pointer to the new pixel grid for display.
@@ -208,7 +210,6 @@ private:
      * Sends the current display image to the display.
      */
     void sendDisplayImage();
-
 
     /**
      * Sends the next animation frame image to the animation preview.

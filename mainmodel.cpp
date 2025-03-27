@@ -327,6 +327,8 @@ void MainModel::pixelClicked(unsigned int xCoord, unsigned int yCoord){
 
 
 void MainModel::sendDisplayImage(){
+    // For the frame display
+    emit newFrameImage(frames[selectedFrame].getRenderedImage());
     // Get original image
     Pixel* baseImage = frames[selectedFrame].getLayeredImage();
     // Create temporary copy

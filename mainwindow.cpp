@@ -102,7 +102,7 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent)
     //Update displays
     connect(model, &MainModel::newDisplayImage, ui->mainDrawing, &PixelDisplay::updateDrawnImage);
     connect(model, &MainModel::newAnimationFrame, ui->animationDisplay, &PixelDisplay::updateDrawnImage);
-    connect(model, &MainModel::newDisplayImage, ui->frameDisplay, &PixelDisplay::updateDrawnImage);
+    connect(model, &MainModel::newFrameImage, ui->frameDisplay, &PixelDisplay::updateDrawnImage);
 
     //Update color
     connect(ui->colorButton, &QPushButton::clicked, this, &MainWindow::openColorDialogue);
