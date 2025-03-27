@@ -11,7 +11,7 @@ MainModel::MainModel(QObject *parent)
 {
     brushSize = 4;
     gridSize = 32;
-    animationFPS = 12;
+    animationFPS = 10;
     frames.push_back(Frame(gridSize));
     selectedFrame = 0;
     selectedColor = Pixel(0,0,0,255);
@@ -20,7 +20,7 @@ MainModel::MainModel(QObject *parent)
 
     connect(animationTimer, &QTimer::timeout, this, &MainModel::sendAnimationFrame);
 
-    animationTimer->start(33);
+    animationTimer->start(1000/animationFPS);
     currentAnimationFrame = 0;
     }
 
