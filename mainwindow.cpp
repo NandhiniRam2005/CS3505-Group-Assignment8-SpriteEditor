@@ -79,7 +79,7 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent)
     connect(ui->fpsSlider, &QSlider::sliderMoved, model, &MainModel::changeAnimationFPS);
 
     //Transformations
-    connect(ui->reflectHorizontalButto, &QPushButton::clicked, model, &MainModel::reflectHorizontal);
+    connect(ui->reflectHorizontalButton, &QPushButton::clicked, model, &MainModel::reflectHorizontal);
     connect(ui->reflectVerticalButton, &QPushButton::clicked, model, &MainModel::reflectVertical);
     connect(ui->rotateButton, &QPushButton::clicked, model, &MainModel::rotate90);
 

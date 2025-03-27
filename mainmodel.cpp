@@ -221,7 +221,7 @@ void MainModel::changeBrushSize(unsigned int newBrushSize){
 
 void MainModel::changeAnimationFPS(unsigned int newFPS){
     animationFPS = newFPS;
-    if (newFPS > 0 and newFPS > 1000)
+    if (newFPS > 0 and newFPS < 1000)
         animationTimer->setInterval(1000/newFPS);
     else
         animationTimer->stop();
