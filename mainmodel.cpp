@@ -93,7 +93,7 @@ void MainModel::loadJSON(const QString& filepath){
                         }
 
                     }
-                    frame.addLayer();
+                    frame.addLayer(layer);
                 }
             }
             frames.append(frame);
