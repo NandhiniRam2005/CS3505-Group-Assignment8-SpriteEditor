@@ -192,6 +192,7 @@ void MainModel::addFrame(bool copyPrevious){
     }else{
         frames.append(Frame(gridSize));
     }
+    selectedFrame+=1;
     sendDisplayImage();
 }
 
@@ -200,8 +201,8 @@ void MainModel::deleteFrame(){
         throw std::runtime_error("Cannot delete the only remaining frame");
     }
 
-    frames.remove(frames.size()-1);
-    if(selectedFrame <= frames.size()){
+    frames.remove(selectedFrame);
+    if(selectedFrame >= frames.size()){
         selectedFrame = frames.size()-1;
     }
     sendDisplayImage();
@@ -357,7 +358,7 @@ void MainModel::sendDisplayImage(){
 
 void MainModel::sendAnimationFrame(){
     currentAnimationFrame += 1;
-    if(currentAnimationFrame == frames.size()){
+    if(currentAnimationFrame >= frames.size()){
         currentAnimationFrame = 0;
     }
     emit newAnimationFrame(frames[currentAnimationFrame].getRenderedImage());
