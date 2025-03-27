@@ -193,7 +193,7 @@
      </rect>
     </property>
     <property name="toolTip">
-     <string>Counter-Clockwise rotation</string>
+     <string>Clockwise rotation</string>
     </property>
     <property name="text">
      <string/>
