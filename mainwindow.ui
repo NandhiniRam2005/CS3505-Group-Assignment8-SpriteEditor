@@ -675,7 +675,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Change Brush Size</string>
+     <string>Brush Size</string>
     </property>
    </widget>
   </widget>
