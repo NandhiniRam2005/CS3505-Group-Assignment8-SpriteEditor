@@ -131,7 +131,7 @@ public slots:
     /**
      * Deletes the active layer in the selected frame.
      */
-    void deleteLayer();
+    void deleteLayer(int layerIndex);
 
     /**
      * Changes the size of the brush used for painting and erasing.

@@ -65,9 +65,10 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent)
     //Add delete layers
     connect(ui->addLayerButton, &QPushButton::clicked, this, &MainWindow::addLayerButton);
     // connect(this, &MainWindow::selectedLayerChanged, this, &MainWindow::displayLayerButtonSelection);
-    // connect(this, &MainWindow::addLayer, model, &MainModel::addLayer);
+    connect(this, &MainWindow::addLayer, model, &MainModel::addLayer);
     connect(ui->deleteLayerButton, &QPushButton::clicked, this, &MainWindow::deleteLayerButton);
-    // connect(this, &MainWindow::deleteLayer, model, &MainModel::deleteLayer);
+    connect(this, &MainWindow::deleteLayer, model, &MainModel::deleteLayer);
+    connect(this, &MainWindow::changeLayer, model, &MainModel::changeLayer);
 
     //Select layers they will be dynamically created and connected else where.
     connect(ui->layerOneButton, &QPushButton::clicked, this, [this]() {
@@ -75,7 +76,7 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent)
         selectedLayerButton = ui->layerOneButton;
         selectedLayerButton->setStyleSheet("border: 2px solid blue; border-radius: 5px; padding: 5px;");
         int layerNumber = ui->layerOneButton->getLayerNumber();
-        onLayerButtonClicked(layerNumber);
+        onLayerButtonClicked(layerNumber - 1);
     });
 
     connect(ui->addLayerButton, &QPushButton::clicked, this, &MainWindow::addLayer);
@@ -278,11 +279,12 @@ void MainWindow::addLayerButton(){
     LayerButton* button = new LayerButton(numberOfLayerButtons, this);
     button->setMinimumHeight(32);
     button->setMinimumWidth(99);
-    connect(button, &QPushButton::clicked, this, [this, button]() { selectedLayerButton->setStyleSheet(""); selectedLayerButton = button;  selectedLayerButton->setStyleSheet("border: 2px solid blue; border-radius: 5px; padding: 5px;"); onLayerButtonClicked(button->getLayerNumber());});
+    connect(button, &QPushButton::clicked, this, [this, button]() { selectedLayerButton->setStyleSheet(""); selectedLayerButton = button;  selectedLayerButton->setStyleSheet("border: 2px solid blue; border-radius: 5px; padding: 5px;"); onLayerButtonClicked(button->getLayerNumber() - 1);});
     ui->layerButtonLayout->addWidget(button);
     selectedLayerButton->setStyleSheet("");
     selectedLayerButton = button;
     selectedLayerButton->setStyleSheet("border: 2px solid blue; border-radius: 5px; padding: 5px;");
+    emit addLayer();
     emit changeLayer(selectedLayerButton->getLayerNumber() - 1);
     if (numberOfLayerButtons == 4) {
         int currentHeight = ui->scrollArea->widget()->minimumHeight();
@@ -297,7 +299,6 @@ void MainWindow::addLayerButton(){
     verticalScrollBar->setValue(verticalScrollBar->maximum());
 
     layerButtons.push_back(button);
-    emit addLayer();
 }
 
 void MainWindow::deleteLayerButton(){
@@ -305,7 +306,7 @@ void MainWindow::deleteLayerButton(){
     numberOfLayerButtons--;
     ui->layerButtonLayout->removeWidget(selectedLayerButton);
     layerButtons.removeOne(selectedLayerButton);
-    emit deleteLayer(); // Hey dont we need to delete a specific layer not just any layer
+    emit deleteLayer(selectedLayerButton->getLayerNumber() - 1); // Hey dont we need to delete a specific layer not just any layer
     selectedLayerButton->setStyleSheet("");
     delete selectedLayerButton;
     for(int i = 0; i < numberOfLayerButtons; i++){
@@ -313,9 +314,14 @@ void MainWindow::deleteLayerButton(){
         layerButtons.at(i)->setLayerNumber(i);
         layerButtons.at(i)->setText(buttonText);
     }
+    std::cout << layerButtons.size() << std::endl;
+
+    std::cout << layerButtons.first()->getLayerNumber() << std::endl;
     selectedLayerButton = layerButtons.first(); // when layer deleted it selects some button & layer
+    std::cout << selectedLayerButton->getLayerNumber() - 1 << std::endl;
     selectedLayerButton->setStyleSheet("border: 2px solid blue; border-radius: 5px; padding: 5px;");
-    emit changeLayer(selectedLayerButton->getLayerNumber() - 1);
+    std::cout << selectedLayerButton->getLayerNumber() - 1 << std::endl;
+    emit changeLayer(selectedLayerButton->getLayerNumber());
     if (numberOfLayerButtons == 3) {
         ui->scrollArea->widget()->setMinimumHeight(0);
 

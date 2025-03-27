@@ -153,7 +153,7 @@ signals:
     void changeLayer(int layerNumber);
 
     void addLayer();
-    void deleteLayer();
+    void deleteLayer(int layerIndex);
     void changeBrushSize(unsigned int brushSize);
     void changeFps(unsigned int fps);
     void changeColor(Pixel p);

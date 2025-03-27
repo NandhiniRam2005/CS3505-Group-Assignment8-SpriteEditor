@@ -71,7 +71,7 @@ public:
      * Deletes the current layer.
      * @throws run time error if the layer is the last one in the frame.
      */
-    void deleteLayer();
+    void deleteLayer(int layerIndex);
 
     /**
      * Adds a new layer to the frame.
