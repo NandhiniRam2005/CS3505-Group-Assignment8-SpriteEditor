@@ -68,6 +68,12 @@ signals:
     void newSelectedFramePreview(const Pixel* pixelGrid);
 
     /**
+     * Signal emitted when a new framne ois selected.
+     * @param frameNumber - the 1-based number of the selected frame.
+     */
+    void newSelectedFrame(unsigned int frameNumber);
+
+    /**
      * Signal emitted when a new color is selected.
      * @param color - new selected color.
      */

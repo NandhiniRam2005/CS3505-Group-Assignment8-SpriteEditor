@@ -175,6 +175,7 @@ void MainModel::previousFrame(){
     if(selectedFrame < 0){
         selectedFrame = frames.size()-1;
     }
+    emit newSelectedFrame(selectedFrame);
     sendDisplayImage();
 }
 
@@ -183,6 +184,7 @@ void MainModel::nextFrame(){
     if(selectedFrame == frames.size()){
         selectedFrame = 0;
     }
+    emit newSelectedFrame(selectedFrame);
     sendDisplayImage();
 }
 
@@ -193,6 +195,7 @@ void MainModel::addFrame(bool copyPrevious){
         frames.append(Frame(gridSize));
     }
     selectedFrame+=1;
+    emit newSelectedFrame(selectedFrame);
     sendDisplayImage();
 }
 
@@ -205,6 +208,7 @@ void MainModel::deleteFrame(){
     if(selectedFrame >= frames.size()){
         selectedFrame = frames.size()-1;
     }
+    emit newSelectedFrame(selectedFrame);
     sendDisplayImage();
 }
 
