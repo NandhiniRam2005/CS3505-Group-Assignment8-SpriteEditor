@@ -28,6 +28,7 @@ MainModel::MainModel(QObject *parent)
 // send animation frames on a timer
 // attach signals / slots
 void MainModel::loadJSON(const QString& filepath){
+    frames.clear();
     QFile file(filepath);
 
     //try to open the file on readonly mode to see if its a valid filename
@@ -53,6 +54,9 @@ void MainModel::loadJSON(const QString& filepath){
         emit loadJSONStatus(false);
         return;
     }
+
+    QVector<Pixel> tempImage(gridSize * gridSize);
+
 
     //Read frames
     if (jsonSpriteCanvas.contains("frames")) {
@@ -82,6 +86,11 @@ void MainModel::loadJSON(const QString& filepath){
                             pixels[i].blue = jsonPixel["blue"].toInt();
                             pixels[i].alpha = jsonPixel["alpha"].toInt();
                         }
+
+                        if (frames.isEmpty() && jsonLayers.size() > 0) {
+                            std::copy(pixels, pixels + gridSize * gridSize, tempImage.begin());
+                        }
+
                     }
                     frame.addLayer();
                 }
@@ -95,6 +104,7 @@ void MainModel::loadJSON(const QString& filepath){
 
     file.close();
     emit loadJSONStatus(true);
+    emit newDisplayImage(tempImage.data());
 }
 
 
@@ -148,6 +158,7 @@ void MainModel::saveJSON(const QString& filepath){
     file.write(jsonDocument.toJson());
     file.close();
     emit saveJSONStatus(true);
+
 }
 
 void MainModel::resize(unsigned int newSize){

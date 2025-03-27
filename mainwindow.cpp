@@ -137,6 +137,8 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent)
 
     //Load and save
     connect(this, &MainWindow::saveFile, model, &MainModel::saveJSON);
+    connect(this, &MainWindow::loadFile, model, &MainModel::loadJSON);
+
 
     emit askGridSize();
 }
@@ -336,6 +338,10 @@ void MainWindow::openFileChooserLoad(){
     QString filename = QFileDialog::getOpenFileName(nullptr, "Open File", "", "", nullptr);
 
     emit loadFile(filename);
+
+    ui->mainDrawing->update();
+    ui->animationDisplay->update();
+    ui->frameDisplay->update();
 }
 void MainWindow::openFileChooserSave(){
     QString fileName = QFileDialog::getSaveFileName(nullptr, "Save File", "", "ssp", nullptr);
