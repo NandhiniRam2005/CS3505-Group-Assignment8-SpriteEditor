@@ -84,7 +84,7 @@ public slots:
 
     void onLayerButtonClicked(int layerNumber);
 
-    void setBrushSize(int size);
+    void setBrushSize(int sizeOption);
 
     void updateGridSize(unsigned int gridSize);
 
