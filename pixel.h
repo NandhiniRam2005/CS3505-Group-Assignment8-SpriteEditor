@@ -73,6 +73,6 @@ const unsigned char HOVERED_ALPHA = 128;
 /**
  * Alpha value of the pixels in an unselected layer (grayed out)
  */
-const unsigned char HIDDEN_ALPHA = 128;
+const unsigned char HIDDEN_ALPHA = 50;
 
 #endif // PIXEL_H
