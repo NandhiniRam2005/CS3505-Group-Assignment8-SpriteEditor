@@ -23,6 +23,17 @@ March 21, 2025
 #include "frame.h"
 #include "pixel.h"
 
+/*
+ * Enumeration of all tools in the GUi.
+ */
+enum class Tool {
+    Brush,
+    PaintBucket,
+    Eraser,
+    EyeDropper,
+    None
+};
+
 class MainModel : public QObject
 {
     Q_OBJECT
@@ -160,6 +171,51 @@ public slots:
     void mouseHovered(unsigned int xCoord, unsigned int yCoord);
 
     /**
+     * Updates the currently selected Tool to a new Tool.
+     * @param newTool the new Tool to select
+     */
+    void selectTool(Tool newTool);
+
+    /**
+     * Updates the model's state by drawing pixels or changing the selected color,
+     * based on the currently selected tool.
+     * @param xCoord The x coordinate of the pixel that was clicked
+     * @param yCoord The y coordinate of the pixel that was clicked
+     */
+    void pixelClicked(unsigned int xCoord, unsigned int yCoord);
+
+    /**
+     * Reflects the selected frame vertically.
+     */
+    void reflectVertical();
+
+    /**
+     * Reflects the selected frame horizontally.
+     */
+    void reflectHorizontal();
+
+    /**
+     * Rotates the selected frame by 90 degrees clockwise.
+     */
+    void rotate90();
+
+    void getGridSize();
+
+    void mouseLeft();
+
+private:
+    /**
+     * Sends the current display image to the display.
+     */
+    void sendDisplayImage();
+
+
+    /**
+     * Sends the next animation frame image to the animation preview.
+     */
+    void sendAnimationFrame();
+
+    /**
      * Paints pixels on the selected frame at the specified location.
      * @param topLeftX - x-coordinate of the top-left corner of the region to paint.
      * @param topLeftY - y-coordinate of the top-left corner of the region to paint.
@@ -181,43 +237,15 @@ public slots:
     void bucketFill(unsigned int topLeftX, unsigned int topLeftY);
 
     /**
-     * Reflects the selected frame vertically.
-     */
-    void reflectVertical();
-
-    /**
-     * Reflects the selected frame horizontally.
-     */
-    void reflectHorizontal();
-
-    /**
-     * Rotates the selected frame by 90 degrees clockwise.
-     */
-    void rotate90();
-
-    /**
      * Sets the selected color to the color of a pixel at the specified coordinates.
      * @param x - x-coordinate of the pixel.
      * @param y - y-coordinate of the pixel.
      */
     void setSelectedColorToPixel(unsigned int x, unsigned int y);
-
-    void getGridSize();
-
-    void mouseLeft();
-
-private:
     /**
-     * Sends the current display image to the display.
+     * The currently selected tool
      */
-    void sendDisplayImage();
-
-
-    /**
-     * Sends the next animation frame image to the animation preview.
-     */
-    void sendAnimationFrame();
-
+    Tool currentTool;
     /**
      * vector collection of frames in the animation.
      */

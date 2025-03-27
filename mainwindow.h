@@ -26,16 +26,6 @@ March 21, 2025
 #include <QColorDialog>
 
 
-/*
- * Enumeration of all tools in the GUi.
- */
-enum class Tool {
-    Brush,
-    PaintBucket,
-    Eraser,
-    EyeDropper,
-};
-
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -158,15 +148,13 @@ signals:
     void changeFps(unsigned int fps);
     void changeColor(Pixel p);
     void mouseHoverLocation(unsigned int x, unsigned int y);
-    void paintPixels(unsigned int topLeftX, unsigned int topLeftY);
-    void erasePixels(unsigned int topLeftX, unsigned int topLeftY);
-    void bucketFill(unsigned int topLeftX, unsigned int topLeftY);
     void reflectVertical();
     void reflectHorizontal();
     void rotate90();
-    void setSelectedColorToPixel(unsigned int x, unsigned int y);
     void askGridSize();
     void resize(unsigned int newSize);
+    void pixelClicked(unsigned int xCoord, unsigned int yCoord);
+    void toolSelected(Tool newTool);
     // void selectedLayerChanged();
 
 private:
@@ -185,7 +173,6 @@ private:
     QPushButton* layerOne;
     QSlider fpsSlider;
     QSlider brushSizeSlider; // DO WE WANT A SLIDER FOR BRUSH SIZE????!!!!!
-    Tool selectedTool;
     unsigned int width;
     unsigned int height;
     bool frameBeingCopied;

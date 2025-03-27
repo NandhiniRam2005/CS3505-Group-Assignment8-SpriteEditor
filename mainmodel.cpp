@@ -9,12 +9,13 @@
 MainModel::MainModel(QObject *parent)
     : QObject{parent}
 {
-    brushSize = 4;
+    brushSize = 1;
     gridSize = 32;
     animationFPS = 10;
     frames.push_back(Frame(gridSize));
     selectedFrame = 0;
     selectedColor = Pixel(0,0,0,255);
+    currentTool = Tool::None;
 
     animationTimer = new QTimer();
 
@@ -306,12 +307,40 @@ void MainModel::mouseLeft()
     sendDisplayImage();
 }
 
+void MainModel::selectTool(Tool newTool){
+    currentTool = newTool;
+}
+void MainModel::pixelClicked(unsigned int xCoord, unsigned int yCoord){
+    switch(currentTool){
+    case Tool::Brush:
+        paintPixels(xCoord, yCoord);
+        break;
+    case Tool::Eraser:
+        erasePixels(xCoord, yCoord);
+        break;
+    case Tool::EyeDropper:
+        setSelectedColorToPixel(xCoord, yCoord);
+        break;
+    case Tool::PaintBucket:
+        bucketFill(xCoord, yCoord);
+        break;
+    case Tool::None:
+        break;
+    }
+}
+
+
 void MainModel::sendDisplayImage(){
     // Get original image
     Pixel* baseImage = frames[selectedFrame].getLayeredImage();
     // Create temporary copy
     QVector<Pixel> tempImage(gridSize * gridSize);
     std::copy(baseImage, baseImage + gridSize * gridSize, tempImage.begin());
+
+    unsigned int brushSizeStore = brushSize;
+    if(currentTool == Tool::PaintBucket || currentTool == Tool::EyeDropper){
+        brushSize = 1;
+    }
 
     if(currentMouseX >= 0 && currentMouseY >= 0) {
         // Apply hover to COPY
@@ -325,6 +354,7 @@ void MainModel::sendDisplayImage(){
         }
     }
 
+    brushSize = brushSizeStore;
     // Emit temporary copy
     emit newDisplayImage(tempImage.data());
 }

@@ -10,9 +10,7 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    selectedTool = Tool::Brush;
-    setToolToBrush();
-    brushSize = 1;
+    brushSize = 3;
     currentIndexOfLayerButtons = 1;
     numberOfLayerButtons = 1;
     selectedLayerButton = ui->layerOneButton;
@@ -96,11 +94,9 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent)
     connect(this, &MainWindow::resize, ui->frameDisplay, &PixelDisplay::setGridSize);
     connect(this, &MainWindow::resize, model, &MainModel::resize);
 
-    // Toolbar connections
-    connect(this, &MainWindow::paintPixels, model, &MainModel::paintPixels);
-    connect(this, &MainWindow::erasePixels, model, &MainModel::erasePixels);
-    connect(this, &MainWindow::bucketFill, model, &MainModel::bucketFill);
-    connect(this, &MainWindow::setSelectedColorToPixel, model, &MainModel::setSelectedColorToPixel);
+    // Toolbar connection
+    connect(this, &MainWindow::pixelClicked, model, &MainModel::pixelClicked);
+    connect(this, &MainWindow::toolSelected, model, &MainModel::selectTool);
 
     //Update displays
     connect(model, &MainModel::newDisplayImage, ui->mainDrawing, &PixelDisplay::updateDrawnImage);
@@ -194,7 +190,7 @@ void MainWindow::setToolToBrush()
     ui->eraserButton->setStyleSheet("");
     ui->paintBucketButton->setStyleSheet("");
     ui->eyeDropperButton->setStyleSheet("");
-    selectedTool = Tool::Brush;
+    emit toolSelected(Tool::Brush);
 }
 
 void MainWindow::setToolToBucket()
@@ -203,7 +199,7 @@ void MainWindow::setToolToBucket()
     ui->eraserButton->setStyleSheet("");
     ui->paintBucketButton->setStyleSheet("border: 2px solid blue; border-radius: 5px; padding: 5px;");
     ui->eyeDropperButton->setStyleSheet("");
-    selectedTool = Tool::PaintBucket;
+    emit toolSelected(Tool::PaintBucket);
 }
 
 void MainWindow::setToolToEraser()
@@ -212,7 +208,7 @@ void MainWindow::setToolToEraser()
     ui->eraserButton->setStyleSheet("border: 2px solid blue; border-radius: 5px; padding: 5px;");
     ui->paintBucketButton->setStyleSheet("");
     ui->eyeDropperButton->setStyleSheet("");
-    selectedTool = Tool::Eraser;
+    emit toolSelected(Tool::Eraser);
 }
 
 void MainWindow::setToolToEyeDropper()
@@ -221,7 +217,7 @@ void MainWindow::setToolToEyeDropper()
     ui->eraserButton->setStyleSheet("");
     ui->paintBucketButton->setStyleSheet("");
     ui->eyeDropperButton->setStyleSheet("border: 2px solid blue; border-radius: 5px; padding: 5px;");
-    selectedTool = Tool::EyeDropper;
+    emit toolSelected(Tool::EyeDropper);
 }
 
 void MainWindow::onLayerButtonClicked(int layerNumber)
@@ -246,21 +242,7 @@ void MainWindow::mapClickLocationToGridCoordinate(QPoint screenPoint) {
     if(gridXCoordinate < 0 || gridYCoordinate < 0 || gridXCoordinate >= currentGridSize ||gridYCoordinate >= currentGridSize){
         return; //clicked / dragged outside of the canvas
     }
-
-    switch (selectedTool) {
-    case Tool::Brush:
-        emit paintPixels(gridXCoordinate, gridYCoordinate);
-        break;
-    case Tool::Eraser:
-        emit erasePixels(gridXCoordinate, gridYCoordinate);
-        break;
-    case Tool::EyeDropper:
-        emit setSelectedColorToPixel(gridXCoordinate, gridYCoordinate);
-        break;
-    case Tool::PaintBucket:
-        emit bucketFill(gridXCoordinate, gridYCoordinate);
-        break;
-    }
+    emit pixelClicked(gridXCoordinate, gridYCoordinate);
 }
 
 void MainWindow::handleMouseDrag(QPoint screenPoint) {
