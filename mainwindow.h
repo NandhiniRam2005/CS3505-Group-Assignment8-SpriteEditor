@@ -25,7 +25,6 @@ March 21, 2025
 #include <pixeldisplay.h>
 #include <QColorDialog>
 
-
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;

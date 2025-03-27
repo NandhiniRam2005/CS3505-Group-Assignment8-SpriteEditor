@@ -10,7 +10,8 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    brushSize = 3;
+    setToolToBrush();
+    brushSize = 5;
     currentIndexOfLayerButtons = 1;
     numberOfLayerButtons = 1;
     selectedLayerButton = ui->layerOneButton;

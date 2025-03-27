@@ -242,10 +242,12 @@ private:
      * @param y - y-coordinate of the pixel.
      */
     void setSelectedColorToPixel(unsigned int x, unsigned int y);
+
     /**
      * The currently selected tool
      */
     Tool currentTool;
+
     /**
      * vector collection of frames in the animation.
      */

@@ -9,13 +9,13 @@
 MainModel::MainModel(QObject *parent)
     : QObject{parent}
 {
-    brushSize = 1;
+    brushSize = 5;
     gridSize = 32;
     animationFPS = 10;
     frames.push_back(Frame(gridSize));
     selectedFrame = 0;
     selectedColor = Pixel(0,0,0,255);
-    currentTool = Tool::None;
+    currentTool = Tool::Brush;
 
     animationTimer = new QTimer();
 
