@@ -11,7 +11,7 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent)
 {
     ui->setupUi(this);
     setToolToBrush();
-    brushSize = 5;
+    brushSize = 4;
     currentIndexOfLayerButtons = 1;
     numberOfLayerButtons = 1;
     numberOfFrameButtonClicks = 0;
@@ -26,6 +26,11 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent)
     ui->resizeBox->addItem("16 x 16");
     ui->resizeBox->addItem("32 x 32");
     ui->resizeBox->addItem("64 x 64");
+
+    ui->brushSizeBox->addItem("1 x 1");
+    ui->brushSizeBox->addItem("2 x 2");
+    ui->brushSizeBox->addItem("4 x 4");
+    ui->brushSizeBox->addItem("8 x 8");
 
 
     //connections
@@ -125,8 +130,8 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent)
     //Drawing connections NOT DONE
     connect(ui->mouseListener, &MouseListener::mouseClicked, this, &MainWindow::mapClickLocationToGridCoordinate);
     connect(ui->mouseListener, &MouseListener::mouseMoved, this, &MainWindow::handleMouseDrag);
-    //Set brush size connections - DO WE WANT A SLIDER FOR BRUSH SIZE??? (havnt added to ui cuz aint sure hehe)
-    //connect(ui->brushSizeSlider, &QSlider::valueChanged, this, &MainWindow::setBrushSize);
+    connect(ui->brushSizeBox, &QComboBox::currentIndexChanged, this, &MainWindow::setBrushSize);
+    connect(this, &MainWindow::changeBrushSize, model, &MainModel::changeBrushSize);
 
     // Grid size connection between model and window (cuz i was jus gonna add a getter for it
     // in model but doe sthat break MVC? so jus added signal/slot) (for mapClickLocationToGridCoordinate method) !!!
@@ -177,10 +182,26 @@ void MainWindow::setFrameCopyVariable()
     frameBeingCopied = !frameBeingCopied;
 }
 
-void MainWindow::setBrushSize(int size)
+void MainWindow::setBrushSize(int sizeOption)
 {
-    brushSize = size;
-    emit changeBrushSize(brushSize);
+    switch (sizeOption) {
+    case 0:
+        brushSize = 1;
+        emit changeBrushSize(1);
+        break;
+    case 1:
+        brushSize = 2;
+        emit changeBrushSize(2);
+        break;
+    case 2:
+        brushSize = 4;
+        emit changeBrushSize(4);
+        break;
+    case 3:
+        brushSize = 8;
+        emit changeBrushSize(8);
+        break;
+    }
 }
 
 void MainWindow::addFrameHelper()

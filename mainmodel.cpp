@@ -9,7 +9,7 @@
 MainModel::MainModel(QObject *parent)
     : QObject{parent}
 {
-    brushSize = 5;
+    brushSize = 4;
     gridSize = 32;
     animationFPS = 10;
     frames.push_back(Frame(gridSize));

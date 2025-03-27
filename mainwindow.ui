@@ -623,8 +623,8 @@
    <widget class="QComboBox" name="resizeBox">
     <property name="geometry">
      <rect>
-      <x>551</x>
-      <y>330</y>
+      <x>550</x>
+      <y>350</y>
       <width>91</width>
       <height>22</height>
      </rect>
@@ -634,6 +634,48 @@
     </property>
     <property name="placeholderText">
      <string>32 x 32</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="brushSizeBox">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>400</y>
+      <width>91</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="currentText">
+     <string/>
+    </property>
+    <property name="placeholderText">
+     <string>4 x 4</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="transformationsLabel_2">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>330</y>
+      <width>101</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Resize Image</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="transformationsLabel_3">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>380</y>
+      <width>101</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Change Brush Size</string>
     </property>
    </widget>
   </widget>
