@@ -96,6 +96,11 @@ void Frame::addLayer() {
     imageChanged = true;
 }
 
+void Frame::addLayer(Layer newLayer){
+    layers.push_back(newLayer);
+    imageChanged = true;
+}
+
 void Frame::resize(unsigned int newSize) {
     for(Layer& layer : layers){
         layer.resize(newSize);

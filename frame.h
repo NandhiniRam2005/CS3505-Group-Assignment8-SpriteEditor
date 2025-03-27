@@ -78,6 +78,8 @@ public:
      */
     void addLayer();
 
+    void addLayer(Layer newLayer);
+
     /**
      * Resizes the frame and all its layers to the new size.
      * @param newSize - new size for the frame and layers.
