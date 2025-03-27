@@ -80,10 +80,11 @@ void Frame::deleteLayer(int layerIndex) {
     if(layers.size()==1){
         throw std::runtime_error("Cannot delete last layer in a frame");
     }
-    layers.erase(layers.begin() + layerIndex);
-    if(activeLayer >= layers.size()){
-        activeLayer = layers.size()-1;
+    if(layerIndex >= layers.size() || layerIndex < 0){
+        throw std::runtime_error("Invalid layer index");
     }
+    layers.removeAt(layerIndex);
+    activeLayer = 0;
     imageChanged = true;
 }
 

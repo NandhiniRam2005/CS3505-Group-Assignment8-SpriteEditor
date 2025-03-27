@@ -311,7 +311,7 @@ void MainWindow::deleteLayerButton(){
     delete selectedLayerButton;
     for(int i = 0; i < numberOfLayerButtons; i++){
         QString buttonText = "Layer " + QString::number(i + 1);
-        layerButtons.at(i)->setLayerNumber(i);
+        layerButtons.at(i)->setLayerNumber(i+1);
         layerButtons.at(i)->setText(buttonText);
     }
     std::cout << layerButtons.size() << std::endl;
