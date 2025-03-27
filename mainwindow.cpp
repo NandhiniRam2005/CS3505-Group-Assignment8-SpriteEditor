@@ -14,12 +14,14 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent)
     brushSize = 5;
     currentIndexOfLayerButtons = 1;
     numberOfLayerButtons = 1;
+    numberOfFrameButtonClicks = 0;
     selectedLayerButton = ui->layerOneButton;
     selectedLayerButton->setStyleSheet("border: 2px solid blue; border-radius: 5px; padding: 5px;");
     previouslySelected = nullptr;
     ui->layerOneButton->setLayerNumber(1);
     layerButtons.push_back(ui->layerOneButton);
     deleteLayerDisabled = true;
+    deleteFrameDisabled = true;
     ui->resizeBox->addItem("8 x 8");
     ui->resizeBox->addItem("16 x 16");
     ui->resizeBox->addItem("32 x 32");
@@ -57,9 +59,10 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent)
     //Add delete frames
     connect(ui->previousFrameButton, &QPushButton::clicked, model, &MainModel::previousFrame);
     connect(ui->nextFrameButton, &QPushButton::clicked, model, &MainModel::nextFrame);
-    connect(ui->deleteFrameButton, &QPushButton::clicked, model, &MainModel::deleteFrame);
+    connect(ui->deleteFrameButton, &QPushButton::clicked, this, &MainWindow::deleteFrameHelper);
     connect(ui->addFrameButton, &QPushButton::clicked, this, &MainWindow::addFrameHelper);
     connect(this, &MainWindow::addFrame, model, &MainModel::addFrame);
+    connect(this, &MainWindow::deleteFrame, model, &MainModel::deleteFrame);
 
     //Add delete layers
     connect(ui->addLayerButton, &QPushButton::clicked, this, &MainWindow::addLayerButton);
@@ -182,7 +185,21 @@ void MainWindow::setBrushSize(int size)
 
 void MainWindow::addFrameHelper()
 {
+    if(deleteFrameDisabled){
+        deleteFrameDisabled = false;
+        ui->deleteFrameButton->setEnabled(true);
+    }
+    numberOfFrameButtonClicks++;
     emit addFrame(frameBeingCopied);
+}
+
+void MainWindow::deleteFrameHelper(){
+    numberOfFrameButtonClicks--;
+    if(numberOfFrameButtonClicks == 0){
+        deleteFrameDisabled = true;
+        ui->deleteFrameButton->setEnabled(false);
+    }
+    emit deleteFrame();
 }
 
 void MainWindow::setToolToBrush()
@@ -297,13 +314,9 @@ void MainWindow::deleteLayerButton(){
         layerButtons.at(i)->setLayerNumber(i+1);
         layerButtons.at(i)->setText(buttonText);
     }
-    std::cout << layerButtons.size() << std::endl;
 
-    std::cout << layerButtons.first()->getLayerNumber() << std::endl;
     selectedLayerButton = layerButtons.first(); // when layer deleted it selects some button & layer
-    std::cout << selectedLayerButton->getLayerNumber() - 1 << std::endl;
     selectedLayerButton->setStyleSheet("border: 2px solid blue; border-radius: 5px; padding: 5px;");
-    std::cout << selectedLayerButton->getLayerNumber() - 1 << std::endl;
     emit changeLayer(selectedLayerButton->getLayerNumber());
     if (numberOfLayerButtons == 3) {
         ui->scrollArea->widget()->setMinimumHeight(0);

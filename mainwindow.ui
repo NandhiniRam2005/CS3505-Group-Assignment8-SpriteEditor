@@ -378,6 +378,9 @@
     </property>
    </widget>
    <widget class="QPushButton" name="deleteFrameButton">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>80</x>
@@ -550,6 +553,9 @@
     </property>
    </widget>
    <widget class="QPushButton" name="deleteLayerButton">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>740</x>
