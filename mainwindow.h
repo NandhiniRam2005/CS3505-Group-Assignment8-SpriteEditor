@@ -72,6 +72,8 @@ public slots:
 
     void addFrameHelper();
 
+    void deleteFrameHelper();
+
     void setToolToBrush();
 
     void setToolToBucket();
@@ -179,7 +181,9 @@ private:
     unsigned int currentGridSize;
     int currentIndexOfLayerButtons;
     int numberOfLayerButtons;
+    int numberOfFrameButtonClicks;
     bool deleteLayerDisabled;
+    bool deleteFrameDisabled;
     QVector<LayerButton*> layerButtons;
     LayerButton* selectedLayerButton;
     LayerButton* previouslySelected;
