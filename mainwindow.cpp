@@ -136,7 +136,7 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent)
     connect(ui->mouseListener, &MouseListener::mouseClicked, this, &MainWindow::mapClickLocationToGridCoordinate);
 
     //Load and save
-    // connect(this, &MainWindow::saveFile, model, &MainModel::saveJSON);
+    connect(this, &MainWindow::saveFile, model, &MainModel::saveJSON);
 
     emit askGridSize();
 }
@@ -333,15 +333,12 @@ void MainWindow::deleteLayerButton(){
 }
 
 void MainWindow::openFileChooserLoad(){
-    QString filename = QFileDialog::getOpenFileName(nullptr, "Open File", "", "ssp", nullptr);
+    QString filename = QFileDialog::getOpenFileName(nullptr, "Open File", "", "", nullptr);
 
     emit loadFile(filename);
 }
 void MainWindow::openFileChooserSave(){
     QString filename = QFileDialog::getSaveFileName(nullptr, "Save File", "", "ssp", nullptr);
-
-    qDebug() << filename;
-
     emit saveFile(filename);
 }
 

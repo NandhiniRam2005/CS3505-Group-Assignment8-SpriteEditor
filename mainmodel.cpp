@@ -27,7 +27,7 @@ MainModel::MainModel(QObject *parent)
 //TODO: load / save JSON methods --- DONE MAYBE? : look at saveJson tho! :(
 // send animation frames on a timer
 // attach signals / slots
-void MainModel::loadJSON(QString& filepath){
+void MainModel::loadJSON(const QString& filepath){
     QFile file(filepath);
 
     //try to open the file on readonly mode to see if its a valid filename
@@ -98,7 +98,7 @@ void MainModel::loadJSON(QString& filepath){
 }
 
 
-void MainModel::saveJSON(QString& filepath){
+void MainModel::saveJSON(const QString& filepath){
     QFile file(filepath);
 
     //try to open the file on writeonly mode to see if its a valid filename
