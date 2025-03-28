@@ -5,7 +5,8 @@
 
 PixelDisplay::PixelDisplay(QWidget *parent)
     : QWidget(parent), gridSize(32), currentImage(64 * 64)
-{}
+{
+}
 
 QPoint PixelDisplay::mapPixelCoordinateToUICoordinate(unsigned int pixelX, unsigned int pixelY) {
     // Calculate the size of each pixel based on the widget's size
@@ -23,7 +24,6 @@ void PixelDisplay::paintEvent(QPaintEvent* event) {
     QWidget::paintEvent(event);
 
     QPainter painter(this);
-
     const int pixelWidth = width() / gridSize;
     const int pixelHeight = height() / gridSize;
 

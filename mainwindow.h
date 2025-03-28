@@ -102,6 +102,8 @@ public slots:
 
     void openFileChooserSave();
 
+    void updateNumberOfLayerButtons(int numberOfLayerButtons);
+
     // void displayLayerButtonSelection();
 
 signals:

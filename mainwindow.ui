@@ -91,6 +91,9 @@
       <height>360</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
    </widget>
    <widget class="PixelDisplay" name="frameDisplay" native="true">
     <property name="geometry">
@@ -101,6 +104,9 @@
       <height>101</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
    </widget>
    <widget class="PixelDisplay" name="animationDisplay" native="true">
     <property name="geometry">
@@ -110,6 +116,9 @@
       <width>161</width>
       <height>161</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
     </property>
    </widget>
    <widget class="QSlider" name="fpsSlider">
@@ -582,6 +591,9 @@
     </property>
     <property name="cursor">
      <cursorShape>CrossCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
     </property>
    </widget>
    <widget class="QPushButton" name="colorButton">

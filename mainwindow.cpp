@@ -77,6 +77,8 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent)
     connect(this, &MainWindow::deleteLayer, model, &MainModel::deleteLayer);
     connect(this, &MainWindow::changeLayer, model, &MainModel::changeLayer);
 
+    connect(model, &MainModel::sendNumberOfLayers, this, &MainWindow::updateNumberOfLayerButtons);
+
     //Select layers they will be dynamically created and connected else where.
     connect(ui->layerOneButton, &QPushButton::clicked, this, [this]() {
         selectedLayerButton->setStyleSheet("");
@@ -86,7 +88,7 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent)
         onLayerButtonClicked(layerNumber - 1);
     });
 
-    connect(ui->addLayerButton, &QPushButton::clicked, this, &MainWindow::addLayer);
+    //connect(ui->addLayerButton, &QPushButton::clicked, this, &MainWindow::addLayer);
 
     //Change fps
     connect(ui->fpsSlider, &QSlider::sliderMoved, model, &MainModel::changeAnimationFPS);
@@ -291,6 +293,7 @@ void MainWindow::handleMouseDrag(QPoint screenPoint) {
 }
 
 void MainWindow::addLayerButton(){
+    std::cout<< "add layer button called" << std::endl;
     numberOfLayerButtons++;
     //renable delete button
     if(deleteLayerDisabled){
@@ -300,7 +303,11 @@ void MainWindow::addLayerButton(){
     LayerButton* button = new LayerButton(numberOfLayerButtons, this);
     button->setMinimumHeight(32);
     button->setMinimumWidth(99);
-    connect(button, &QPushButton::clicked, this, [this, button]() { selectedLayerButton->setStyleSheet(""); selectedLayerButton = button;  selectedLayerButton->setStyleSheet("border: 2px solid blue; border-radius: 5px; padding: 5px;"); onLayerButtonClicked(button->getLayerNumber() - 1);});
+    connect(button, &QPushButton::clicked, this, [this, button]() {
+        selectedLayerButton->setStyleSheet("");
+        selectedLayerButton = button;  selectedLayerButton->setStyleSheet("border: 2px solid blue; border-radius: 5px; padding: 5px;");
+        onLayerButtonClicked(button->getLayerNumber() - 1);
+    });
     ui->layerButtonLayout->addWidget(button);
     selectedLayerButton->setStyleSheet("");
     selectedLayerButton = button;
@@ -320,6 +327,51 @@ void MainWindow::addLayerButton(){
     verticalScrollBar->setValue(verticalScrollBar->maximum());
 
     layerButtons.push_back(button);
+}
+
+void MainWindow::updateNumberOfLayerButtons(int newNumOfLayers){
+    numberOfLayerButtons = 0;
+    // clear out all the widgets from the layout and deletes from list of buttons
+    while (!layerButtons.empty()) {
+        LayerButton* button = layerButtons.takeFirst();
+        ui->layerButtonLayout->removeWidget(button);
+        delete button;
+    }
+    //Adds all new layerButtons to layout and list of buttons
+    for(int i = 0; i < newNumOfLayers; i++){
+        numberOfLayerButtons++;
+        LayerButton* button = new LayerButton(numberOfLayerButtons, this);
+        button->setMinimumHeight(32);
+        button->setMinimumWidth(99);
+        connect(button, &QPushButton::clicked, this, [this, button]() {
+            selectedLayerButton->setStyleSheet("");
+            selectedLayerButton = button;  selectedLayerButton->setStyleSheet("border: 2px solid blue; border-radius: 5px; padding: 5px;");
+            onLayerButtonClicked(button->getLayerNumber() - 1);
+        });
+        ui->layerButtonLayout->addWidget(button);
+        layerButtons.push_back(button);
+    }
+    std::cout << "There are now this many layer buttons: " << numberOfLayerButtons << std::endl;
+    selectedLayerButton = layerButtons.first(); // when layer deleted it selects some button & layer
+    selectedLayerButton->setStyleSheet("border: 2px solid blue; border-radius: 5px; padding: 5px;");
+    emit changeLayer(selectedLayerButton->getLayerNumber() - 1);
+
+    if (numberOfLayerButtons == 3) {
+        ui->scrollArea->widget()->setMinimumHeight(0);
+
+    } else if (numberOfLayerButtons > 3) {
+        int currentHeight = ui->scrollArea->widget()->minimumHeight();
+        ui->scrollArea->widget()->setMinimumHeight(currentHeight - 38);
+    }
+
+    QScrollBar* verticalScrollBar = ui->scrollArea->verticalScrollBar();
+    verticalScrollBar->setValue(verticalScrollBar->maximum());
+
+    if(numberOfLayerButtons == 1){
+        deleteLayerDisabled = true;
+        ui->deleteLayerButton->setEnabled(false);
+    }
+
 }
 
 void MainWindow::deleteLayerButton(){

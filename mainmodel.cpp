@@ -105,6 +105,7 @@ void MainModel::loadJSON(const QString& filepath){
 
     file.close();
     emit loadJSONStatus(true);
+    emit sendNumberOfLayers(frames[selectedFrame].getLayers().size());
     emit newDisplayImage(tempImage.data());
 }
 
@@ -176,6 +177,7 @@ void MainModel::previousFrame(){
         selectedFrame = frames.size()-1;
     }
     emit newSelectedFrame(selectedFrame);
+    emit sendNumberOfLayers(frames[selectedFrame].getLayers().size());
     sendDisplayImage();
 }
 
@@ -185,6 +187,7 @@ void MainModel::nextFrame(){
         selectedFrame = 0;
     }
     emit newSelectedFrame(selectedFrame);
+    emit sendNumberOfLayers(frames[selectedFrame].getLayers().size());
     sendDisplayImage();
 }
 
@@ -195,6 +198,7 @@ void MainModel::addFrame(bool copyPrevious){
         frames.append(Frame(gridSize));
     }
     selectedFrame+=1;
+    emit sendNumberOfLayers(frames[selectedFrame].getLayers().size());
     emit newSelectedFrame(selectedFrame);
     sendDisplayImage();
 }
@@ -221,6 +225,8 @@ void MainModel::changeLayer(unsigned int layer){
 }
 
 void MainModel::addLayer(){
+    std::cout << "LAYER ADDED" << std::endl;
+    std::cout << "current Number of layers: " << frames[selectedFrame].getLayers().size() << std::endl;
     frames[selectedFrame].addLayer();
     sendDisplayImage();
 }

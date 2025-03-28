@@ -94,6 +94,8 @@ signals:
 
     void gridSizeUpdated(unsigned int gridSize);
 
+    void sendNumberOfLayers(int numberOfLayers);
+
 public slots:
     /**
      * Loads a JSON file containing canvas' data.
@@ -210,6 +212,8 @@ public slots:
     void getGridSize();
 
     void mouseLeft();
+
+
 
 private:
     /**
