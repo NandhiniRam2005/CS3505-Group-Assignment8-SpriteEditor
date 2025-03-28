@@ -146,11 +146,9 @@ void MainModel::saveJSON(const QString& filepath){
                 pixelArray.append(jsonPixel);
             }
             jsonLayer["pixels"] = pixelArray;
-            jsonLayer["size"] = (int) gridSize;
             jsonLayers.append(jsonLayer);
         }
         jsonFrame["layers"] = jsonLayers;
-        jsonFrame["size"] = (int) gridSize;
         jsonFrames.append(jsonFrame);
     }
     jsonSpriteCanvas["frames"] = jsonFrames;
