@@ -411,6 +411,9 @@ void MainWindow::deleteLayerButton(){
 
 void MainWindow::openFileChooserLoad(){
     QString filename = QFileDialog::getOpenFileName(nullptr, "Open File", "", "", nullptr);
+    if (filename.isEmpty()) {
+        return;
+    }
 
     emit loadFile(filename);
 
