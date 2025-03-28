@@ -70,10 +70,6 @@ void Frame::renderImages(){
     for(unsigned int i = 0; i<size*size; i++){
         if(layerPixels[i].alpha != 0){
             layeredImage[i] = layerPixels[i];
-            renderedImage[i] = layeredImage[i];
-            if(renderedImage[i].alpha == HIDDEN_ALPHA){
-                renderedImage[i].alpha = 255;
-            }
         }
     }
     imageChanged = false;
