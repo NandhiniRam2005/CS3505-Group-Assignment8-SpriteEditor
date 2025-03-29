@@ -61,6 +61,9 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent)
     //Save/Load
     connect(ui->actionLoad, &QAction::triggered, this, &MainWindow::openFileChooserLoad);
     connect(ui->actionSave, &QAction::triggered, this, &MainWindow::openFileChooserSave);
+    connect(model, &MainModel::loadJSONStatus, this, &MainWindow::displayLoadStatus);
+    connect(model, &MainModel::saveJSONStatus, this, &MainWindow::displaySaveStatus);
+
 
     //Add delete frames
     connect(ui->previousFrameButton, &QPushButton::clicked, model, &MainModel::previousFrame);
@@ -173,12 +176,18 @@ void MainWindow::displayColorChange(Pixel pixel)
 
 void MainWindow::displayLoadStatus(bool status)
 {
-    // TODO: Implement displayLoadStatus
+    if (status)
+        statusBar()->showMessage("Load successful", 3000);
+    else
+        statusBar()->showMessage("Load failed!", 3000);
 }
 
 void MainWindow::displaySaveStatus(bool status)
 {
-    // TODO: Implement displaySaveStatus
+    if (status)
+        statusBar()->showMessage("Save successful", 3000);
+    else
+        statusBar()->showMessage("Load failed!", 3000);
 }
 
 void MainWindow::openColorDialogue()
