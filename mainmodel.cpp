@@ -5,6 +5,7 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include <iostream>
+#include <algorithm>
 
 MainModel::MainModel(QObject *parent)
     : QObject{parent}
@@ -30,6 +31,7 @@ MainModel::MainModel(QObject *parent)
 // attach signals / slots
 void MainModel::loadJSON(const QString& filepath){
     frames.clear();
+    std::cout << "Size of frames at first load: " << frames.size() << std::endl;
     QFile file(filepath);
 
     //try to open the file on readonly mode to see if its a valid filename
@@ -96,6 +98,7 @@ void MainModel::loadJSON(const QString& filepath){
                     frame.addLayer(layer);
                 }
             }
+            frame.deleteLayer(0);
             frames.append(frame);
         }
     } else {
@@ -105,6 +108,7 @@ void MainModel::loadJSON(const QString& filepath){
 
     file.close();
     emit loadJSONStatus(true);
+    std::cout << frames[selectedFrame].getLayers().size() << std::endl;
     emit sendNumberOfLayers(frames[selectedFrame].getLayers().size());
     emit newDisplayImage(tempImage.data());
 }
@@ -127,7 +131,6 @@ void MainModel::saveJSON(const QString& filepath){
     for (Frame& frame : frames) {
         QJsonObject jsonFrame;
         QJsonArray jsonLayers;
-
         // Loop through each frame's layers
         // HOW DO I LOOP THRU the frame's layers without liek having a getlayers method in frame (but doenst that break MVC? idk
         for (const Layer& layer : frame.getLayers()) {

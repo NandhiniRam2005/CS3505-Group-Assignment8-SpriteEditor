@@ -1,5 +1,6 @@
 #include "frame.h"
 #include <stdexcept>
+#include <iostream>
 Frame::Frame(unsigned int size): size(size){
     layers.push_back(Layer(size));
     activeLayer = 0;
@@ -98,11 +99,13 @@ void Frame::deleteLayer(int layerIndex) {
 }
 
 void Frame::addLayer() {
+    std::cout << "add layer regular (no given layer) called" << std::endl;
     layers.push_back(Layer(size));
     imageChanged = true;
 }
 
 void Frame::addLayer(Layer newLayer){
+    std::cout << "add layer called" << std::endl;
     layers.push_back(newLayer);
     imageChanged = true;
 }
