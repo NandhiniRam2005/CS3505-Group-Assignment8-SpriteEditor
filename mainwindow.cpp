@@ -380,6 +380,10 @@ void MainWindow::updateNumberOfLayerButtons(int newNumOfLayers){
         deleteLayerDisabled = true;
         ui->deleteLayerButton->setEnabled(false);
     }
+    else{
+        deleteLayerDisabled = false;
+        ui->deleteLayerButton->setEnabled(true);
+    }
 
 }
 
