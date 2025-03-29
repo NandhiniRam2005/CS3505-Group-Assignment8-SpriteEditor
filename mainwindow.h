@@ -106,6 +106,8 @@ public slots:
 
     // void displayLayerButtonSelection();
 
+    void updateNumberOfFrames(int numberOfFrames);
+
 signals:
     /**
      * Signal to load file
@@ -159,7 +161,6 @@ signals:
     void pixelClicked(unsigned int xCoord, unsigned int yCoord);
     void toolSelected(Tool newTool);
     // void selectedLayerChanged();
-
 private:
     MouseListener mouseListener;
     PixelDisplay mainDrawing;

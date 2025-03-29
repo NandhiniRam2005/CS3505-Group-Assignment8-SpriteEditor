@@ -147,6 +147,8 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent)
     connect(this, &MainWindow::saveFile, model, &MainModel::saveJSON);
     connect(this, &MainWindow::loadFile, model, &MainModel::loadJSON);
 
+    connect(model, &MainModel::newSelectedFrame, this, &MainWindow::updateNumberOfFrames);
+
 
     emit askGridSize();
 }
@@ -452,5 +454,9 @@ void MainWindow::changeGridSize(int sizeOption) {
         emit resize(64);
         break;
     }
+}
+
+void MainWindow::updateNumberOfFrames(int numberOfFrames) {
+    ui->currentFrameLabel->setText("Frame: " + QString::number(numberOfFrames + 1));
 }
 

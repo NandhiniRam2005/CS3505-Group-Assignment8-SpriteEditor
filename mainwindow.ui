@@ -690,6 +690,19 @@
      <string>Brush Size</string>
     </property>
    </widget>
+   <widget class="QLabel" name="currentFrameLabel">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>400</y>
+      <width>63</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Frame: 1</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="toolBar">
