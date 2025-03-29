@@ -459,8 +459,8 @@ void MainWindow::openFileChooserSave(){
     // QString fileName = QFileDialog::getSaveFileName(this, "Save File", "", "Sprite Project (*.ssp);;All Files (*)");
 
     if (!fileName.isEmpty()) {
-        if (!fileName.endsWith(".ssp")) {
-            fileName += ".ssp";
+        if (!fileName.endsWith("ssp")) {
+            fileName += "ssp";
         }
         emit saveFile(fileName);
     }
