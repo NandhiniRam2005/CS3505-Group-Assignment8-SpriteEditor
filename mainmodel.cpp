@@ -53,6 +53,7 @@ void MainModel::loadJSON(const QString& filepath){
     //Read size
     if (jsonSpriteCanvas.contains("size")) {
         gridSize = jsonSpriteCanvas["size"].toInt();
+        emit gridSizeUpdated(gridSize);
     } else {
         emit loadJSONStatus(false);
         return;
@@ -98,7 +99,7 @@ void MainModel::loadJSON(const QString& filepath){
                     frame.addLayer(layer);
                 }
             }
-            frame.deleteLayer(0);
+            frame.deleteLayer(0); // Needed since frames must have one layer the frame constructor adds a layer, this deletes it
             frames.append(frame);
         }
     } else {

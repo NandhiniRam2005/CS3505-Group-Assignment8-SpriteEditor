@@ -106,6 +106,12 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent)
     connect(this, &MainWindow::resize, ui->frameDisplay, &PixelDisplay::setGridSize);
     connect(this, &MainWindow::resize, model, &MainModel::resize);
 
+    connect(model, &MainModel::gridSizeUpdated, this, &MainWindow::changeGridSize);
+    connect(model, &MainModel::gridSizeUpdated, ui->mainDrawing, &PixelDisplay::setGridSize);
+    connect(model, &MainModel::gridSizeUpdated, ui->animationDisplay, &PixelDisplay::setGridSize);
+    connect(model, &MainModel::gridSizeUpdated, ui->frameDisplay, &PixelDisplay::setGridSize);
+
+
     // Toolbar connection
     connect(this, &MainWindow::pixelClicked, model, &MainModel::pixelClicked);
     connect(this, &MainWindow::toolSelected, model, &MainModel::selectTool);
