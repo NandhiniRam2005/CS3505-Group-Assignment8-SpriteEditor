@@ -30,8 +30,11 @@ MainModel::MainModel(QObject *parent)
 // send animation frames on a timer
 // attach signals / slots
 void MainModel::loadJSON(const QString& filepath){
+    if(!filepath.endsWith("ssp")){
+        emit loadJSONStatus(false);
+        return;
+    }
     frames.clear();
-    std::cout << "Size of frames at first load: " << frames.size() << std::endl;
     QFile file(filepath);
 
     //try to open the file on readonly mode to see if its a valid filename
