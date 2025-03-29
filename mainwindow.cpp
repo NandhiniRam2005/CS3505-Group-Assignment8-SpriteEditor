@@ -142,10 +142,11 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent)
     connect(ui->brushSizeBox, &QComboBox::currentIndexChanged, this, &MainWindow::setBrushSize);
     connect(this, &MainWindow::changeBrushSize, model, &MainModel::changeBrushSize);
 
-    // Grid size connection between model and window (cuz i was jus gonna add a getter for it
-    // in model but doe sthat break MVC? so jus added signal/slot) (for mapClickLocationToGridCoordinate method) !!!
+    // Grid size connection
     connect(this, &MainWindow::askGridSize, model, &MainModel::getGridSize);
     connect(model, &MainModel::gridSizeUpdated, this, &MainWindow::updateGridSize);
+
+    connect(model, &MainModel::gridSizeUpdated, this, &MainWindow::syncResizeComboBox);
 
     //Connect MouseListener
     connect(ui->mouseListener, &MouseListener::mouseClicked, this, &MainWindow::mapClickLocationToGridCoordinate);
@@ -479,5 +480,26 @@ void MainWindow::changeGridSize(int sizeOption) {
 
 void MainWindow::updateNumberOfFrames(int numberOfFrames) {
     ui->currentFrameLabel->setText("Frame: " + QString::number(numberOfFrames + 1));
+}
+
+void MainWindow::syncResizeComboBox(unsigned int gridSize) {
+    ui->resizeBox->blockSignals(true);
+
+    switch(gridSize) {
+    case 8:
+        ui->resizeBox->setCurrentIndex(0);
+        break;
+    case 16:
+        ui->resizeBox->setCurrentIndex(1);
+        break;
+    case 32:
+        ui->resizeBox->setCurrentIndex(2);
+        break;
+    case 64:
+        ui->resizeBox->setCurrentIndex(3);
+        break;
+    }
+
+    ui->resizeBox->blockSignals(false);
 }
 
