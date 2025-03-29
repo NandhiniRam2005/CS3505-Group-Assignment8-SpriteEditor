@@ -399,7 +399,7 @@ void MainWindow::deleteLayerButton(){
 
     selectedLayerButton = layerButtons.first(); // when layer deleted it selects some button & layer
     selectedLayerButton->setStyleSheet("border: 2px solid blue; border-radius: 5px; padding: 5px;");
-    emit changeLayer(selectedLayerButton->getLayerNumber());
+    emit changeLayer(selectedLayerButton->getLayerNumber() - 1);
     if (numberOfLayerButtons == 3) {
         ui->scrollArea->widget()->setMinimumHeight(0);
 
