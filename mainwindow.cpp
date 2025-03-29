@@ -385,21 +385,31 @@ void MainWindow::updateNumberOfLayerButtons(int newNumOfLayers){
 
 void MainWindow::deleteLayerButton(){
     if(numberOfLayerButtons == 1) return;
+    int deletedLayerIndex = layerButtons.indexOf(selectedLayerButton);
     numberOfLayerButtons--;
     ui->layerButtonLayout->removeWidget(selectedLayerButton);
     layerButtons.removeOne(selectedLayerButton);
     emit deleteLayer(selectedLayerButton->getLayerNumber() - 1); // Hey dont we need to delete a specific layer not just any layer
     selectedLayerButton->setStyleSheet("");
     delete selectedLayerButton;
+
     for(int i = 0; i < numberOfLayerButtons; i++){
         QString buttonText = "Layer " + QString::number(i + 1);
         layerButtons.at(i)->setLayerNumber(i+1);
         layerButtons.at(i)->setText(buttonText);
     }
 
-    selectedLayerButton = layerButtons.first(); // when layer deleted it selects some button & layer
+    int newSelectedIndex = deletedLayerIndex;
+    if (newSelectedIndex >= layerButtons.size()) {
+        newSelectedIndex = layerButtons.size() - 1;
+    }
+
+    selectedLayerButton = layerButtons.at(newSelectedIndex);
     selectedLayerButton->setStyleSheet("border: 2px solid blue; border-radius: 5px; padding: 5px;");
     emit changeLayer(selectedLayerButton->getLayerNumber() - 1);
+
+
+
     if (numberOfLayerButtons == 3) {
         ui->scrollArea->widget()->setMinimumHeight(0);
 
