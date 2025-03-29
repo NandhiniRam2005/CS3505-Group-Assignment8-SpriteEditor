@@ -12,6 +12,7 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent)
     ui->setupUi(this);
     setToolToBrush();
     brushSize = 4;
+    frameBeingCopied = false;
     currentIndexOfLayerButtons = 1;
     numberOfLayerButtons = 1;
     numberOfFrameButtonClicks = 0;
