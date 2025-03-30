@@ -1,4 +1,5 @@
 /*
+* Checked by Joel Rodriguez
 The cpp file for Layer Button.
 
 This class represents a button associated with a specific layer number.

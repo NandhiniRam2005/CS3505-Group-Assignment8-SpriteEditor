@@ -1,4 +1,5 @@
 /*
+* Checked by Joel Rodriguez
 A class that contaisn the main method to start up teh application.
 
 By Joel Rodriguez, Jacob Anderson,

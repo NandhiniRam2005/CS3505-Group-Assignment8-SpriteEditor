@@ -1,4 +1,5 @@
 /*
+* Checked by Joel Rodriguez
 The cpp file for pixel.
 
 A class which represents a pixel in the canvas/image which has attributes for color and transparancy.
