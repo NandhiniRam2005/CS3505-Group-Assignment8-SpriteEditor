@@ -1,4 +1,5 @@
 /*
+* Checked by Joel Rodriguez
 The cpp file for mainwindow.
 
 A class which represents represents the main window of the application.
@@ -19,8 +20,10 @@ March 30, 2025
 
 MainWindow::MainWindow(MainModel* model, QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
+
     setToolToBrush();
     brushSize = 4;
+
     frameBeingCopied = false;
     numberOfLayerButtons = 1;
     numberOfFrameButtonClicks = 0;
@@ -30,6 +33,7 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent) : QMainWindow(parent),
     layerButtons.push_back(ui->layerOneButton);
     deleteLayerDisabled = true;
     deleteFrameDisabled = true;
+
     ui->resizeBox->addItem("8 x 8");
     ui->resizeBox->addItem("16 x 16");
     ui->resizeBox->addItem("32 x 32");
@@ -80,14 +84,12 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent) : QMainWindow(parent),
     connect(this, &MainWindow::addFrame, model, &MainModel::addFrame);
     connect(this, &MainWindow::deleteFrame, model, &MainModel::deleteFrame);
 
-    //Add delete layers
+    //Add delete and update layers
     connect(ui->addLayerButton, &QPushButton::clicked, this, &MainWindow::addLayerButton);
-    // connect(this, &MainWindow::selectedLayerChanged, this, &MainWindow::displayLayerButtonSelection);
     connect(this, &MainWindow::addLayer, model, &MainModel::addLayer);
     connect(ui->deleteLayerButton, &QPushButton::clicked, this, &MainWindow::deleteLayerButton);
     connect(this, &MainWindow::deleteLayer, model, &MainModel::deleteLayer);
     connect(this, &MainWindow::changeLayer, model, &MainModel::changeLayer);
-
     connect(model, &MainModel::sendNumberOfLayers, this, &MainWindow::updateNumberOfLayerButtons);
 
     //Select layers they will be dynamically created and connected else where.
@@ -98,8 +100,6 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent) : QMainWindow(parent),
         int layerNumber = ui->layerOneButton->getLayerNumber();
         onLayerButtonClicked(layerNumber - 1);
     });
-
-    //connect(ui->addLayerButton, &QPushButton::clicked, this, &MainWindow::addLayer);
 
     //Change fps
     connect(ui->fpsSlider, &QSlider::sliderMoved, model, &MainModel::changeAnimationFPS);
@@ -146,7 +146,7 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent) : QMainWindow(parent),
     connect(ui->paintBucketButton, &QPushButton::clicked, this, &MainWindow::setToolToBucket);
     connect(ui->eraserButton, &QPushButton::clicked, this, &MainWindow::setToolToEraser);
 
-    //Drawing connections NOT DONE
+    //Drawing connections
     connect(ui->mouseListener, &MouseListener::mouseClicked, this, &MainWindow::mapClickLocationToGridCoordinate);
     connect(ui->mouseListener, &MouseListener::mouseMoved, this, &MainWindow::handleMouseDrag);
     connect(ui->brushSizeBox, &QComboBox::currentIndexChanged, this, &MainWindow::setBrushSize);
@@ -166,7 +166,6 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent) : QMainWindow(parent),
     connect(this, &MainWindow::loadFile, model, &MainModel::loadJSON);
 
     connect(model, &MainModel::newSelectedFrame, this, &MainWindow::updateNumberOfFrames);
-
 
     emit askGridSize();
 }
@@ -238,16 +237,19 @@ void MainWindow::addFrameHelper()
         deleteFrameDisabled = false;
         ui->deleteFrameButton->setEnabled(true);
     }
+
     numberOfFrameButtonClicks++;
     emit addFrame(frameBeingCopied);
 }
 
 void MainWindow::deleteFrameHelper(){
     numberOfFrameButtonClicks--;
+
     if(numberOfFrameButtonClicks == 0){
         deleteFrameDisabled = true;
         ui->deleteFrameButton->setEnabled(false);
     }
+
     emit deleteFrame();
 }
 
@@ -309,6 +311,7 @@ void MainWindow::mapClickLocationToGridCoordinate(QPoint screenPoint) {
     if(gridXCoordinate < 0 || gridYCoordinate < 0 || gridXCoordinate >= currentGridSize ||gridYCoordinate >= currentGridSize){
         return; //clicked / dragged outside of the canvas
     }
+
     emit pixelClicked(gridXCoordinate, gridYCoordinate);
 }
 
@@ -325,20 +328,24 @@ void MainWindow::addLayerButton(){
         deleteLayerDisabled = false;
         ui->deleteLayerButton->setEnabled(true);
     }
+
     LayerButton* button = new LayerButton(numberOfLayerButtons, this);
     button->setMinimumHeight(32);
     button->setMinimumWidth(99);
+
     connect(button, &QPushButton::clicked, this, [this, button]() {
         selectedLayerButton->setStyleSheet("");
         selectedLayerButton = button;  selectedLayerButton->setStyleSheet("border: 2px solid blue; border-radius: 5px; padding: 5px;");
         onLayerButtonClicked(button->getLayerNumber() - 1);
     });
+
     ui->layerButtonLayout->addWidget(button);
     selectedLayerButton->setStyleSheet("");
     selectedLayerButton = button;
     selectedLayerButton->setStyleSheet("border: 2px solid blue; border-radius: 5px; padding: 5px;");
     emit addLayer();
     emit changeLayer(selectedLayerButton->getLayerNumber() - 1);
+
     if (numberOfLayerButtons == 4) {
         int currentHeight = ui->scrollArea->widget()->minimumHeight();
         ui->scrollArea->widget()->setMinimumHeight(currentHeight + 150);
@@ -356,12 +363,14 @@ void MainWindow::addLayerButton(){
 
 void MainWindow::updateNumberOfLayerButtons(int newNumOfLayers){
     numberOfLayerButtons = 0;
+
     // clear out all the widgets from the layout and deletes from list of buttons
     while (!layerButtons.empty()) {
         LayerButton* button = layerButtons.takeFirst();
         ui->layerButtonLayout->removeWidget(button);
         delete button;
     }
+
     //Adds all new layerButtons to layout and list of buttons
     for(int i = 0; i < newNumOfLayers; i++){
         numberOfLayerButtons++;
@@ -376,6 +385,7 @@ void MainWindow::updateNumberOfLayerButtons(int newNumOfLayers){
         ui->layerButtonLayout->addWidget(button);
         layerButtons.push_back(button);
     }
+
     selectedLayerButton = layerButtons.first(); // when layer deleted it selects some button & layer
     selectedLayerButton->setStyleSheet("border: 2px solid blue; border-radius: 5px; padding: 5px;");
     emit changeLayer(selectedLayerButton->getLayerNumber() - 1);
@@ -404,11 +414,12 @@ void MainWindow::updateNumberOfLayerButtons(int newNumOfLayers){
 
 void MainWindow::deleteLayerButton(){
     if(numberOfLayerButtons == 1) return;
+
     int deletedLayerIndex = layerButtons.indexOf(selectedLayerButton);
     numberOfLayerButtons--;
     ui->layerButtonLayout->removeWidget(selectedLayerButton);
     layerButtons.removeOne(selectedLayerButton);
-    emit deleteLayer(selectedLayerButton->getLayerNumber() - 1); // Hey dont we need to delete a specific layer not just any layer
+    emit deleteLayer(selectedLayerButton->getLayerNumber() - 1);
     selectedLayerButton->setStyleSheet("");
     delete selectedLayerButton;
 
@@ -419,6 +430,7 @@ void MainWindow::deleteLayerButton(){
     }
 
     int newSelectedIndex = deletedLayerIndex;
+
     if (newSelectedIndex >= layerButtons.size()) {
         newSelectedIndex = layerButtons.size() - 1;
     }
@@ -426,8 +438,6 @@ void MainWindow::deleteLayerButton(){
     selectedLayerButton = layerButtons.at(newSelectedIndex);
     selectedLayerButton->setStyleSheet("border: 2px solid blue; border-radius: 5px; padding: 5px;");
     emit changeLayer(selectedLayerButton->getLayerNumber() - 1);
-
-
 
     if (numberOfLayerButtons == 3) {
         ui->scrollArea->widget()->setMinimumHeight(0);
@@ -461,7 +471,6 @@ void MainWindow::openFileChooserLoad(){
 }
 void MainWindow::openFileChooserSave(){
     QString fileName = QFileDialog::getSaveFileName(nullptr, "Save File", "", "ssp", nullptr);
-    // QString fileName = QFileDialog::getSaveFileName(this, "Save File", "", "Sprite Project (*.ssp);;All Files (*)");
 
     if (!fileName.isEmpty()) {
         if (!fileName.endsWith("ssp")) {
