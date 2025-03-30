@@ -90,6 +90,20 @@
     <property name="toolTip">
      <string>Next Frame</string>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: #e2e2df;
+    border-radius: 15px;
+}
+
+QPushButton:hover {
+    background-color: #b2b2ac; 
+}
+
+QPushButton:pressed {
+    background-color: #83837a;
+}</string>
+    </property>
     <property name="text">
      <string/>
     </property>
@@ -117,7 +131,18 @@
      <string>Previous Frame</string>
     </property>
     <property name="styleSheet">
-     <string notr="true"/>
+     <string notr="true">QPushButton {
+    background-color: #e2e2df;
+    border-radius: 15px;
+}
+
+QPushButton:hover {
+    background-color: #b2b2ac; 
+}
+
+QPushButton:pressed {
+    background-color: #83837a;
+}</string>
     </property>
     <property name="text">
      <string/>
@@ -442,6 +467,20 @@
     <property name="toolTip">
      <string>Add Frame</string>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: #8fa886;
+    border-radius: 15px;
+}
+
+QPushButton:hover {
+    background-color: #5e7656; 
+}
+
+QPushButton:pressed {
+    background-color: #313e2d;
+}</string>
+    </property>
     <property name="text">
      <string/>
     </property>
@@ -470,6 +509,20 @@
     </property>
     <property name="toolTip">
      <string>Remove Frame</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: #83837a;
+    border-radius: 15px;
+}
+
+QPushButton:hover {
+    background-color: #50504b; 
+}
+
+QPushButton:pressed {
+    background-color: #1e1e1b;
+}</string>
     </property>
     <property name="text">
      <string/>
@@ -511,6 +564,9 @@
      <font>
       <pointsize>14</pointsize>
      </font>
+    </property>
+    <property name="autoFillBackground">
+     <bool>true</bool>
     </property>
     <property name="title">
      <string>Tools</string>
@@ -678,7 +734,9 @@
      <cursorShape>CrossCursor</cursorShape>
     </property>
     <property name="styleSheet">
-     <string notr="true"/>
+     <string notr="true">QWidget {
+    border: 2px #b2b2ac;
+}</string>
     </property>
    </widget>
    <widget class="QPushButton" name="colorButton">
