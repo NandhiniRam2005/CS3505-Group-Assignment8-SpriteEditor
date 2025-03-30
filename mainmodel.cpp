@@ -1,4 +1,5 @@
 #include "mainmodel.h"
+
 #include <stdexcept>
 #include <QJsonDocument>
 #include <QFile>
@@ -345,7 +346,6 @@ void MainModel::pixelClicked(unsigned int xCoord, unsigned int yCoord){
         break;
     }
 }
-
 
 void MainModel::sendDisplayImage(){
     // For the frame display

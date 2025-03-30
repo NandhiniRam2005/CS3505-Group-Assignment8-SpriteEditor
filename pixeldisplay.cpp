@@ -1,11 +1,10 @@
 #include "pixeldisplay.h"
+
 #include <QPainter>
 #include <QPoint>
 #include <QRect>
 
-PixelDisplay::PixelDisplay(QWidget *parent)
-    : QWidget(parent), gridSize(32), currentImage(64 * 64)
-{
+PixelDisplay::PixelDisplay(QWidget *parent) : QWidget(parent), gridSize(32), currentImage(64 * 64) {
 }
 
 QPoint PixelDisplay::mapPixelCoordinateToUICoordinate(unsigned int pixelX, unsigned int pixelY) {

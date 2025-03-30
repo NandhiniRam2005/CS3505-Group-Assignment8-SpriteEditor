@@ -1,7 +1,6 @@
 #include "mouselistener.h"
 
-MouseListener::MouseListener(QWidget *parent)
-    : QWidget{parent}
+MouseListener::MouseListener(QWidget *parent): QWidget{parent}
 {
     setMouseTracking(true);
 }

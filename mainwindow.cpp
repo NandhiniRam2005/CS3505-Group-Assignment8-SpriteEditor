@@ -1,14 +1,11 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+
 #include <QFileDialog>
 #include <QScrollBar>
 #include <iostream>
 
-
-MainWindow::MainWindow(MainModel* model, QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
-{
+MainWindow::MainWindow(MainModel* model, QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
     setToolToBrush();
     brushSize = 4;

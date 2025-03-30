@@ -1,15 +1,16 @@
 #include "layerbutton.h"
 
-
 LayerButton::LayerButton(int givenLayerNumber, QWidget *parent) : QPushButton(parent), layerNumber(givenLayerNumber) {
     QString buttonText = "Layer " + QString::number(layerNumber);
     setText(buttonText);
 }
+
 LayerButton::LayerButton(QWidget *parent) : QPushButton(parent){
     this->layerNumber = 1;
     QString buttonText = "Layer " + QString::number(layerNumber);
     setText(buttonText);
 }
+
 int LayerButton::getLayerNumber() const{
     return this->layerNumber;
 }
