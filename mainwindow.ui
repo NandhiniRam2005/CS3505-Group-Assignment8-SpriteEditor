@@ -165,8 +165,8 @@
    <widget class="PixelDisplay" name="frameDisplay" native="true">
     <property name="geometry">
      <rect>
-      <x>300</x>
-      <y>420</y>
+      <x>290</x>
+      <y>430</y>
       <width>111</width>
       <height>101</height>
      </rect>
@@ -675,7 +675,7 @@
      </rect>
     </property>
     <property name="cursor">
-     <cursorShape>CrossCursor</cursorShape>
+     <cursorShape>BlankCursor</cursorShape>
     </property>
     <property name="styleSheet">
      <string notr="true"/>
