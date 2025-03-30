@@ -16,6 +16,7 @@ March 30, 2025
 
 #include "layer.h"
 #include "pixel.h"
+#include "stdexcept";
 
 using std::min;
 using std::swap;
