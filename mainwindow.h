@@ -66,46 +66,135 @@ public slots:
      */
     void displaySaveStatus(bool status);
 
+    /**
+     * Opens a color dialogue to display to the user.
+     */
     void openColorDialogue();
 
+    /**
+     * Setter method for the frame copy variable, Alternates so this method will turn
+     * from true to false and vice versa.
+     */
     void setFrameCopyVariable();
 
+    /**
+     * Helper method for adding a frame to the model, this helper method is required as
+     * the view needs to validate information such as the current state of the view
+     * before sending information to the model.
+     */
     void addFrameHelper();
 
+    /**
+     * Helper method for deleting a frame from the model, this helper method is required as
+     * the view needs to validate information such as the current state of the view.
+     * Our view practices some client-side validation in addition to server-side
+     * validation. This method does that as well.
+     */
     void deleteFrameHelper();
 
+    /**
+     * Sets the currently selected tool to a brush
+     */
     void setToolToBrush();
 
+    /**
+     * Sets the currently selected tool to a bucket
+     */
     void setToolToBucket();
 
+    /**
+     * Sets the currently selected tool to an eraser
+     */
     void setToolToEraser();
 
+    /**
+     * Sets the currently selected tool to an eyedropper
+     */
     void setToolToEyeDropper();
 
+    /**
+     * What should occur when a LayerButton has been clicked. This method emits a signal to the
+     * model alerting of a layer change.
+     *
+     * @param layerNumber - The layer that should be switched too
+     */
     void onLayerButtonClicked(int layerNumber);
 
+    /**
+     * Sets the current size of the brush
+     *
+     * @param sizeOption - The size option that was selected.
+     */
     void setBrushSize(int sizeOption);
 
+    /**
+     * Updates the currently selecyed grid size variable. E.g.. 8x8 -> 32x32
+     *
+     * @param gridSize - The newly selected grid size.
+     */
     void updateGridSize(unsigned int gridSize);
 
+    /**
+     * Does all visual work when a grid size has been updated such as updating the combo box
+     *
+     * @param sizeOption - The given grid size that was sent via the params.
+     */
     void changeGridSize(int sizeOption);
 
+    /**
+     * Adds a layerbutton to the view and does all necessary connections.
+     */
     void addLayerButton();
 
+    /**
+     * Deletes a layerbutton from the view and does all necessary memory handling.
+     */
     void deleteLayerButton();
 
+    /**
+     * Takes coordinates that were in widget coordinates and converts them to pixel/grid coordinates
+     *
+     * @param p - the point in widget coordinates.
+     */
     void mapClickLocationToGridCoordinate(QPoint p);
 
-    void handleMouseDrag(QPoint screenPoint);
+    /**
+     * Handles all view related logic for when the mouse is dragged.
+     *
+     * @param widgetPoint - The point in which the mouse was dragged in widget coords.
+     */
+    void handleMouseDrag(QPoint widgetPoint);
 
+    /**
+     * Opens a file chooser dialouge in the event of a load.
+     */
     void openFileChooserLoad();
 
+    /**
+     * Opens a file chooser dialouge in the event of a save.
+     */
     void openFileChooserSave();
 
+    /**
+     * Updates the number of layerButtons that are present whenever next frame, previous frame, delete frame
+     * and load are pressed.
+     *
+     * @param - The new number of layer buttons that should be present.
+     */
     void updateNumberOfLayerButtons(int numberOfLayerButtons);
 
+    /**
+     * Updates the number of frames that are present.
+     *
+     * @param numberOfFrames - The new number of frames
+     */
     void updateNumberOfFrames(int numberOfFrames);
 
+    /**
+     * Syncs the combo box with the model when necessary.
+     *
+     * @param gridSize - The current gridsize aquired from the model.
+     */
     void syncResizeComboBox(unsigned int gridSize);
 
 signals:
