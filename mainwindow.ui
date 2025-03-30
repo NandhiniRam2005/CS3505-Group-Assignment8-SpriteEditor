@@ -575,6 +575,19 @@ QPushButton:pressed {
     border-radius: 5px; 
 	color: black;
 	border-radius: 15px;   
+}
+
+QGroupBox QPushButton {
+    background-color: #e2e2df;
+    border-radius: 15px;
+}
+
+QGroupBox QPushButton:hover {
+    background-color: #b2b2ac; 
+}
+
+QGroupBox QPushButton:pressed {
+    background-color: #83837a;
 }</string>
     </property>
     <property name="title">
@@ -603,18 +616,7 @@ QPushButton:pressed {
       <string>Brush Tool</string>
      </property>
      <property name="styleSheet">
-      <string notr="true">QPushButton {
-    background-color: #e2e2df;
-    border-radius: 15px;
-}
-
-QPushButton:hover {
-    background-color: #b2b2ac; 
-}
-
-QPushButton:pressed {
-    background-color: #83837a;
-}</string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string/>
@@ -643,18 +645,7 @@ QPushButton:pressed {
       <string>Eraser</string>
      </property>
      <property name="styleSheet">
-      <string notr="true">QPushButton {
-    background-color: #e2e2df;
-    border-radius: 15px;
-}
-
-QPushButton:hover {
-    background-color: #b2b2ac; 
-}
-
-QPushButton:pressed {
-    background-color: #83837a;
-}</string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string/>
@@ -683,18 +674,7 @@ QPushButton:pressed {
       <string>Bucket fill tool</string>
      </property>
      <property name="styleSheet">
-      <string notr="true">QPushButton {
-    background-color: #e2e2df;
-    border-radius: 15px;
-}
-
-QPushButton:hover {
-    background-color: #b2b2ac; 
-}
-
-QPushButton:pressed {
-    background-color: #83837a;
-}</string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string/>
@@ -723,18 +703,7 @@ QPushButton:pressed {
       <string>Eyedropper tool</string>
      </property>
      <property name="styleSheet">
-      <string notr="true">QPushButton {
-    background-color: #e2e2df;
-    border-radius: 15px;
-}
-
-QPushButton:hover {
-    background-color: #b2b2ac; 
-}
-
-QPushButton:pressed {
-    background-color: #83837a;
-}</string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string/>
