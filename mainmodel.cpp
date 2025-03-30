@@ -1,4 +1,5 @@
 /*
+ * Checked by Nandhini Ramanathan
 The cpp file for mainmodel.
 
 A class which represents the model for the sprite editor. It manages frames, layers,
