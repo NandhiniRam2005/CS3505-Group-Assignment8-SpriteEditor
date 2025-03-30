@@ -111,10 +111,10 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent) : QMainWindow(parent),
 
     // Resize
     connect(ui->resizeBox, &QComboBox::currentIndexChanged, this, &MainWindow::changeGridSize);
-    connect(this, &MainWindow::resize, ui->mainDrawing, &PixelDisplay::setGridSize);
-    connect(this, &MainWindow::resize, ui->animationDisplay, &PixelDisplay::setGridSize);
-    connect(this, &MainWindow::resize, ui->frameDisplay, &PixelDisplay::setGridSize);
-    connect(this, &MainWindow::resize, model, &MainModel::resize);
+    connect(this, &MainWindow::resizeCanvas, ui->mainDrawing, &PixelDisplay::setGridSize);
+    connect(this, &MainWindow::resizeCanvas, ui->animationDisplay, &PixelDisplay::setGridSize);
+    connect(this, &MainWindow::resizeCanvas, ui->frameDisplay, &PixelDisplay::setGridSize);
+    connect(this, &MainWindow::resizeCanvas, model, &MainModel::resize);
 
     connect(model, &MainModel::gridSizeUpdated, this, &MainWindow::changeGridSize);
     connect(model, &MainModel::gridSizeUpdated, ui->mainDrawing, &PixelDisplay::setGridSize);
@@ -475,19 +475,19 @@ void MainWindow::changeGridSize(int sizeOption) {
     switch (sizeOption) {
     case 0:
         currentGridSize = 8;
-        emit resize(8);
+        emit resizeCanvas(8);
         break;
     case 1:
         currentGridSize = 16;
-        emit resize(16);
+        emit resizeCanvas(16);
         break;
     case 2:
         currentGridSize = 32;
-        emit resize(32);
+        emit resizeCanvas(32);
         break;
     case 3:
         currentGridSize = 64;
-        emit resize(64);
+        emit resizeCanvas(64);
         break;
     }
 }

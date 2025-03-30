@@ -302,7 +302,7 @@ signals:
      *
      * @param newSize - The new size of the canvas
      */
-    void resize(unsigned int newSize);
+    void resizeCanvas(unsigned int newSize);
 
     /**
      * Signals that a pixel (in pixels coords) has been clicked.
