@@ -87,22 +87,6 @@ Pixel Layer::getPixel(int x, int y) const{
     return pixels[y* size + x];
 }
 
-void Layer::selectLayer(){
-    for(int i = 0; i< size * size; i++){
-        if(pixels[i].alpha != 0){
-            pixels[i].alpha = 255;
-        }
-    }
-}
-
-void Layer::hideLayer(){
-    for(int i = 0; i< size * size; i++){
-        if(pixels[i].alpha != 0){
-            pixels[i].alpha = HIDDEN_ALPHA;
-        }
-    }
-}
-
 void Layer::reflectVertical(){
     for (int i = 0; i < size / 2; i++) {
         for (int j = 0; j < size; j++) {

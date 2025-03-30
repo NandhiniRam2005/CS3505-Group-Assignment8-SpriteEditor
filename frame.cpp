@@ -79,10 +79,13 @@ void Frame::renderImages(){
         for(unsigned int i = 0; i<size*size; i++){
             if(layerPixels[i].alpha != 0){
                 layeredImage[i] = layerPixels[i];
-                renderedImage[i] = layeredImage[i];
-
-                if(renderedImage[i].alpha == HIDDEN_ALPHA){
-                    renderedImage[i].alpha = 255;
+                if(layeredImage[i].alpha < HIDDEN_ALPHA_DIFF){
+                    layeredImage[i].alpha /= 4;
+                }else{
+                    layeredImage[i].alpha -= HIDDEN_ALPHA_DIFF;
+                }
+                if(layerPixels[i].alpha != 0){
+                    renderedImage[i] = layerPixels[i];
                 }
             }
         }
@@ -90,7 +93,7 @@ void Frame::renderImages(){
 
     const Pixel* layerPixels = layers[activeLayer].getLayer();
 
-    // Includes the active layer's pixels in the layered image
+    // Include the active layer's pixels in the layered image
     for(unsigned int i = 0; i<size*size; i++){
         if(layerPixels[i].alpha != 0){
             layeredImage[i] = layerPixels[i];
@@ -104,10 +107,7 @@ void Frame::selectLayer(unsigned int index) {
     if(index >= layers.size()){
         throw runtime_error("Invalid layer index");
     }
-
-    layers[activeLayer].hideLayer();
     activeLayer = index;
-    layers[activeLayer].selectLayer();
     imageChanged = true;
 }
 

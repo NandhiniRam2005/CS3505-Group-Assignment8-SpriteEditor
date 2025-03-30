@@ -67,13 +67,13 @@ public:
 };
 
 /**
- * alpha value for hovered pixels
+ * Difference between the alpha value for hovered pixels and the alpha value for visible pixels
  */
-const unsigned char HOVERED_ALPHA = 128;
+const unsigned char HOVERED_ALPHA_DIFF = 255 - 128;
 
 /**
- * Alpha value of the pixels in an unselected layer (grayed out)
+ * Difference between the alpha value of the pixels in an unselected layer (grayed out) and visible pixels
  */
-const unsigned char HIDDEN_ALPHA = 50;
+const unsigned char HIDDEN_ALPHA_DIFF = 255 - 50;
 
 #endif

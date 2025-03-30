@@ -396,7 +396,13 @@ void MainModel::sendDisplayImage(){
 
         for(int y = max(0, currentMouseY); y < maxY; ++y) {
             for(int x = max(0, currentMouseX); x < maxX; ++x) {
-                tempImage[y * gridSize + x].alpha = HOVERED_ALPHA;
+                if(tempImage[y * gridSize + x].alpha == 0){
+                    tempImage[y * gridSize + x].alpha = 255 - HOVERED_ALPHA_DIFF;
+                }else if(tempImage[y * gridSize + x].alpha < HOVERED_ALPHA_DIFF){
+                    tempImage[y * gridSize + x].alpha/=2;
+                }else{
+                    tempImage[y * gridSize + x].alpha -= HOVERED_ALPHA_DIFF;
+                }
             }
         }
     }

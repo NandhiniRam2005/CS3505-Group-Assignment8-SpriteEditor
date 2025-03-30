@@ -76,16 +76,6 @@ public:
     Pixel getPixel(int x, int y) const;
 
     /**
-     * Selects the layer by making all non-transparent pixels fully opaque to be selected
-     */
-    void selectLayer();
-
-    /**
-     * Hides the layer by making all non-transparent pixels look grayed out (changing its alpha)
-     */
-    void hideLayer();
-
-    /**
      * Reflects the layer vertically.
      */
     void reflectVertical();
