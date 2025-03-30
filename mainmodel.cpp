@@ -238,6 +238,7 @@ void MainModel::deleteFrame(){
     }
 
     emit newSelectedFrame(selectedFrame);
+    emit sendNumberOfLayers(frames[selectedFrame].getLayers().size());
     sendDisplayImage();
 }
 
