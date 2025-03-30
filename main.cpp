@@ -24,9 +24,10 @@ March 30, 2025
  */
 int main(int argc, char *argv[]) {
     QApplication application(argc, argv);
+    application.setApplicationName("Sprite Editor");
     MainModel model;
     MainWindow window(&model);
-
+    window.setWindowTitle("Sprite Editor");
     window.show();
     return application.exec();
 }
