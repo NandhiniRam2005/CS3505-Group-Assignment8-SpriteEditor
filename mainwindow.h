@@ -2,6 +2,7 @@
 The header file for mainwindow.
 
 A class which represents represents the main window of the application.
+It is the view to the program (MVC).
 
 By Joel Rodriguez, Jacob Anderson,
 Adharsh Ramakrishnan, Nandhini Ramanathan

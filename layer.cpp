@@ -65,15 +65,13 @@ void Layer::bucketFill(int x, int y, const Pixel& color){
 }
 
 void Layer::bucketFillDfs(int x, int y, bool* visits, const Pixel& color, const Pixel& currentColor){
-    Pixel pixelColor = pixels[y*size + x];
-
     // Base case - If out of bounds, already visited, or not the target color, return
-    if(x < 0 || y < 0 || x >= size || y >= size || visits[y*size + x] || pixelColor != currentColor){
+    if(x < 0 || y < 0 || x >= size || y >= size || visits[y*size + x] || pixels[y*size + x] != currentColor){
         return;
     }
 
     visits[y*size + x] = true;
-    pixelColor = color;
+    pixels[y*size + x] = color;
 
     // Recursively fill pixels next to this pixel
     bucketFillDfs(x-1, y, visits, color, currentColor);

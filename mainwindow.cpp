@@ -1,3 +1,16 @@
+/*
+The cpp file for mainwindow.
+
+A class which represents represents the main window of the application.
+It makes all the connections in the constrcutor and acts is the view to the sprite editor (MVC).
+
+By Joel Rodriguez, Jacob Anderson,
+Adharsh Ramakrishnan, Nandhini Ramanathan
+Jake Heairld & Joseph Hamilton
+
+March 30, 2025
+*/
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QFileDialog>

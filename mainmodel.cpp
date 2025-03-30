@@ -18,33 +18,28 @@ March 30, 2025
 #include <QJsonObject>
 #include <QJsonArray>
 
-MainModel::MainModel(QObject *parent)
-    : QObject{parent}
-{
+MainModel::MainModel(QObject *parent): QObject{parent} {
     brushSize = 4;
     gridSize = 32;
-    animationFPS = 10;
-    frames.push_back(Frame(gridSize));
     selectedFrame = 0;
     selectedColor = Pixel(0,0,0,255);
     currentTool = Tool::Brush;
-
     animationTimer = new QTimer();
+    animationFPS = 10;
+    currentAnimationFrame = 0;
+
+    frames.push_back(Frame(gridSize));
+    animationTimer->start(1000/animationFPS);
 
     connect(animationTimer, &QTimer::timeout, this, &MainModel::sendAnimationFrame);
+}
 
-    animationTimer->start(1000/animationFPS);
-    currentAnimationFrame = 0;
-    }
-
-//TODO: load / save JSON methods --- DONE MAYBE? : look at saveJson tho! :(
-// send animation frames on a timer
-// attach signals / slots
-void MainModel::loadJSON(const QString& filepath){
+void MainModel::loadJSON(const QString& filepath) {
     if(!filepath.endsWith("ssp")){
         emit loadJSONStatus(false);
         return;
     }
+
     frames.clear();
     QFile file(filepath);
 
@@ -56,12 +51,6 @@ void MainModel::loadJSON(const QString& filepath){
 
     QByteArray fileData = file.readAll();
     QJsonDocument jsonDocument = QJsonDocument::fromJson(fileData);
-
-    if (jsonDocument.isNull()) {
-        emit loadJSONStatus(false);
-        return;
-    }
-
     QJsonObject jsonSpriteCanvas = jsonDocument.object();
 
     //Read size
