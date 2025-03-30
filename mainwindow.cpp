@@ -182,8 +182,9 @@ void MainWindow::displayColorChange(Pixel pixel)
 
 void MainWindow::displayLoadStatus(bool status)
 {
-    if (status)
+    if (status) {
         statusBar()->showMessage("Load successful", 3000);
+    }
     else
         statusBar()->showMessage("Load failed!", 3000);
 }
@@ -348,11 +349,11 @@ void MainWindow::addLayerButton(){
 
     if (numberOfLayerButtons == 4) {
         int currentHeight = ui->scrollArea->widget()->minimumHeight();
-        ui->scrollArea->widget()->setMinimumHeight(currentHeight + 150);
+        ui->scrollArea->widget()->setMinimumHeight(currentHeight + 150); // Only when we add the 4th button because scrollarea fits exactly 3 buttons as default.
 
     } else if (numberOfLayerButtons > 4) {
         int currentHeight = ui->scrollArea->widget()->minimumHeight();
-        ui->scrollArea->widget()->setMinimumHeight(currentHeight + 38);
+        ui->scrollArea->widget()->setMinimumHeight(currentHeight + 38); // After the 4th button is added, we have to account for 1 button at a time.
     }
 
     QScrollBar* verticalScrollBar = ui->scrollArea->verticalScrollBar();
@@ -391,11 +392,11 @@ void MainWindow::updateNumberOfLayerButtons(int newNumOfLayers){
     emit changeLayer(selectedLayerButton->getLayerNumber() - 1);
 
     if (numberOfLayerButtons == 3) {
-        ui->scrollArea->widget()->setMinimumHeight(0);
+        ui->scrollArea->widget()->setMinimumHeight(0); // When we reach 3 buttons, the scrollarea can go back to default as it fits exactly 3 buttons.
 
     } else if (numberOfLayerButtons > 3) {
         int currentHeight = ui->scrollArea->widget()->minimumHeight();
-        ui->scrollArea->widget()->setMinimumHeight(currentHeight - 38);
+        ui->scrollArea->widget()->setMinimumHeight(currentHeight - 38); // If we have more than 3 buttons, just account for 1 button at a time.
     }
 
     QScrollBar* verticalScrollBar = ui->scrollArea->verticalScrollBar();
@@ -440,11 +441,11 @@ void MainWindow::deleteLayerButton(){
     emit changeLayer(selectedLayerButton->getLayerNumber() - 1);
 
     if (numberOfLayerButtons == 3) {
-        ui->scrollArea->widget()->setMinimumHeight(0);
+        ui->scrollArea->widget()->setMinimumHeight(0); // When we reach 3 buttons, the scrollarea can go back to default as it fits exactly 3 buttons.
 
     } else if (numberOfLayerButtons > 3) {
         int currentHeight = ui->scrollArea->widget()->minimumHeight();
-        ui->scrollArea->widget()->setMinimumHeight(currentHeight - 38);
+        ui->scrollArea->widget()->setMinimumHeight(currentHeight - 38); // If we have more than 3 buttons, just account for 1 button at a time.
     }
 
     QScrollBar* verticalScrollBar = ui->scrollArea->verticalScrollBar();
