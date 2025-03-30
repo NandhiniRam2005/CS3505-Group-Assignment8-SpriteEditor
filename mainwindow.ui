@@ -244,6 +244,20 @@ QPushButton:pressed {
     <property name="toolTip">
      <string>Flip vertically</string>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: #e2e2df;
+    border-radius: 15px;
+}
+
+QPushButton:hover {
+    background-color: #b2b2ac; 
+}
+
+QPushButton:pressed {
+    background-color: #83837a;
+}</string>
+    </property>
     <property name="text">
      <string/>
     </property>
@@ -270,6 +284,20 @@ QPushButton:pressed {
     <property name="toolTip">
      <string>Flip horizontally</string>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: #e2e2df;
+    border-radius: 15px;
+}
+
+QPushButton:hover {
+    background-color: #b2b2ac; 
+}
+
+QPushButton:pressed {
+    background-color: #83837a;
+}</string>
+    </property>
     <property name="text">
      <string/>
     </property>
@@ -295,6 +323,20 @@ QPushButton:pressed {
     </property>
     <property name="toolTip">
      <string>Clockwise rotation</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: #e2e2df;
+    border-radius: 15px;
+}
+
+QPushButton:hover {
+    background-color: #b2b2ac; 
+}
+
+QPushButton:pressed {
+    background-color: #83837a;
+}</string>
     </property>
     <property name="text">
      <string/>
@@ -768,9 +810,7 @@ QGroupBox QPushButton:pressed {
      <cursorShape>BlankCursor</cursorShape>
     </property>
     <property name="styleSheet">
-     <string notr="true">QWidget {
-    border: 2px #b2b2ac;
-}</string>
+     <string notr="true"/>
     </property>
    </widget>
    <widget class="QPushButton" name="colorButton">
