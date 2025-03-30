@@ -28,6 +28,7 @@ int main(int argc, char *argv[]) {
     MainModel model;
     MainWindow window(&model);
     window.setWindowTitle("Sprite Editor");
+    window.setWindowIcon(QIcon(":/icons/appIcon.png"));
     window.show();
     return application.exec();
 }
