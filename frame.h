@@ -8,7 +8,7 @@ By Joel Rodriguez, Jacob Anderson,
 Adharsh Ramakrishnan, Nandhini Ramanathan
 Jake Heairld & Joseph Hamilton
 
-March 21, 2025
+March 30, 2025
 */
 
 #ifndef FRAME_H
@@ -78,6 +78,10 @@ public:
      */
     void addLayer();
 
+    /**
+     * add layer methiod overloaded to take a Layer parameter to be added to the sprite editor.
+     * @param newLayer - the layer to be added
+     */
     void addLayer(Layer newLayer);
 
     /**
@@ -126,6 +130,11 @@ public:
      * Rotates the active layer by 90 degrees clockwise.
      */
     void rotate90();
+
+    /**
+     * Gets the layers in this frame.
+     * @return a vector of layers containe din this frame.
+     */
     QVector<Layer> getLayers();
 
 private:
@@ -165,4 +174,4 @@ private:
     bool imageChanged;
 };
 
-#endif // FRAME_H
+#endif

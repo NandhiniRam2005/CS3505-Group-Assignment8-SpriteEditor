@@ -14,12 +14,12 @@ March 21, 2025
 
 #ifndef MAINMODEL_H
 #define MAINMODEL_H
+
 #include <QObject>
 #include <QVector>
 #include <QString>
 #include <QObject>
 #include <QTimer>
-
 #include "frame.h"
 #include "pixel.h"
 
@@ -78,7 +78,6 @@ signals:
      * @param color - new selected color.
      */
     void newSelectedColor(Pixel color);
-
 
     /**
      * Signal emitted to indicate the whether loading was successful or not.
@@ -213,8 +212,6 @@ public slots:
 
     void mouseLeft();
 
-
-
 private:
     /**
      * Sends the current display image to the display.
@@ -308,7 +305,6 @@ private:
      * y coordinate of the mouse position currently
      */
     int currentMouseY = -1;
-
 };
 
-#endif // MAINMODEL_H
+#endif

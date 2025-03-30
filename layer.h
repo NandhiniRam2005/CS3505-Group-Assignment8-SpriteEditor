@@ -10,11 +10,12 @@ By Joel Rodriguez, Jacob Anderson,
 Adharsh Ramakrishnan, Nandhini Ramanathan
 Jake Heairld & Joseph Hamilton
 
-March 21, 2025
+March 30, 2025
 */
 
 #ifndef LAYER_H
 #define LAYER_H
+
 #include <QPoint>
 #include "pixel.h"
 
@@ -140,7 +141,6 @@ private:
      * Size of the layer (width and height - sqaure)
      */
     int size;
-
 };
 
-#endif // LAYER_H
+#endif
