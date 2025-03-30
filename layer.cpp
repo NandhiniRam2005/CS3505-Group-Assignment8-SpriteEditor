@@ -20,6 +20,10 @@ March 30, 2025
 #include <stdexcept>
 #include <QDebug>
 
+using std::min;
+using std::swap;
+using std::runtime_error;
+
 Layer::Layer():pixels(nullptr), size(0) {
 }
 
@@ -41,8 +45,8 @@ Layer::Layer(const Layer& other){
 }
 
 void Layer::operator=(Layer other){
-    std::swap(size, other.size);
-    std::swap(pixels, other.pixels);
+    swap(size, other.size);
+    swap(pixels, other.pixels);
 }
 
 void Layer::paintPixels(QPoint corner1, QPoint corner2, const Pixel& color) {
@@ -106,7 +110,7 @@ void Layer::hideLayer(){
 void Layer::reflectVertical(){
     for (int i = 0; i < size / 2; i++) {
         for (int j = 0; j < size; j++) {
-            std::swap(pixels[i * size + j], pixels[(size - 1 - i) * size + j]);
+            swap(pixels[i * size + j], pixels[(size - 1 - i) * size + j]);
         }
     }
 }
@@ -114,7 +118,7 @@ void Layer::reflectVertical(){
 void Layer::reflectHorizontal(){
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size / 2; j++) {
-            std::swap(pixels[i * size + j], pixels[i * size + (size - 1 - j)]);
+            swap(pixels[i * size + j], pixels[i * size + (size - 1 - j)]);
         }
     }
 }
@@ -127,13 +131,13 @@ void Layer::rotate90(){
         }
     }
 
-    std::swap(pixels, rotated);
+    swap(pixels, rotated);
     delete[] rotated;
 }
 
 void Layer::resize(int newSize){
     if(newSize < 0){
-        throw std::runtime_error("Invalid size");
+        throw runtime_error("Invalid size");
     }
 
     if(newSize == size){
@@ -141,7 +145,7 @@ void Layer::resize(int newSize){
     }
 
     Pixel* newPixels = new Pixel[newSize * newSize]();
-    int smaller = std::min(newSize, size);
+    int smaller = min(newSize, size);
 
     for(int i = 0; i<smaller; i++){
         for(int j = 0; j<smaller; j++){
@@ -150,13 +154,13 @@ void Layer::resize(int newSize){
     }
 
     size = newSize;
-    std::swap(pixels, newPixels);
+    swap(pixels, newPixels);
     delete[] newPixels;
 }
 
 void Layer::validateCoords(int x, int y) const{
     if(x < 0 || y < 0 || x >= size || y >= size){
-        throw std::runtime_error("Invalid coordinates");
+        throw runtime_error("Invalid coordinates");
     }
 }
 

@@ -1,3 +1,16 @@
+/*
+The cpp file for pixel display.
+
+A class which represents the pixels displayed for the frames.
+It implements methods for mapping coordinates onto the canvas, setting grid size, and updating the drawn image.
+
+By Joel Rodriguez, Jacob Anderson,
+Adharsh Ramakrishnan, Nandhini Ramanathan
+Jake Heairld & Joseph Hamilton
+
+March 30, 2025
+*/
+
 #include "pixeldisplay.h"
 
 #include <QPainter>
@@ -21,11 +34,11 @@ QPoint PixelDisplay::mapPixelCoordinateToUICoordinate(unsigned int pixelX, unsig
 
 void PixelDisplay::paintEvent(QPaintEvent* event) {
     QWidget::paintEvent(event);
-
     QPainter painter(this);
     const int pixelWidth = width() / gridSize;
     const int pixelHeight = height() / gridSize;
 
+     // Loop through each pixel in the grid and renders it
     for (unsigned int y = 0; y < gridSize; ++y) {
         for (unsigned int x = 0; x < gridSize; ++x) {
             const Pixel& pixel = currentImage[y * gridSize + x];
@@ -43,11 +56,11 @@ void PixelDisplay::paintEvent(QPaintEvent* event) {
 }
 
 void PixelDisplay::updateDrawnImage(const Pixel* image) {
-    // Iterate through the entire image array and draw each pixel
     for (unsigned int i = 0; i < gridSize * gridSize; i++) {
         currentImage[i] = image[i];
     }
-    update(); // Schedule a repaint
+
+    update();
 }
 
 void PixelDisplay::setGridSize(unsigned int newSize) {

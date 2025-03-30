@@ -16,6 +16,9 @@ March 30, 2025
 #include <stdexcept>
 #include <iostream>
 
+using std::swap;
+using std::runtime_error;
+
 Frame::Frame(unsigned int size): size(size){
     layers.push_back(Layer(size));
     activeLayer = 0;
@@ -40,12 +43,12 @@ Frame::Frame(const Frame& other) {
 }
 
 void Frame::operator=(Frame other) {
-    std::swap(layers, other.layers);
-    std::swap(activeLayer, other.activeLayer);
-    std::swap(size, other.size);
-    std::swap(layeredImage, other.layeredImage);
-    std::swap(renderedImage, other.renderedImage);
-    std::swap(imageChanged, other.imageChanged);
+    swap(layers, other.layers);
+    swap(activeLayer, other.activeLayer);
+    swap(size, other.size);
+    swap(layeredImage, other.layeredImage);
+    swap(renderedImage, other.renderedImage);
+    swap(imageChanged, other.imageChanged);
 }
 
 Pixel* Frame::getLayeredImage() {
@@ -101,7 +104,7 @@ void Frame::renderImages(){
 
 void Frame::selectLayer(unsigned int index) {
     if(index >= layers.size()){
-        throw std::runtime_error("Invalid layer index");
+        throw runtime_error("Invalid layer index");
     }
 
     layers[activeLayer].hideLayer();
@@ -112,11 +115,11 @@ void Frame::selectLayer(unsigned int index) {
 
 void Frame::deleteLayer(int layerIndex) {
     if(layers.size()==1){
-        throw std::runtime_error("Cannot delete last layer in a frame");
+        throw runtime_error("Cannot delete last layer in a frame");
     }
 
     if(layerIndex >= layers.size() || layerIndex < 0){
-        throw std::runtime_error("Invalid layer index");
+        throw runtime_error("Invalid layer index");
     }
 
     layers.removeAt(layerIndex);
@@ -125,13 +128,11 @@ void Frame::deleteLayer(int layerIndex) {
 }
 
 void Frame::addLayer() {
-    std::cout << "add layer regular (no given layer) called" << std::endl;
     layers.push_back(Layer(size));
     imageChanged = true;
 }
 
 void Frame::addLayer(Layer newLayer){
-    std::cout << "add layer called" << std::endl;
     layers.push_back(newLayer);
     imageChanged = true;
 }

@@ -508,4 +508,3 @@ void MainWindow::syncResizeComboBox(unsigned int gridSize) {
 
     ui->resizeBox->blockSignals(false);
 }
-

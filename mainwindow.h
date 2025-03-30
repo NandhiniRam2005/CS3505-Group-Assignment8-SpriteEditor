@@ -104,8 +104,6 @@ public slots:
 
     void updateNumberOfLayerButtons(int numberOfLayerButtons);
 
-    // void displayLayerButtonSelection();
-
     void updateNumberOfFrames(int numberOfFrames);
 
     void syncResizeComboBox(unsigned int gridSize);
@@ -150,6 +148,7 @@ signals:
     void changeLayer(int layerNumber);
 
     void addLayer();
+
     void deleteLayer(int layerIndex);
     void changeBrushSize(unsigned int brushSize);
     void changeFps(unsigned int fps);
@@ -162,7 +161,7 @@ signals:
     void resize(unsigned int newSize);
     void pixelClicked(unsigned int xCoord, unsigned int yCoord);
     void toolSelected(Tool newTool);
-    // void selectedLayerChanged();
+
 private:
     MouseListener mouseListener;
     PixelDisplay mainDrawing;

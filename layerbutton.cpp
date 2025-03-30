@@ -1,3 +1,16 @@
+/*
+The cpp file for Layer Button.
+
+This class represents a button associated with a specific layer number.
+It also implemenyts methods for getting and setting a layer number.
+
+By Joel Rodriguez, Jacob Anderson,
+Adharsh Ramakrishnan, Nandhini Ramanathan
+Jake Heairld & Joseph Hamilton
+
+March 30, 2025
+*/
+
 #include "layerbutton.h"
 
 LayerButton::LayerButton(int givenLayerNumber, QWidget *parent) : QPushButton(parent), layerNumber(givenLayerNumber) {
