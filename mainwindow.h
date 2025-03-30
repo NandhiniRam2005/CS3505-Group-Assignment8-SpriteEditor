@@ -320,33 +320,134 @@ signals:
     void toolSelected(Tool newTool);
 
 private:
+    /**
+     * MouseListener object functions as way to listen to where the mouse is in respect
+     * to the widget.
+     */
     MouseListener mouseListener;
+
+    /**
+     * The mainDrawing is the canvas for drawing on.
+     */
     PixelDisplay mainDrawing;
+    /**
+     * The animation display is where the animation of all frames are shown.
+     */
     PixelDisplay animationDisplay;
+
+    /**
+     * The frame display is where the current frame is shown.
+     */
     PixelDisplay frameDisplay;
+
+    /**
+     * The save load bar is used for saving/loading purposes.
+     */
     QToolBar saveLoadBar;
+
+    /**
+     * Button for switching to the brush tool.
+     */
     QPushButton brushButton;
+
+    /**
+     * Button for switching to the paint bucket tool.
+     */
     QPushButton paintBucketButton;
+
+    /**
+     * Button for switching to the eraser tool.
+     */
     QPushButton eraserButton;
+
+    /**
+     * Button for switching colors.
+     */
     QPushButton colorButton;
+
+    /**
+     * Button for doing a reflect vertical transformation.
+     */
     QPushButton refelectVerticalButton;
+
+    /**
+     * Button for doing a reflect horizontal transformation.
+     */
     QPushButton refelectHorizontalButton;
+
+    /**
+     * Button for doing a 90 degree clockwise transformation.
+     */
     QPushButton rotateButton;
+
+    /**
+     * Pointer to the first layer button which is always present on intialization.
+     */
     QPushButton* layerOne;
+
+    /**
+     * The fpsSlider for changing the fps of the animationDisplay.
+     */
     QSlider fpsSlider;
+
+    /**
+     * Width of the widget.
+     */
     unsigned int width;
+
+    /**
+     * Height of the widget.
+     */
     unsigned int height;
+
+    /**
+     * Bool which represents whether the "CopyFrame?" radio button is clicked.
+     */
     bool frameBeingCopied;
+
+    /**
+     * Current brush size selected in the view.
+     */
     unsigned int brushSize;
+
+    /**
+     * Current grid size selected in the view.
+     */
     unsigned int currentGridSize;
-    int currentIndexOfLayerButtons;
+
+    /**
+     * Current number of layer buttons displayed by the view.
+     */
     int numberOfLayerButtons;
+
+    /**
+     * Current number of frame buttons displayed on the view.
+     */
     int numberOfFrameButtonClicks;
+
+    /**
+     * Bool which represents whether the user should be allowed to delete a layer.
+     */
     bool deleteLayerDisabled;
+
+    /**
+     * Bool which represents whether the user should be allowed to delete a frame.
+     */
     bool deleteFrameDisabled;
+
+    /**
+     * Collection of all layer buttons, required for memory managment.
+     */
     QVector<LayerButton*> layerButtons;
+
+    /**
+     * Currently selected layer button, required for memory managment.
+     */
     LayerButton* selectedLayerButton;
-    LayerButton* previouslySelected;
+
+    /**
+     * The ui of the main window.
+     */
     Ui::MainWindow *ui;
 };
 

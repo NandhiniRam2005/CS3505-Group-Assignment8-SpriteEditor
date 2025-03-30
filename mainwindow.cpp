@@ -22,12 +22,10 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent) : QMainWindow(parent),
     setToolToBrush();
     brushSize = 4;
     frameBeingCopied = false;
-    currentIndexOfLayerButtons = 1;
     numberOfLayerButtons = 1;
     numberOfFrameButtonClicks = 0;
     selectedLayerButton = ui->layerOneButton;
     selectedLayerButton->setStyleSheet("border: 2px solid blue; border-radius: 5px; padding: 5px;");
-    previouslySelected = nullptr;
     ui->layerOneButton->setLayerNumber(1);
     layerButtons.push_back(ui->layerOneButton);
     deleteLayerDisabled = true;
