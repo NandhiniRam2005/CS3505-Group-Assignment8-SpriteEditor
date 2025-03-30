@@ -269,6 +269,20 @@ private:
     void setSelectedColorToPixel(unsigned int x, unsigned int y);
 
     /**
+     * Loads pixel data from a JSON array and adds pixels to the given pixels array with its color values.
+     * @param pixelArray - A JSON array containing pixel data to be loaded.
+     * @param pixels - loaded data gets added to pixels pointer/array
+     */
+    void loadPixelsFromJson(const QJsonArray& pixelArray, Pixel* pixels);
+
+    /**
+     * Converts an pixel array to a JSON array format. Each pixel's color data is converted to a JSON object.
+     * @param pixels - array pixel to be converted
+     * @return A JSON array containing pixel data
+     */
+    QJsonArray pixelsToJson(const Pixel* pixels);
+
+    /**
      * The currently selected tool
      */
     Tool currentTool;

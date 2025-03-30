@@ -18,6 +18,11 @@ March 30, 2025
 #include <QJsonObject>
 #include <QJsonArray>
 
+using std::min;
+using std::max;
+using std::copy;
+using std::runtime_error;
+
 MainModel::MainModel(QObject *parent): QObject{parent} {
     brushSize = 4;
     gridSize = 32;
@@ -64,7 +69,6 @@ void MainModel::loadJSON(const QString& filepath) {
 
     QVector<Pixel> tempImage(gridSize * gridSize);
 
-
     //Read frames
     if (jsonSpriteCanvas.contains("frames")) {
         QJsonArray jsonFrames = jsonSpriteCanvas["frames"].toArray();
@@ -85,24 +89,18 @@ void MainModel::loadJSON(const QString& filepath) {
                     if (jsonLayer.contains("pixels")) {
                         QJsonArray pixelArray = jsonLayer["pixels"].toArray();
                         Pixel* pixels = layer.getLayer();
-
-                        for (unsigned int i = 0; i < pixelArray.size(); i++) {
-                            QJsonObject jsonPixel = pixelArray[i].toObject();
-                            pixels[i].red = jsonPixel["red"].toInt();
-                            pixels[i].green = jsonPixel["green"].toInt();
-                            pixels[i].blue = jsonPixel["blue"].toInt();
-                            pixels[i].alpha = jsonPixel["alpha"].toInt();
-                        }
+                        loadPixelsFromJson(pixelArray, pixels);
 
                         if (frames.isEmpty() && jsonLayers.size() > 0) {
-                            std::copy(pixels, pixels + gridSize * gridSize, tempImage.begin());
+                            copy(pixels, pixels + gridSize * gridSize, tempImage.begin());
                         }
 
                     }
                     frame.addLayer(layer);
                 }
             }
-            frame.deleteLayer(0); // Needed since frames must have one layer the frame constructor adds a layer, this deletes it
+            // Needed since frames must have one layer the frame constructor adds a layer, this deletes it
+            frame.deleteLayer(0);
             frames.append(frame);
         }
     } else {
@@ -128,30 +126,21 @@ void MainModel::saveJSON(const QString& filepath){
 
     QJsonObject jsonSpriteCanvas;
     jsonSpriteCanvas["size"] = (int) gridSize;
+    QJsonArray jsonFrames;
 
     // Loop through frames in the model
-    QJsonArray jsonFrames;
     for (Frame& frame : frames) {
         QJsonObject jsonFrame;
         QJsonArray jsonLayers;
-        // Loop through each frame's layers
-        // HOW DO I LOOP THRU the frame's layers without liek having a getlayers method in frame (but doenst that break MVC? idk
+
+        // Loop through layers
         for (const Layer& layer : frame.getLayers()) {
             QJsonObject jsonLayer;
             QJsonArray pixelArray;
-
             const Pixel* pixels = layer.getLayer();
 
             // Add layer's pixels to the pixel array
-            for (unsigned int i = 0; i < gridSize * gridSize; i++) {
-                QJsonObject jsonPixel;
-                jsonPixel["red"] = pixels[i].red;
-                jsonPixel["green"] = pixels[i].green;
-                jsonPixel["blue"] = pixels[i].blue;
-                jsonPixel["alpha"] = pixels[i].alpha;
-                pixelArray.append(jsonPixel);
-            }
-            jsonLayer["pixels"] = pixelArray;
+            jsonLayer["pixels"] = pixelsToJson(pixels);
             jsonLayers.append(jsonLayer);
         }
         jsonFrame["layers"] = jsonLayers;
@@ -159,27 +148,54 @@ void MainModel::saveJSON(const QString& filepath){
     }
     jsonSpriteCanvas["frames"] = jsonFrames;
 
-    // use jsonSpriteCanvas obj to make a document used to write to the file
+    // use jsonSpriteCanvas object to make a document used to write to the file
     QJsonDocument jsonDocument(jsonSpriteCanvas);
     file.write(jsonDocument.toJson());
     file.close();
     emit saveJSONStatus(true);
+}
 
+void MainModel::loadPixelsFromJson(const QJsonArray& pixelArray, Pixel* pixels) {
+    for (unsigned int i = 0; i < pixelArray.size(); i++) {
+        QJsonObject jsonPixel = pixelArray[i].toObject();
+        pixels[i].red = jsonPixel["red"].toInt();
+        pixels[i].green = jsonPixel["green"].toInt();
+        pixels[i].blue = jsonPixel["blue"].toInt();
+        pixels[i].alpha = jsonPixel["alpha"].toInt();
+    }
+}
+
+QJsonArray MainModel::pixelsToJson(const Pixel* pixels) {
+    QJsonArray pixelArray;
+
+    for (unsigned int i = 0; i < gridSize * gridSize; i++) {
+        QJsonObject jsonPixel;
+        jsonPixel["red"] = pixels[i].red;
+        jsonPixel["green"] = pixels[i].green;
+        jsonPixel["blue"] = pixels[i].blue;
+        jsonPixel["alpha"] = pixels[i].alpha;
+        pixelArray.append(jsonPixel);
+    }
+
+    return pixelArray;
 }
 
 void MainModel::resize(unsigned int newSize){
     for(Frame& frame : frames){
         frame.resize(newSize);
     }
+
     gridSize = newSize;
     sendDisplayImage();
 }
 
 void MainModel::previousFrame(){
     selectedFrame -= 1;
+
     if(selectedFrame < 0){
         selectedFrame = frames.size()-1;
     }
+
     emit newSelectedFrame(selectedFrame);
     emit sendNumberOfLayers(frames[selectedFrame].getLayers().size());
     sendDisplayImage();
@@ -187,9 +203,11 @@ void MainModel::previousFrame(){
 
 void MainModel::nextFrame(){
     selectedFrame += 1;
+
     if(selectedFrame == frames.size()){
         selectedFrame = 0;
     }
+
     emit newSelectedFrame(selectedFrame);
     emit sendNumberOfLayers(frames[selectedFrame].getLayers().size());
     sendDisplayImage();
@@ -201,6 +219,7 @@ void MainModel::addFrame(bool copyPrevious){
     }else{
         frames.append(Frame(gridSize));
     }
+
     selectedFrame+=1;
     emit sendNumberOfLayers(frames[selectedFrame].getLayers().size());
     emit newSelectedFrame(selectedFrame);
@@ -209,21 +228,24 @@ void MainModel::addFrame(bool copyPrevious){
 
 void MainModel::deleteFrame(){
     if(frames.size() == 1){
-        throw std::runtime_error("Cannot delete the only remaining frame");
+        throw runtime_error("Cannot delete the only remaining frame");
     }
 
     frames.remove(selectedFrame);
+
     if(selectedFrame >= frames.size()){
         selectedFrame = frames.size()-1;
     }
+
     emit newSelectedFrame(selectedFrame);
     sendDisplayImage();
 }
 
 void MainModel::changeLayer(unsigned int layer){
     if(layer >= frames[selectedFrame].getLayers().size()){
-        throw std::runtime_error("Invalid layer index");
+        throw runtime_error("Invalid layer index");
     }
+
     frames[selectedFrame].selectLayer(layer);
     sendDisplayImage();
 }
@@ -246,6 +268,7 @@ void MainModel::changeBrushSize(unsigned int newBrushSize){
 void MainModel::changeAnimationFPS(unsigned int newFPS){
     qDebug() << "FPS changed: " << newFPS;
     animationFPS = newFPS;
+
     if (animationFPS > 0 and animationFPS < 1000) {
         animationTimer->start();
 
@@ -268,22 +291,26 @@ void MainModel::mouseHovered(unsigned int xCoord, unsigned int yCoord){
 }
 
 void MainModel::paintPixels(unsigned int topLeftX, unsigned int topLeftY){
-    // Add boundary checks
-    if(topLeftX >= gridSize || topLeftY >= gridSize) return;
+    // boundary checks
+    if(topLeftX >= gridSize || topLeftY >= gridSize){
+        return;
+    }
 
-    const unsigned int maxX = std::min(topLeftX + brushSize, gridSize);
-    const unsigned int maxY = std::min(topLeftY + brushSize, gridSize);
+    const unsigned int maxX = min(topLeftX + brushSize, gridSize);
+    const unsigned int maxY = min(topLeftY + brushSize, gridSize);
 
     frames[selectedFrame].paintPixels(QPoint(topLeftX, topLeftY), QPoint(maxX-1, maxY-1), selectedColor);
     sendDisplayImage();
 }
 
 void MainModel::erasePixels(unsigned int topLeftX, unsigned int topLeftY){
-    // Add boundary checks
-    if(topLeftX >= gridSize || topLeftY >= gridSize) return;
+    // boundary checks
+    if(topLeftX >= gridSize || topLeftY >= gridSize){
+        return;
+    }
 
-    const unsigned int maxX = std::min(topLeftX + brushSize, gridSize);
-    const unsigned int maxY = std::min(topLeftY + brushSize, gridSize);
+    const unsigned int maxX = min(topLeftX + brushSize, gridSize);
+    const unsigned int maxY = min(topLeftY + brushSize, gridSize);
 
     frames[selectedFrame].paintPixels(QPoint(topLeftX, topLeftY), QPoint(maxX - 1, maxY - 1), Pixel(0, 0, 0, 0));
     sendDisplayImage();
@@ -346,42 +373,47 @@ void MainModel::pixelClicked(unsigned int xCoord, unsigned int yCoord){
 void MainModel::sendDisplayImage(){
     // For the frame display
     emit newFrameImage(frames[selectedFrame].getRenderedImage());
+
     // Get original image
     Pixel* baseImage = frames[selectedFrame].getLayeredImage();
+
     // Create temporary copy
     QVector<Pixel> tempImage(gridSize * gridSize);
-    std::copy(baseImage, baseImage + gridSize * gridSize, tempImage.begin());
 
+    copy(baseImage, baseImage + gridSize * gridSize, tempImage.begin());
     unsigned int brushSizeStore = brushSize;
+
     if(currentTool == Tool::PaintBucket || currentTool == Tool::EyeDropper){
         brushSize = 1;
     }
 
     if(currentMouseX >= 0 && currentMouseY >= 0) {
-        // Apply hover to COPY
-        const int maxX = std::min(currentMouseX + brushSize, static_cast<int>(gridSize));
-        const int maxY = std::min(currentMouseY + brushSize, static_cast<int>(gridSize));
+        // Apply hover to copy
+        const int maxX = min(currentMouseX + brushSize, static_cast<int>(gridSize));
+        const int maxY = min(currentMouseY + brushSize, static_cast<int>(gridSize));
 
-        for(int y = std::max(0, currentMouseY); y < maxY; ++y) {
-            for(int x = std::max(0, currentMouseX); x < maxX; ++x) {
+        for(int y = max(0, currentMouseY); y < maxY; ++y) {
+            for(int x = max(0, currentMouseX); x < maxX; ++x) {
                 tempImage[y * gridSize + x].alpha = HOVERED_ALPHA;
             }
         }
     }
 
     brushSize = brushSizeStore;
+
     // Emit temporary copy
     emit newDisplayImage(tempImage.data());
 }
 
 void MainModel::sendAnimationFrame(){
     currentAnimationFrame += 1;
+
     if(currentAnimationFrame >= frames.size()){
         currentAnimationFrame = 0;
     }
+
     emit newAnimationFrame(frames[currentAnimationFrame].getRenderedImage());
 }
-
 
 void MainModel::getGridSize() {
     emit gridSizeUpdated(gridSize);
