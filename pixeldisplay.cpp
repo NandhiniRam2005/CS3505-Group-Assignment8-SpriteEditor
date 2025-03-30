@@ -32,25 +32,51 @@ QPoint PixelDisplay::mapPixelCoordinateToUICoordinate(unsigned int pixelX, unsig
 void PixelDisplay::paintEvent(QPaintEvent* event) {
     QWidget::paintEvent(event);
     QPainter painter(this);
-    const int pixelWidth = width() / gridSize;
-    const int pixelHeight = height() / gridSize;
 
-     // Loop through each pixel in the grid and renders it
-    for (unsigned int y = 0; y < gridSize; ++y) {
-        for (unsigned int x = 0; x < gridSize; ++x) {
+    const double pixelWidthF = ((double)width()) / gridSize;
+    const double pixelHeightF = ((double)height()) / gridSize;
+    const int pixelWidth = std::floor(pixelWidthF);
+    const int pixelHeight = std::floor(pixelHeightF);
+
+    //keep track of how many extra pixels of width/height to add
+    int remainderWidth = width() - (pixelWidth * gridSize);
+    int remainderHeight = height() - (pixelHeight * gridSize);
+
+    // Loop through each pixel in the grid and render it
+    for (unsigned int y = 0; y < gridSize; y++) {
+        for (unsigned int x = 0; x < gridSize; x++) {
             const Pixel& pixel = currentImage[y * gridSize + x];
             QColor color(pixel.red, pixel.green, pixel.blue, pixel.alpha);
 
+            //add an extra pixel of width/height to some of the pixels to even out the canvas size
+            int extraWidth = 0;
+            int extraHeight = 0;
+
+            if(x < remainderWidth){
+                extraWidth = 1;
+            }
+            if(y < remainderHeight){
+                extraHeight = 1;
+            }
+
+            int adjustedWidth = pixelWidth + extraWidth;
+            int adjustedHeight = pixelHeight + extraHeight;
+
+            //calculate the x and y positions, shift the position a bit since some of the pixels have extra width/height
+            int xpos = x * pixelWidth + std::min<int>(x, remainderWidth);
+            int ypos = y * pixelHeight + std::min<int>(y, remainderHeight);
+
             painter.fillRect(
-                x * pixelWidth,
-                y * pixelHeight,
-                pixelWidth,
-                pixelHeight,
+                xpos,
+                ypos,
+                adjustedWidth,
+                adjustedHeight,
                 color
                 );
         }
     }
 }
+
 
 void PixelDisplay::updateDrawnImage(const Pixel* image) {
     for (unsigned int i = 0; i < gridSize * gridSize; i++) {
