@@ -73,7 +73,7 @@ void MainModel::loadJSON(const QString& filepath) {
     if (jsonSpriteCanvas.contains("frames")) {
         QJsonArray jsonFrames = jsonSpriteCanvas["frames"].toArray();
 
-        for (const QJsonValue& frameValue : jsonFrames) {
+        for (const auto& frameValue : jsonFrames) {
             QJsonObject jsonFrame = frameValue.toObject();
             Frame frame(gridSize);
 
@@ -99,6 +99,7 @@ void MainModel::loadJSON(const QString& filepath) {
                     frame.addLayer(layer);
                 }
             }
+
             // Needed since frames must have one layer the frame constructor adds a layer, this deletes it
             frame.deleteLayer(0);
             frames.append(frame);
@@ -134,9 +135,8 @@ void MainModel::saveJSON(const QString& filepath){
         QJsonArray jsonLayers;
 
         // Loop through layers
-        for (const Layer& layer : frame.getLayers()) {
+        for (auto& layer : frame.getLayers()) {
             QJsonObject jsonLayer;
-            QJsonArray pixelArray;
             const Pixel* pixels = layer.getLayer();
 
             // Add layer's pixels to the pixel array
