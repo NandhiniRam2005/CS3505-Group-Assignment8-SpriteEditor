@@ -7,7 +7,7 @@ By Joel Rodriguez, Jacob Anderson,
 Adharsh Ramakrishnan, Nandhini Ramanathan
 Jake Heairld & Joseph Hamilton
 
-March 21, 2025
+March 30, 2025
 */
 
 #ifndef MAINWINDOW_H
@@ -178,7 +178,6 @@ private:
     QPushButton rotateButton;
     QPushButton* layerOne;
     QSlider fpsSlider;
-    QSlider brushSizeSlider; // DO WE WANT A SLIDER FOR BRUSH SIZE????!!!!!
     unsigned int width;
     unsigned int height;
     bool frameBeingCopied;
@@ -194,4 +193,5 @@ private:
     LayerButton* previouslySelected;
     Ui::MainWindow *ui;
 };
-#endif // MAINWINDOW_H
+
+#endif

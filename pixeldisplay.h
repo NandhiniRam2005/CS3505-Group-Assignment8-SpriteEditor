@@ -7,8 +7,9 @@ By Joel Rodriguez, Jacob Anderson,
 Adharsh Ramakrishnan, Nandhini Ramanathan
 Jake Heairld & Joseph Hamilton
 
-March 21, 2025
+March 30, 2025
 */
+
 #ifndef PIXELDISPLAY_H
 #define PIXELDISPLAY_H
 
@@ -28,9 +29,6 @@ public:
     explicit PixelDisplay(QWidget *parent = nullptr);
 
 private:
-    unsigned int gridSize;   // Stores the grid size
-    QVector<Pixel> currentImage;
-
     /**
      * Maps the pixel coordinates to the correlated UI coordinate
      * @param pixelX - The pixel's x coordinate
@@ -38,6 +36,16 @@ private:
      * @return A QPoint tuple with the UI coordinate conversion of the pixel coordinates
      */
     QPoint mapPixelCoordinateToUICoordinate(unsigned int pixelX, unsigned int pixelY);
+
+    /**
+     * Stores the grid size used to render pixels
+     */
+    unsigned int gridSize;
+
+    /**
+     * Stores the current image as a collection of pixels
+     */
+    QVector<Pixel> currentImage;
 
 protected:
     /**
@@ -52,9 +60,11 @@ public slots:
      */
     void updateDrawnImage(const Pixel* image);
 
+    /**
+     * Sets the grid size for the display.
+     * @param GridSize - new grid size value.
+     */
     void setGridSize(unsigned int GridSize);
-
-signals:
 };
 
-#endif // PIXELDISPLAY_H
+#endif

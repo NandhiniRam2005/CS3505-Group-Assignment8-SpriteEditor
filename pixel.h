@@ -7,7 +7,7 @@ By Joel Rodriguez, Jacob Anderson,
 Adharsh Ramakrishnan, Nandhini Ramanathan
 Jake Heairld & Joseph Hamilton
 
-March 21, 2025
+March 30, 2025
 */
 
 #ifndef PIXEL_H
@@ -15,6 +15,7 @@ March 21, 2025
 
 class Pixel
 {
+
 public:
     /**
      * Default constructor for creating a new Pixel object with values of zero (black and fiully transparent).
@@ -75,4 +76,4 @@ const unsigned char HOVERED_ALPHA = 128;
  */
 const unsigned char HIDDEN_ALPHA = 50;
 
-#endif // PIXEL_H
+#endif

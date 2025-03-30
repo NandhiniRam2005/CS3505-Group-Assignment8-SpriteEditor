@@ -9,7 +9,7 @@ By Joel Rodriguez, Jacob Anderson,
 Adharsh Ramakrishnan, Nandhini Ramanathan
 Jake Heairld & Joseph Hamilton
 
-March 21, 2025
+March 30, 2025
 */
 
 #ifndef MAINMODEL_H
@@ -37,8 +37,8 @@ enum class Tool {
 class MainModel : public QObject
 {
     Q_OBJECT
-public:
 
+public:
     /**
      * custom constructor for MainModel class.
      * Initializes the model with default values and parent object.
@@ -53,6 +53,11 @@ signals:
      */
     void newAnimationFrame(const Pixel* pixelGrid);
 
+
+    /**
+     * Signal emitted when a new frame image is available.
+     * @param pixelGrid - Pointer to the new pixel grid for the frame image.
+     */
     void newFrameImage(const Pixel* pixelGrid);
 
     /**
@@ -91,8 +96,16 @@ signals:
      */
     void saveJSONStatus(bool status);
 
+    /**
+     * Signal emitted when the grid size is updated.
+     * @param gridSize - new grid size value.
+     */
     void gridSizeUpdated(unsigned int gridSize);
 
+    /**
+     * Signal emitted when the number of layers is updated.
+     * @param numberOfLayers - new number of layers.
+     */
     void sendNumberOfLayers(int numberOfLayers);
 
 public slots:
@@ -159,7 +172,6 @@ public slots:
      */
     void changeBrushSize(unsigned int newBrushSize);
 
-
     /**
      * Changes the frames per second for the animation.
      * @param newFPS - new FPS value.
@@ -208,8 +220,14 @@ public slots:
      */
     void rotate90();
 
+    /**
+     * Gets the current grid size.
+     */
     void getGridSize();
 
+    /**
+     * Handles the event when the mouse leaves the canvas.
+     */
     void mouseLeft();
 
 private:
