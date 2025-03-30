@@ -1,12 +1,22 @@
-#include "mainmodel.h"
+/*
+The cpp file for mainmodel.
 
-#include <stdexcept>
+A class which represents the model for the sprite editor. It manages frames, layers,
+brush size, animation speed, and pixel manipulations. The model sends updated pixel grids to
+the display through signals and handles user interactions with frames and layers.
+
+By Joel Rodriguez, Jacob Anderson,
+Adharsh Ramakrishnan, Nandhini Ramanathan
+Jake Heairld & Joseph Hamilton
+
+March 30, 2025
+*/
+
+#include "mainmodel.h"
 #include <QJsonDocument>
 #include <QFile>
 #include <QJsonObject>
 #include <QJsonArray>
-#include <iostream>
-#include <algorithm>
 
 MainModel::MainModel(QObject *parent)
     : QObject{parent}
@@ -113,7 +123,6 @@ void MainModel::loadJSON(const QString& filepath){
 
     file.close();
     emit loadJSONStatus(true);
-    std::cout << frames[selectedFrame].getLayers().size() << std::endl;
     emit sendNumberOfLayers(frames[selectedFrame].getLayers().size());
     emit newDisplayImage(tempImage.data());
 }
@@ -231,8 +240,6 @@ void MainModel::changeLayer(unsigned int layer){
 }
 
 void MainModel::addLayer(){
-    std::cout << "LAYER ADDED" << std::endl;
-    std::cout << "current Number of layers: " << frames[selectedFrame].getLayers().size() << std::endl;
     frames[selectedFrame].addLayer();
     sendDisplayImage();
 }

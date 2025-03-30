@@ -13,9 +13,9 @@ March 30, 2025
 #ifndef PIXELDISPLAY_H
 #define PIXELDISPLAY_H
 
+#include "pixel.h"
 #include <QWidget>
 #include <QPainter>
-#include "pixel.h"
 
 class PixelDisplay : public QWidget
 {

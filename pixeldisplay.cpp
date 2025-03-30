@@ -13,10 +13,6 @@ March 30, 2025
 
 #include "pixeldisplay.h"
 
-#include <QPainter>
-#include <QPoint>
-#include <QRect>
-
 PixelDisplay::PixelDisplay(QWidget *parent) : QWidget(parent), gridSize(32), currentImage(64 * 64) {
 }
 

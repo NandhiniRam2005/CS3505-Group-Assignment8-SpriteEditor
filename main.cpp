@@ -10,7 +10,6 @@ March 30, 2025
 
 #include "mainwindow.h"
 #include "mainmodel.h"
-
 #include <QApplication>
 
 /**

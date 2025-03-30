@@ -1,9 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
 #include <QFileDialog>
+#include <QColorDialog>
 #include <QScrollBar>
-#include <iostream>
 
 MainWindow::MainWindow(MainModel* model, QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
@@ -309,7 +308,6 @@ void MainWindow::handleMouseDrag(QPoint screenPoint) {
 }
 
 void MainWindow::addLayerButton(){
-    std::cout<< "add layer button called" << std::endl;
     numberOfLayerButtons++;
     //renable delete button
     if(deleteLayerDisabled){
@@ -367,7 +365,6 @@ void MainWindow::updateNumberOfLayerButtons(int newNumOfLayers){
         ui->layerButtonLayout->addWidget(button);
         layerButtons.push_back(button);
     }
-    std::cout << "There are now this many layer buttons: " << numberOfLayerButtons << std::endl;
     selectedLayerButton = layerButtons.first(); // when layer deleted it selects some button & layer
     selectedLayerButton->setStyleSheet("border: 2px solid blue; border-radius: 5px; padding: 5px;");
     emit changeLayer(selectedLayerButton->getLayerNumber() - 1);

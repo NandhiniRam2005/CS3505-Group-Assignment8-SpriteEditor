@@ -13,9 +13,6 @@ March 30, 2025
 
 #include "frame.h"
 
-#include <stdexcept>
-#include <iostream>
-
 using std::swap;
 using std::runtime_error;
 

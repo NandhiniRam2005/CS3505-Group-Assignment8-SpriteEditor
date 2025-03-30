@@ -13,17 +13,16 @@ March 30, 2025
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "mainmodel.h"
+#include "layerbutton.h"
+#include "mouselistener.h"
 #include <QMainWindow>
 #include <QPoint>
 #include <QPushButton>
 #include <QSlider>
 #include <QToolBar>
-#include "mainmodel.h"
-#include "layerbutton.h"
-#include "mouselistener.h"
 #include <pixel.h>
 #include <pixeldisplay.h>
-#include <QColorDialog>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {

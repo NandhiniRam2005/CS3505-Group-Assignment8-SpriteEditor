@@ -16,8 +16,8 @@ March 30, 2025
 #ifndef LAYER_H
 #define LAYER_H
 
-#include <QPoint>
 #include "pixel.h"
+#include <QPoint>
 
 class Layer
 {

@@ -15,13 +15,12 @@ March 30, 2025
 #ifndef MAINMODEL_H
 #define MAINMODEL_H
 
+#include "frame.h"
+#include "pixel.h"
 #include <QObject>
 #include <QVector>
 #include <QString>
-#include <QObject>
 #include <QTimer>
-#include "frame.h"
-#include "pixel.h"
 
 /*
  * Enumeration of all tools in the GUi.

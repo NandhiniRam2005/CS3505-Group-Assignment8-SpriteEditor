@@ -16,10 +16,6 @@ March 30, 2025
 #include "layer.h"
 #include "pixel.h"
 
-#include <QPoint>
-#include <stdexcept>
-#include <QDebug>
-
 using std::min;
 using std::swap;
 using std::runtime_error;

@@ -18,8 +18,6 @@ March 30, 2025
 #include "pixel.h"
 #include <QVector>
 
-using std::vector;
-
 class Frame
 {
 public:
