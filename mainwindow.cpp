@@ -470,12 +470,9 @@ void MainWindow::openFileChooserLoad(){
     ui->frameDisplay->update();
 }
 void MainWindow::openFileChooserSave(){
-    QString fileName = QFileDialog::getSaveFileName(nullptr, "Save File", "", "ssp", nullptr);
+    QString fileName = QFileDialog::getSaveFileName(nullptr, "Save File", "", "SSP Files (*.ssp)");
 
     if (!fileName.isEmpty()) {
-        if (!fileName.endsWith("ssp")) {
-            fileName += "ssp";
-        }
         emit saveFile(fileName);
     }
 }
