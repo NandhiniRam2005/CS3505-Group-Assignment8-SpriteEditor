@@ -268,7 +268,6 @@ void MainModel::changeBrushSize(unsigned int newBrushSize){
 }
 
 void MainModel::changeAnimationFPS(unsigned int newFPS){
-    qDebug() << "FPS changed: " << newFPS;
     animationFPS = newFPS;
 
     if (animationFPS > 0 and animationFPS < 1000) {
