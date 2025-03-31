@@ -188,8 +188,10 @@ void MainWindow::displayLoadStatus(bool status)
     if (status) {
         statusBar()->showMessage("Load successful", 3000);
     }
-    else
+    else {
+        statusBar()->setStyleSheet("color: red;");
         statusBar()->showMessage("Load failed!", 3000);
+    }
 }
 
 void MainWindow::displaySaveStatus(bool status)
