@@ -1,5 +1,4 @@
 /*
- * Checked by Nandhini Ramanathan
 The header file for frame.
 
 A class which represents a frame.

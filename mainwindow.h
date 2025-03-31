@@ -1,5 +1,4 @@
 /*
- * Checked by Joseph Hamilton
 
 The header file for mainwindow.
 

@@ -1,5 +1,4 @@
 /*
- * Checked by Nandhini Ramanathan
 The header file for mainmodel.
 
 A class which represents the model for the sprite editor. It manages frames, layers,
