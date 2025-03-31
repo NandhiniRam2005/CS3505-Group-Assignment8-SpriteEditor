@@ -35,12 +35,10 @@ void PixelDisplay::paintEvent(QPaintEvent* event) {
 
     const double pixelWidthF = ((double)width()) / gridSize;
     const double pixelHeightF = ((double)height()) / gridSize;
-    const int pixelWidth = std::floor(pixelWidthF);
-    const int pixelHeight = std::floor(pixelHeightF);
 
-    //keep track of how many extra pixels of width/height to add
-    int remainderWidth = width() - (pixelWidth * gridSize);
-    int remainderHeight = height() - (pixelHeight * gridSize);
+    QTransform transform;
+    transform.scale(pixelWidthF, pixelHeightF);
+    painter.setTransform(transform);
 
     // Loop through each pixel in the grid and render it
     for (unsigned int y = 0; y < gridSize; y++) {
@@ -48,29 +46,11 @@ void PixelDisplay::paintEvent(QPaintEvent* event) {
             const Pixel& pixel = currentImage[y * gridSize + x];
             QColor color(pixel.red, pixel.green, pixel.blue, pixel.alpha);
 
-            //add an extra pixel of width/height to some of the pixels to even out the canvas size
-            int extraWidth = 0;
-            int extraHeight = 0;
-
-            if(x < remainderWidth){
-                extraWidth = 1;
-            }
-            if(y < remainderHeight){
-                extraHeight = 1;
-            }
-
-            int adjustedWidth = pixelWidth + extraWidth;
-            int adjustedHeight = pixelHeight + extraHeight;
-
-            //calculate the x and y positions, shift the position a bit since some of the pixels have extra width/height
-            int xpos = x * pixelWidth + std::min<int>(x, remainderWidth);
-            int ypos = y * pixelHeight + std::min<int>(y, remainderHeight);
-
             painter.fillRect(
-                xpos,
-                ypos,
-                adjustedWidth,
-                adjustedHeight,
+                x,
+                y,
+                1,
+                1,
                 color
                 );
         }
