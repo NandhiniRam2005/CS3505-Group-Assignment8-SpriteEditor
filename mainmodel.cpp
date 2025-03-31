@@ -47,6 +47,7 @@ void MainModel::loadJSON(const QString& filepath) {
     }
 
     frames.clear();
+    selectedFrame = 0;
     QFile file(filepath);
 
     //try to open the file on readonly mode to see if its a valid filename
@@ -115,8 +116,8 @@ void MainModel::loadJSON(const QString& filepath) {
     emit sendNumberOfLayers(frames[selectedFrame].getLayers().size());
     emit sendNumberOfFrames(frames.size());
     emit newDisplayImage(tempImage.data());
+    emit newSelectedFrame(0);
 }
-
 
 void MainModel::saveJSON(const QString& filepath){
     QFile file(filepath);
