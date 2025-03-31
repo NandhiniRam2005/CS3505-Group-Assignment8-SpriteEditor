@@ -1,5 +1,5 @@
 /*
-* Checked by Joel Rodriguez
+* Checked by Jake Heairld
 The cpp file for pixel display.
 
 A class which represents the pixels displayed for the frames.
