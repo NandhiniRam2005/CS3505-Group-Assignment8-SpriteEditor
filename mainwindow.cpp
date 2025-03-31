@@ -166,7 +166,7 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent) : QMainWindow(parent),
     connect(this, &MainWindow::saveFile, model, &MainModel::saveJSON);
     connect(this, &MainWindow::loadFile, model, &MainModel::loadJSON);
 
-    connect(model, &MainModel::newSelectedFrame, this, &MainWindow::updateNumberOfFrameClicks);
+    connect(model, &MainModel::newSelectedFrame, this, &MainWindow::updateNumberOfFrames);
 
     emit askGridSize();
 }
