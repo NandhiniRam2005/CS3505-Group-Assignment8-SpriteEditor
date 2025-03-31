@@ -28,11 +28,8 @@ int main(int argc, char *argv[]) {
     MainModel model;
     MainWindow window(&model);
     window.setWindowTitle("Sprite Editor");
-    QIcon icon(":/appIcon");
-    if (icon.isNull()) {
-        qDebug() << "Icon not found!";
-    } else {
-        window.setWindowIcon(icon);
-    }    window.show();
+    QIcon icon(":///icons/icons/appIcon.png");
+    application.setWindowIcon(icon);
+    window.show();
     return application.exec();
 }
