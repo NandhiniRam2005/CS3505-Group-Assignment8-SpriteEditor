@@ -1,4 +1,5 @@
 /*
+ * Checked by Nandhini Ramanathan
 The header file for mouseListener.
 
 This class handles mouse interactions, including clicks, movement,

@@ -1,4 +1,5 @@
 /*
+ * Checked by Nandhini Ramanathan
 The header file for pixel display.
 
 A class which represents the pixels displayed for the frames.

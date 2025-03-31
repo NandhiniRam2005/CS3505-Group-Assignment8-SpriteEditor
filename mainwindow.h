@@ -1,4 +1,5 @@
 /*
+ * Checked by Nandhini Ramanathan
 
 The header file for mainwindow.
 

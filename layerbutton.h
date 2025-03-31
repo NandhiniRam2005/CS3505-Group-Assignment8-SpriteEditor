@@ -1,4 +1,5 @@
 /*
+ * Checked by Nandhini Ramanathan
 The header file for Layer Button.
 
 This class represents a button associated with a specific layer number.
