@@ -1,5 +1,5 @@
 /*
-* Checked by Joel Rodriguez
+* Checked by Joel Rodriguez and Jake Heairld
 The cpp file for mainwindow.
 
 A class which represents represents the main window of the application.

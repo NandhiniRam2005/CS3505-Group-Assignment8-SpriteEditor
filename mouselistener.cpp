@@ -1,5 +1,5 @@
 /*
-* Checked by Joel Rodriguez
+* Checked by Joel Rodriguez and Jake Heairld
 The cpp file for mouseListener.
 
 This class implements methods to handle mouse interactions, including clicks, movement,
