@@ -1,4 +1,6 @@
 /*
+ * Checked by Joseph Hamilton
+
 The header file for mainwindow.
 
 A class which represents represents the main window of the application.
