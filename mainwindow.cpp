@@ -17,6 +17,7 @@ March 30, 2025
 #include <QFileDialog>
 #include <QColorDialog>
 #include <QScrollBar>
+#include <iostream>
 
 MainWindow::MainWindow(MainModel* model, QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
@@ -83,7 +84,7 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent) : QMainWindow(parent),
     connect(ui->addFrameButton, &QPushButton::clicked, this, &MainWindow::addFrameHelper);
     connect(this, &MainWindow::addFrame, model, &MainModel::addFrame);
     connect(this, &MainWindow::deleteFrame, model, &MainModel::deleteFrame);
-    connect(model, &MainModel::newSelectedFrame, this, &MainWindow::updateNumberOfFrameClicks);
+    connect(model, &MainModel::sendNumberOfFrames, this, &MainWindow::updateNumberOfFrameClicks);
 
 
     //Add delete and update layers
@@ -247,7 +248,6 @@ void MainWindow::addFrameHelper()
 
 void MainWindow::deleteFrameHelper(){
     numberOfFrameButtonClicks--;
-
     if(numberOfFrameButtonClicks == 0){
         deleteFrameDisabled = true;
         ui->deleteFrameButton->setEnabled(false);
@@ -527,11 +527,13 @@ void MainWindow::syncResizeComboBox(unsigned int gridSize) {
 }
 
 void MainWindow::updateNumberOfFrameClicks(int numberOfFrames){
-    numberOfFrameButtonClicks = numberOfFrames;
+    numberOfFrameButtonClicks = numberOfFrames - 1;
 
     if(numberOfFrameButtonClicks == 0){
         deleteFrameDisabled = true;
         ui->deleteFrameButton->setEnabled(false);
+        std::cout << "disbaled delete in new method" << std::endl;
+
     }
     else{
         deleteFrameDisabled = false;

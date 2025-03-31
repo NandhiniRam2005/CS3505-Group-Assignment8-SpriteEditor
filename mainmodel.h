@@ -107,6 +107,10 @@ signals:
      */
     void sendNumberOfLayers(int numberOfLayers);
 
+    /**
+     * Sends the numberOfFrames currently in the sprite
+     * @param numberOfFrames - the number of frames
+     */
     void sendNumberOfFrames(int numberOfFrames);
 
 public slots:

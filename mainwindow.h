@@ -198,6 +198,11 @@ public slots:
      */
     void syncResizeComboBox(unsigned int gridSize);
 
+    /**
+     * Updates how many times the frame buttons have been clicked in order to activate
+     * delete frame buttons
+     * @param newFrames - The number of new frames
+     */
     void updateNumberOfFrameClicks(int newFrames);
 
 signals:
