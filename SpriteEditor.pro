@@ -2,6 +2,8 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+RESOURCES += resources.qrc
+
 CONFIG += c++17
 
 # You can make your code fail to compile if it uses deprecated APIs.
@@ -39,3 +41,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     resources.qrc
+
+DISTFILES += \
+    icons/appIcon.png

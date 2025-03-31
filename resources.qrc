@@ -11,5 +11,6 @@
         <file>icons/rotate.png</file>
         <file>icons/next.png</file>
         <file>icons/previous.png</file>
+        <file>icons/appIcon.png</file>
     </qresource>
 </RCC>
