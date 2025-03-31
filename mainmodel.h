@@ -108,6 +108,8 @@ signals:
      */
     void sendNumberOfLayers(int numberOfLayers);
 
+    void sendNumberOfFrames(int numberOfFrames);
+
 public slots:
     /**
      * Loads a JSON file containing canvas' data.

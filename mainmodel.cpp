@@ -113,6 +113,7 @@ void MainModel::loadJSON(const QString& filepath) {
     file.close();
     emit loadJSONStatus(true);
     emit sendNumberOfLayers(frames[selectedFrame].getLayers().size());
+    emit sendNumberOfFrames(frames.size());
     emit newDisplayImage(tempImage.data());
 }
 
