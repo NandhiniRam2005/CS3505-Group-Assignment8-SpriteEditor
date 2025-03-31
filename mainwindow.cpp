@@ -83,6 +83,7 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent) : QMainWindow(parent),
     connect(ui->addFrameButton, &QPushButton::clicked, this, &MainWindow::addFrameHelper);
     connect(this, &MainWindow::addFrame, model, &MainModel::addFrame);
     connect(this, &MainWindow::deleteFrame, model, &MainModel::deleteFrame);
+    connect(model, &MainModel::sendNumberOfFrames, this, &MainWindow::updateNumberOfFrames);
 
     //Add delete and update layers
     connect(ui->addLayerButton, &QPushButton::clicked, this, &MainWindow::addLayerButton);
@@ -165,7 +166,7 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent) : QMainWindow(parent),
     connect(this, &MainWindow::saveFile, model, &MainModel::saveJSON);
     connect(this, &MainWindow::loadFile, model, &MainModel::loadJSON);
 
-    connect(model, &MainModel::newSelectedFrame, this, &MainWindow::updateNumberOfFrames);
+    connect(model, &MainModel::newSelectedFrame, this, &MainWindow::updateNumberOfFrameClicks);
 
     emit askGridSize();
 }
@@ -522,4 +523,18 @@ void MainWindow::syncResizeComboBox(unsigned int gridSize) {
     }
 
     ui->resizeBox->blockSignals(false);
+}
+
+void MainWindow::updateNumberOfFrameClicks(int numberOfFrames){
+    numberOfFrameButtonClicks = numberOfFrames;
+
+    if(numberOfFrameButtonClicks == 0){
+        deleteFrameDisabled = true;
+        ui->deleteFrameButton->setEnabled(false);
+    }
+    else{
+        deleteFrameDisabled = false;
+        ui->deleteFrameButton->setEnabled(true);
+    }
+
 }

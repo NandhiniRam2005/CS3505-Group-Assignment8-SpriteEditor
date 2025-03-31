@@ -199,6 +199,8 @@ public slots:
      */
     void syncResizeComboBox(unsigned int gridSize);
 
+    void updateNumberOfFrameClicks(int newFrames);
+
 signals:
     /**
      * Signal to load file
