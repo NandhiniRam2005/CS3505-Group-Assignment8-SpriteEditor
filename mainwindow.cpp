@@ -196,10 +196,13 @@ void MainWindow::displayLoadStatus(bool status)
 
 void MainWindow::displaySaveStatus(bool status)
 {
-    if (status)
+    if (status) {
         statusBar()->showMessage("Save successful", 3000);
-    else
-        statusBar()->showMessage("Load failed!", 3000);
+    }
+    else {
+        statusBar()->setStyleSheet("color: red;");
+        statusBar()->showMessage("Save failed!", 3000);
+    }
 }
 
 void MainWindow::openColorDialogue()
