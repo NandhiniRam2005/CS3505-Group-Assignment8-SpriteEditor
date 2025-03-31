@@ -83,7 +83,8 @@ MainWindow::MainWindow(MainModel* model, QWidget *parent) : QMainWindow(parent),
     connect(ui->addFrameButton, &QPushButton::clicked, this, &MainWindow::addFrameHelper);
     connect(this, &MainWindow::addFrame, model, &MainModel::addFrame);
     connect(this, &MainWindow::deleteFrame, model, &MainModel::deleteFrame);
-    connect(model, &MainModel::sendNumberOfFrames, this, &MainWindow::updateNumberOfFrames);
+    connect(model, &MainModel::newSelectedFrame, this, &MainWindow::updateNumberOfFrameClicks);
+
 
     //Add delete and update layers
     connect(ui->addLayerButton, &QPushButton::clicked, this, &MainWindow::addLayerButton);
