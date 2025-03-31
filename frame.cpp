@@ -1,5 +1,5 @@
 /*
- * Checked by Nandhini Ramanathan
+ * Checked by Nandhini Ramanathan and Joseph Hamilton
 The cpp file for frame.
 
 A class which represents a frame, implementing methods to render, get, manipulate, and slect frames.

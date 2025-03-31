@@ -1,5 +1,5 @@
 /*
-* Checked by Joel Rodriguez
+* Checked by Joel Rodriguez and Joseph Hamilton
 The cpp file for layer.
 
 A class which represents a single layer in an image/canvas, which contains a grid of pixels.

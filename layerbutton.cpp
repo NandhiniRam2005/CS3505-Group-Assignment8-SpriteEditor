@@ -32,4 +32,3 @@ int LayerButton::getLayerNumber() const{
 void LayerButton::setLayerNumber(int newLayerNumber){
     this->layerNumber = newLayerNumber;
 }
-

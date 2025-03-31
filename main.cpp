@@ -1,5 +1,5 @@
 /*
-* Checked by Joel Rodriguez
+* Checked by Joel Rodriguez and Joseph Hamilton
 A class that contaisn the main method to start up teh application.
 
 By Joel Rodriguez, Jacob Anderson,
